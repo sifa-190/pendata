@@ -1,11 +1,12 @@
-# Welcome to your Jupyter Book
+# Penambangan Data
 
-This is a small sample book to give you a feel for how book content is
-structured.
-It shows off a few of the major file types, as well as some sample content.
-It does not go in-depth into any particular topic - check out [the Jupyter Book documentation](https://jupyterbook.org) for more information.
+## Selamat datang di web statis untuk mata kuliah Penambangan Data!
 
-Check out the content pages bundled with this sample book to see more.
+# Website ini dibuat untuk memberikan informasi dan dokumentasi terkait materi, tugas, dan proyek yang dikerjakan dalam mata kuliah ini. Penambangan data (data mining) adalah proses mengidentifikasi pola dan pengetahuan dari dataset besar dengan menggunakan metode statistik, machine learning, dan teknik lainnya.
 
-```{tableofcontents}
-```
+## Nim : 230411100190
+## Nama : Moh. Sifauddin
+## Prodi : Teknik Informatika
+
+<!--```{tableofcontents}-->
+<!--```-->
