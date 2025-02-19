@@ -6,6 +6,7 @@
 ## Nim : 230411100190
 ## Nama : Moh. Sifauddin
 ## Prodi : Teknik Informatika
+## Prodi : mohsifaudinsidaudin@gmail.com
 
 <!--```{tableofcontents}-->
 <!--```-->
