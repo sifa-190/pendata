@@ -6,7 +6,7 @@
 ## Nim : 230411100190
 ## Nama : Moh. Sifauddin
 ## Prodi : Teknik Informatika
-## Email : mohsifaudinsidaudin@gmail.com
+## Gmail : mohsifaudinsidaudin@gmail.com
 
 <!--```{tableofcontents}-->
 <!--```-->
