@@ -1,0 +1,120 @@
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/dist-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/usr/local/lib/python3.11/dist-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/usr/local/lib/python3.11/dist-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/usr/local/lib/python3.11/dist-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import psycopg2
+import pymysql
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+def get_pg_data():
+    conn = psycopg2.connect(
+        host="pg-3d261dbe-sifa-190.i.aivencloud.com",
+        user="avnadmin",
+        password="AVNS_dFoBwFz1ZSfQpVx7DRi",
+        database="defaultdb",
+        port=15434
+    )
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM iris_postgresql")
+    data = cursor.fetchall()
+    columns = [desc[0] for desc in cursor.description]  # Ambil nama kolom
+    cursor.close()
+    conn.close()
+
+    return pd.DataFrame(data, columns=columns)
+
+def get_mysql_data():
+    conn = pymysql.connect(
+        host="mysql-201e3cbe-sifa-190.i.aivencloud.com",
+        user="avnadmin",
+        password="AVNS_LZy909DRs0jlZfh2C0Q",
+        database="defaultdb",
+        port=15434
+    )
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM irismysql")
+    data = cursor.fetchall()
+    columns = [desc[0] for desc in cursor.description]  # Ambil nama kolom
+    cursor.close()
+    conn.close()
+
+    return pd.DataFrame(data, columns=columns)
+
+# Ambil data dari kedua database
+df_postgresql = get_pg_data()
+df_mysql = get_mysql_data()
+
+# Rename columns in df_mysql to match df_postgresql
+df_mysql = df_mysql.rename(columns={'Id': 'id', 'Class': 'class'})
+
+# Gabungkan berdasarkan kolom 'id' dan 'class'
+df_merged = pd.merge(df_mysql, df_postgresql, on=["id", "Class"], how="inner")
+
+# Cetak semua data hasil gabungan tanpa indeks
+print(df_merged.to_string(index=False))
+
+# Visualisasi data
+# Scatter plot antar variabel
+sns.pairplot(df_merged, hue="class")
+plt.show()
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mKeyError[0m                                  Traceback (most recent call last)
+[0;32m<ipython-input-6-93e9e5ae133d>[0m in [0;36m<cell line: 0>[0;34m()[0m
+[1;32m     48[0m [0;34m[0m[0m
+[1;32m     49[0m [0;31m# Gabungkan berdasarkan kolom 'id' dan 'class'[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 50[0;31m [0mdf_merged[0m [0;34m=[0m [0mpd[0m[0;34m.[0m[0mmerge[0m[0;34m([0m[0mdf_mysql[0m[0;34m,[0m [0mdf_postgresql[0m[0;34m,[0m [0mon[0m[0;34m=[0m[0;34m[[0m[0;34m"id"[0m[0;34m,[0m [0;34m"Class"[0m[0;34m][0m[0;34m,[0m [0mhow[0m[0;34m=[0m[0;34m"inner"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     51[0m [0;34m[0m[0m
+[1;32m     52[0m [0;31m# Cetak semua data hasil gabungan tanpa indeks[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pandas/core/reshape/merge.py[0m in [0;36mmerge[0;34m(left, right, how, on, left_on, right_on, left_index, right_index, sort, suffixes, copy, indicator, validate)[0m
+[1;32m    168[0m         )
+[1;32m    169[0m     [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 170[0;31m         op = _MergeOperation(
+[0m[1;32m    171[0m             [0mleft_df[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    172[0m             [0mright_df[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pandas/core/reshape/merge.py[0m in [0;36m__init__[0;34m(self, left, right, how, on, left_on, right_on, left_index, right_index, sort, suffixes, indicator, validate)[0m
+[1;32m    792[0m             [0mleft_drop[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    793[0m             [0mright_drop[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 794[0;31m         ) = self._get_merge_keys()
+[0m[1;32m    795[0m [0;34m[0m[0m
+[1;32m    796[0m         [0;32mif[0m [0mleft_drop[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pandas/core/reshape/merge.py[0m in [0;36m_get_merge_keys[0;34m(self)[0m
+[1;32m   1308[0m                         [0;31m#  the latter of which will raise[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1309[0m                         [0mlk[0m [0;34m=[0m [0mcast[0m[0;34m([0m[0mHashable[0m[0;34m,[0m [0mlk[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1310[0;31m                         [0mleft_keys[0m[0;34m.[0m[0mappend[0m[0;34m([0m[0mleft[0m[0;34m.[0m[0m_get_label_or_level_values[0m[0;34m([0m[0mlk[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1311[0m                         [0mjoin_names[0m[0;34m.[0m[0mappend[0m[0;34m([0m[0mlk[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1312[0m                     [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pandas/core/generic.py[0m in [0;36m_get_label_or_level_values[0;34m(self, key, axis)[0m
+[1;32m   1909[0m             [0mvalues[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0maxes[0m[0;34m[[0m[0maxis[0m[0;34m][0m[0;34m.[0m[0mget_level_values[0m[0;34m([0m[0mkey[0m[0;34m)[0m[0;34m.[0m[0m_values[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1910[0m         [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1911[0;31m             [0;32mraise[0m [0mKeyError[0m[0;34m([0m[0mkey[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1912[0m [0;34m[0m[0m
+[1;32m   1913[0m         [0;31m# Check for duplicates[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mKeyError[0m: 'Class'
+
