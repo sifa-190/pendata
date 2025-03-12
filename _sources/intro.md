@@ -1,18 +1,12 @@
-# Welcome to Data Mining
+# Penambangan Data
 
-Website ini berisikan materi dan tugas Penambangan Data Teknik Informatika Universitas Trunojoyo Madura
-
-
-Identitas Mahasiswa :
+## Selamat datang di web statis untuk mata kuliah Penambangan Data!
 
 
-NIM 	: 230411100190
+## Nim : 230411100190
+## Nama : Moh. Sifauddin
+## Prodi : Teknik Informatika
+## Gmail : mohsifaudinsidaudin@gmail.com
 
-Nama 	: Moh. Sifauddin
-
-Prodi 	: Teknik Informatika
-
-Email 	: MohSifauddinsidaudin@gmail.com
-
-
-```{tableofcontents}
+<!--```{tableofcontents}-->
+<!--```-->
