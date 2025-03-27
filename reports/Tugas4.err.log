@@ -1,0 +1,107 @@
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/dist-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/usr/local/lib/python3.11/dist-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/usr/local/lib/python3.11/dist-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/usr/local/lib/python3.11/dist-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import psycopg2
+import pymysql
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.neighbors import LocalOutlierFactor
+from matplotlib.legend_handler import HandlerPathCollection
+from scipy.spatial.distance import euclidean
+
+def get_pg_data():
+    conn = psycopg2.connect(
+        host="pg-3d261dbe-sifa-190.i.aivencloud.com",
+        user="avnadmin",
+        password="AVNS_dFoBwFz1ZSfQpVx7DRi",
+        database="defaultdb",
+        port=15434
+    )
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM iris_data")
+    data = cursor.fetchall()
+    columns = [desc[0] for desc in cursor.description]  # Ambil nama kolom
+    cursor.close()
+    conn.close()
+
+    return pd.DataFrame(data, columns=columns)
+
+def get_mysql_data():
+    conn = pymysql.connect(
+        host="mysql-201e3cbe-sifa-190.i.aivencloud.com",
+        user="avnadmin",
+        password="AVNS_LZy909DRs0jlZfh2C0Q",
+        database="defaultdb",
+        port=15434
+    )
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM iris_data")
+    data = cursor.fetchall()
+    columns = [desc[0] for desc in cursor.description]  # Ambil nama kolom
+    cursor.close()
+    conn.close()
+
+    return pd.DataFrame(data, columns=columns)
+
+# Ambil data dari kedua database
+df_postgresql = get_pg_data()
+df_mysql = get_mysql_data()
+
+# Gabungkan berdasarkan kolom 'id' dan 'Class'
+df_merged = pd.merge(df_mysql, df_postgresql, on=["id", "class"], how="inner")
+
+feature_columns = ["petal length", "petal width", "sepal_length", "sepal_width"]
+data_values = df_merged[feature_columns].values
+
+# Cetak semua data hasil gabungan tanpa indeks
+print(df_merged.to_string(index=False))
+
+
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mOperationalError[0m                          Traceback (most recent call last)
+[0;32m<ipython-input-2-d782e44a312e>[0m in [0;36m<cell line: 0>[0;34m()[0m
+[1;32m     44[0m [0;34m[0m[0m
+[1;32m     45[0m [0;31m# Ambil data dari kedua database[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 46[0;31m [0mdf_postgresql[0m [0;34m=[0m [0mget_pg_data[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     47[0m [0mdf_mysql[0m [0;34m=[0m [0mget_mysql_data[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     48[0m [0;34m[0m[0m
+
+[0;32m<ipython-input-2-d782e44a312e>[0m in [0;36mget_pg_data[0;34m()[0m
+[1;32m     10[0m [0;34m[0m[0m
+[1;32m     11[0m [0;32mdef[0m [0mget_pg_data[0m[0;34m([0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 12[0;31m     conn = psycopg2.connect(
+[0m[1;32m     13[0m         [0mhost[0m[0;34m=[0m[0;34m"pg-3d261dbe-sifa-190.i.aivencloud.com"[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     14[0m         [0muser[0m[0;34m=[0m[0;34m"avnadmin"[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/psycopg2/__init__.py[0m in [0;36mconnect[0;34m(dsn, connection_factory, cursor_factory, **kwargs)[0m
+[1;32m    120[0m [0;34m[0m[0m
+[1;32m    121[0m     [0mdsn[0m [0;34m=[0m [0m_ext[0m[0;34m.[0m[0mmake_dsn[0m[0;34m([0m[0mdsn[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 122[0;31m     [0mconn[0m [0;34m=[0m [0m_connect[0m[0;34m([0m[0mdsn[0m[0;34m,[0m [0mconnection_factory[0m[0;34m=[0m[0mconnection_factory[0m[0;34m,[0m [0;34m**[0m[0mkwasync[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    123[0m     [0;32mif[0m [0mcursor_factory[0m [0;32mis[0m [0;32mnot[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    124[0m         [0mconn[0m[0;34m.[0m[0mcursor_factory[0m [0;34m=[0m [0mcursor_factory[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mOperationalError[0m: could not translate host name "pg-3d261dbe-sifa-190.i.aivencloud.com" to address: Name or service not known
+
+
