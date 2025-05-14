@@ -24,9 +24,6 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-from sklearn.neighbors import LocalOutlierFactor
-from matplotlib.legend_handler import HandlerPathCollection
-from scipy.spatial.distance import euclidean
 
 def get_pg_data():
     conn = psycopg2.connect(
@@ -37,7 +34,7 @@ def get_pg_data():
         port=15434
     )
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM iris_data")
+    cursor.execute("SELECT * FROM iris_postgresql")
     data = cursor.fetchall()
     columns = [desc[0] for desc in cursor.description]  # Ambil nama kolom
     cursor.close()
@@ -54,7 +51,7 @@ def get_mysql_data():
         port=15434
     )
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM iris_data")
+    cursor.execute("SELECT * FROM irismysql")
     data = cursor.fetchall()
     columns = [desc[0] for desc in cursor.description]  # Ambil nama kolom
     cursor.close()
@@ -69,31 +66,26 @@ df_mysql = get_mysql_data()
 # Gabungkan berdasarkan kolom 'id' dan 'Class'
 df_merged = pd.merge(df_mysql, df_postgresql, on=["id", "class"], how="inner")
 
-feature_columns = ["petal length", "petal width", "sepal_length", "sepal_width"]
-data_values = df_merged[feature_columns].values
-
 # Cetak semua data hasil gabungan tanpa indeks
 print(df_merged.to_string(index=False))
-
-
 ------------------
 
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mOperationalError[0m                          Traceback (most recent call last)
-[0;32m<ipython-input-3-d782e44a312e>[0m in [0;36m<cell line: 0>[0;34m()[0m
-[1;32m     44[0m [0;34m[0m[0m
-[1;32m     45[0m [0;31m# Ambil data dari kedua database[0m[0;34m[0m[0;34m[0m[0m
-[0;32m---> 46[0;31m [0mdf_postgresql[0m [0;34m=[0m [0mget_pg_data[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m     47[0m [0mdf_mysql[0m [0;34m=[0m [0mget_mysql_data[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     48[0m [0;34m[0m[0m
+[0;32m<ipython-input-2-b162440aa598>[0m in [0;36m<cell line: 0>[0;34m()[0m
+[1;32m     41[0m [0;34m[0m[0m
+[1;32m     42[0m [0;31m# Ambil data dari kedua database[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 43[0;31m [0mdf_postgresql[0m [0;34m=[0m [0mget_pg_data[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     44[0m [0mdf_mysql[0m [0;34m=[0m [0mget_mysql_data[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     45[0m [0;34m[0m[0m
 
-[0;32m<ipython-input-3-d782e44a312e>[0m in [0;36mget_pg_data[0;34m()[0m
-[1;32m     10[0m [0;34m[0m[0m
-[1;32m     11[0m [0;32mdef[0m [0mget_pg_data[0m[0;34m([0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m---> 12[0;31m     conn = psycopg2.connect(
-[0m[1;32m     13[0m         [0mhost[0m[0;34m=[0m[0;34m"pg-3d261dbe-sifa-190.i.aivencloud.com"[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     14[0m         [0muser[0m[0;34m=[0m[0;34m"avnadmin"[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[0;32m<ipython-input-2-b162440aa598>[0m in [0;36mget_pg_data[0;34m()[0m
+[1;32m      7[0m [0;34m[0m[0m
+[1;32m      8[0m [0;32mdef[0m [0mget_pg_data[0m[0;34m([0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 9[0;31m     conn = psycopg2.connect(
+[0m[1;32m     10[0m         [0mhost[0m[0;34m=[0m[0;34m"pg-3d261dbe-sifa-190.i.aivencloud.com"[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     11[0m         [0muser[0m[0;34m=[0m[0;34m"avnadmin"[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
 
 [0;32m/usr/local/lib/python3.11/dist-packages/psycopg2/__init__.py[0m in [0;36mconnect[0;34m(dsn, connection_factory, cursor_factory, **kwargs)[0m
 [1;32m    120[0m [0;34m[0m[0m
