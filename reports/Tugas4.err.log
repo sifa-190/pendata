@@ -67,7 +67,7 @@ df_postgresql = get_pg_data()
 df_mysql = get_mysql_data()
 
 # Gabungkan berdasarkan kolom 'id' dan 'Class'
-df_merged = pd.merge(df_mysql, df_postgresql, on=["id", "class"], how="inner")
+df_merged = pd.merge(df_mysql, df_postgresql, on=["Id", "Class"], how="inner")
 
 feature_columns = ["petal length", "petal width", "sepal_length", "sepal_width"]
 data_values = df_merged[feature_columns].values
@@ -80,28 +80,23 @@ print(df_merged.to_string(index=False))
 
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mOperationalError[0m                          Traceback (most recent call last)
-[0;32m<ipython-input-3-d782e44a312e>[0m in [0;36m<cell line: 0>[0;34m()[0m
+[0;31mUndefinedTable[0m                            Traceback (most recent call last)
+[0;32m<ipython-input-2-2dd45ef5bd21>[0m in [0;36m<cell line: 0>[0;34m()[0m
 [1;32m     44[0m [0;34m[0m[0m
 [1;32m     45[0m [0;31m# Ambil data dari kedua database[0m[0;34m[0m[0;34m[0m[0m
 [0;32m---> 46[0;31m [0mdf_postgresql[0m [0;34m=[0m [0mget_pg_data[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 [0m[1;32m     47[0m [0mdf_mysql[0m [0;34m=[0m [0mget_mysql_data[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 [1;32m     48[0m [0;34m[0m[0m
 
-[0;32m<ipython-input-3-d782e44a312e>[0m in [0;36mget_pg_data[0;34m()[0m
-[1;32m     10[0m [0;34m[0m[0m
-[1;32m     11[0m [0;32mdef[0m [0mget_pg_data[0m[0;34m([0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m---> 12[0;31m     conn = psycopg2.connect(
-[0m[1;32m     13[0m         [0mhost[0m[0;34m=[0m[0;34m"pg-3d261dbe-sifa-190.i.aivencloud.com"[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     14[0m         [0muser[0m[0;34m=[0m[0;34m"avnadmin"[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[0;32m<ipython-input-2-2dd45ef5bd21>[0m in [0;36mget_pg_data[0;34m()[0m
+[1;32m     18[0m     )
+[1;32m     19[0m     [0mcursor[0m [0;34m=[0m [0mconn[0m[0;34m.[0m[0mcursor[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 20[0;31m     [0mcursor[0m[0;34m.[0m[0mexecute[0m[0;34m([0m[0;34m"SELECT * FROM iris_data"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     21[0m     [0mdata[0m [0;34m=[0m [0mcursor[0m[0;34m.[0m[0mfetchall[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     22[0m     [0mcolumns[0m [0;34m=[0m [0;34m[[0m[0mdesc[0m[0;34m[[0m[0;36m0[0m[0;34m][0m [0;32mfor[0m [0mdesc[0m [0;32min[0m [0mcursor[0m[0;34m.[0m[0mdescription[0m[0;34m][0m  [0;31m# Ambil nama kolom[0m[0;34m[0m[0;34m[0m[0m
 
-[0;32m/usr/local/lib/python3.11/dist-packages/psycopg2/__init__.py[0m in [0;36mconnect[0;34m(dsn, connection_factory, cursor_factory, **kwargs)[0m
-[1;32m    120[0m [0;34m[0m[0m
-[1;32m    121[0m     [0mdsn[0m [0;34m=[0m [0m_ext[0m[0;34m.[0m[0mmake_dsn[0m[0;34m([0m[0mdsn[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0;32m--> 122[0;31m     [0mconn[0m [0;34m=[0m [0m_connect[0m[0;34m([0m[0mdsn[0m[0;34m,[0m [0mconnection_factory[0m[0;34m=[0m[0mconnection_factory[0m[0;34m,[0m [0;34m**[0m[0mkwasync[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    123[0m     [0;32mif[0m [0mcursor_factory[0m [0;32mis[0m [0;32mnot[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    124[0m         [0mconn[0m[0;34m.[0m[0mcursor_factory[0m [0;34m=[0m [0mcursor_factory[0m[0;34m[0m[0;34m[0m[0m
-
-[0;31mOperationalError[0m: could not translate host name "pg-3d261dbe-sifa-190.i.aivencloud.com" to address: Name or service not known
+[0;31mUndefinedTable[0m: relation "iris_data" does not exist
+LINE 1: SELECT * FROM iris_data
+                      ^
 
 

@@ -507,10 +507,33 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pymysql in /usr/local/lib/python3.11/dist-packages (1.1.1)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pymysql
+  Downloading PyMySQL-1.1.1-py3-none-any.whl.metadata (4.4 kB)
+Downloading PyMySQL-1.1.1-py3-none-any.whl (44 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/45.0 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">45.0/45.0 kB</span> <span class=" -Color -Color-Red">2.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: psycopg2-binary in /usr/local/lib/python3.11/dist-packages (2.9.10)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: pymysql
+Successfully installed pymysql-1.1.1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting psycopg2-binary
+  Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.0 MB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/3.0 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">1.0/3.0 MB</span> <span class=" -Color -Color-Red">33.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">3.0/3.0 MB</span> <span class=" -Color -Color-Red">45.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: psycopg2-binary
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed psycopg2-binary-2.9.10
 </pre></div>
 </div>
 </div>
@@ -576,15 +599,15 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10 Data dalam tabel data_irisposgresql:
 (1, &#39;Iris-setosa&#39;, 5.1, 3.5)
-(2, &#39;Iris-setosa&#39;, 40.9, 30.0)
-(3, &#39;Iris-setosa&#39;, 4.7, 3.2)
-(4, &#39;Iris-setosa&#39;, 4.6, 3.1)
-(5, &#39;Iris-setosa&#39;, 5.0, 3.6)
-(6, &#39;Iris-setosa&#39;, 5.4, 3.9)
+(2, &#39;Iris-setosa&#39;, 90.0, 80.0)
+(3, &#39;Iris-setosa&#39;, 6.3, 2.8)
+(4, &#39;Iris-setosa&#39;, 4.7, 3.2)
+(5, &#39;Iris-setosa&#39;, 5.1, 3.6)
+(6, &#39;Iris-setosa&#39;, 5.1, 3.4)
 (7, &#39;Iris-setosa&#39;, 4.6, 3.4)
 (8, &#39;Iris-setosa&#39;, 5.0, 3.4)
 (9, &#39;Iris-setosa&#39;, 4.4, 2.9)
-(10, &#39;Iris-setosa&#39;, 4.9, 3.1)
+(10, &#39;Iris-setosa&#39;, 77.0, 98.0)
 </pre></div>
 </div>
 </div>
@@ -629,15 +652,15 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10 data dalam tabel iris_data
 (1, &#39;Iris-setosa&#39;, 1.4, 0.2)
-(2, &#39;Iris-setosa&#39;, 50.0, 20.0)
-(3, &#39;Iris-setosa&#39;, 1.3, 0.2)
+(2, &#39;Iris-setosa&#39;, 78.0, 88.0)
+(3, &#39;Iris-setosa&#39;, 1.6, 0.4)
 (4, &#39;Iris-setosa&#39;, 1.5, 0.2)
 (5, &#39;Iris-setosa&#39;, 1.4, 0.2)
 (6, &#39;Iris-setosa&#39;, 1.7, 0.4)
 (7, &#39;Iris-setosa&#39;, 1.4, 0.3)
 (8, &#39;Iris-setosa&#39;, 1.5, 0.2)
 (9, &#39;Iris-setosa&#39;, 1.4, 0.2)
-(10, &#39;Iris-setosa&#39;, 1.5, 0.1)
+(10, &#39;Iris-setosa&#39;, 99.0, 87.0)
 </pre></div>
 </div>
 </div>
@@ -718,22 +741,22 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <th>1</th>
       <td>2</td>
       <td>Iris-setosa</td>
-      <td>50.0</td>
-      <td>20.0</td>
-      <td>40.9</td>
-      <td>30.0</td>
-      <td>66.115505</td>
-      <td>True</td>
+      <td>78.0</td>
+      <td>88.0</td>
+      <td>90.0</td>
+      <td>80.0</td>
+      <td>160.736088</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>2</th>
       <td>3</td>
       <td>Iris-setosa</td>
-      <td>1.3</td>
-      <td>0.2</td>
-      <td>4.7</td>
-      <td>3.2</td>
-      <td>5.430470</td>
+      <td>1.6</td>
+      <td>0.4</td>
+      <td>6.3</td>
+      <td>2.8</td>
+      <td>4.855924</td>
       <td>False</td>
     </tr>
     <tr>
@@ -742,9 +765,9 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>Iris-setosa</td>
       <td>1.5</td>
       <td>0.2</td>
-      <td>4.6</td>
-      <td>3.1</td>
-      <td>5.273519</td>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>5.292447</td>
       <td>False</td>
     </tr>
     <tr>
@@ -753,10 +776,10 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>Iris-setosa</td>
       <td>1.4</td>
       <td>0.2</td>
-      <td>5.0</td>
+      <td>5.1</td>
       <td>3.6</td>
-      <td>5.485435</td>
-      <td>True</td>
+      <td>5.471746</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>5</th>
@@ -764,9 +787,9 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>Iris-setosa</td>
       <td>1.7</td>
       <td>0.4</td>
-      <td>5.4</td>
-      <td>3.9</td>
-      <td>5.288667</td>
+      <td>5.1</td>
+      <td>3.4</td>
+      <td>5.064583</td>
       <td>False</td>
     </tr>
     <tr>
@@ -806,12 +829,12 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <th>9</th>
       <td>10</td>
       <td>Iris-setosa</td>
-      <td>1.5</td>
-      <td>0.1</td>
-      <td>4.9</td>
-      <td>3.1</td>
-      <td>5.271622</td>
-      <td>False</td>
+      <td>99.0</td>
+      <td>87.0</td>
+      <td>77.0</td>
+      <td>98.0</td>
+      <td>174.120906</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>10</th>
@@ -855,28 +878,28 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>4.3</td>
       <td>3.0</td>
       <td>5.644466</td>
-      <td>True</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>14</th>
       <td>15</td>
       <td>Iris-setosa</td>
-      <td>1.2</td>
-      <td>0.2</td>
-      <td>5.8</td>
-      <td>4.0</td>
-      <td>5.762812</td>
-      <td>True</td>
+      <td>1.5</td>
+      <td>0.3</td>
+      <td>5.2</td>
+      <td>4.1</td>
+      <td>5.598214</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>15</th>
       <td>16</td>
       <td>Iris-setosa</td>
-      <td>1.5</td>
-      <td>0.4</td>
-      <td>5.7</td>
-      <td>4.4</td>
-      <td>5.689464</td>
+      <td>89.0</td>
+      <td>91.0</td>
+      <td>120.0</td>
+      <td>90.0</td>
+      <td>188.972723</td>
       <td>True</td>
     </tr>
     <tr>
@@ -888,7 +911,7 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>5.4</td>
       <td>3.9</td>
       <td>5.554278</td>
-      <td>True</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>17</th>
@@ -907,32 +930,32 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>Iris-setosa</td>
       <td>1.7</td>
       <td>0.3</td>
-      <td>5.7</td>
-      <td>3.8</td>
-      <td>5.274467</td>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>5.081338</td>
       <td>False</td>
     </tr>
     <tr>
       <th>19</th>
       <td>20</td>
       <td>Iris-setosa</td>
-      <td>1.5</td>
+      <td>1.4</td>
       <td>0.3</td>
       <td>5.1</td>
       <td>3.8</td>
-      <td>5.449771</td>
+      <td>5.516339</td>
       <td>False</td>
     </tr>
     <tr>
       <th>20</th>
       <td>21</td>
       <td>Iris-setosa</td>
-      <td>1.7</td>
-      <td>0.2</td>
-      <td>5.4</td>
-      <td>3.4</td>
-      <td>5.145872</td>
-      <td>False</td>
+      <td>98.0</td>
+      <td>89.0</td>
+      <td>90.0</td>
+      <td>91.0</td>
+      <td>176.583380</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>21</th>
@@ -949,12 +972,12 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <th>22</th>
       <td>23</td>
       <td>Iris-setosa</td>
-      <td>1.0</td>
-      <td>0.2</td>
-      <td>4.6</td>
-      <td>3.6</td>
-      <td>5.831809</td>
-      <td>True</td>
+      <td>78.0</td>
+      <td>87.0</td>
+      <td>98.0</td>
+      <td>76.0</td>
+      <td>162.673569</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>23</th>
@@ -971,11 +994,11 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <th>24</th>
       <td>25</td>
       <td>Iris-setosa</td>
-      <td>1.9</td>
+      <td>1.5</td>
       <td>0.2</td>
       <td>4.8</td>
       <td>3.4</td>
-      <td>5.099020</td>
+      <td>5.359104</td>
       <td>False</td>
     </tr>
     <tr>
@@ -984,9 +1007,9 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>Iris-setosa</td>
       <td>1.6</td>
       <td>0.2</td>
-      <td>5.0</td>
-      <td>3.0</td>
-      <td>5.088222</td>
+      <td>4.8</td>
+      <td>3.2</td>
+      <td>5.204805</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1026,11 +1049,11 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <th>29</th>
       <td>30</td>
       <td>Iris-setosa</td>
-      <td>1.6</td>
+      <td>1.4</td>
       <td>0.2</td>
       <td>4.7</td>
       <td>3.2</td>
-      <td>5.224940</td>
+      <td>5.360970</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1038,10 +1061,10 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>31</td>
       <td>Iris-setosa</td>
       <td>1.6</td>
-      <td>0.2</td>
-      <td>4.8</td>
-      <td>3.1</td>
-      <td>5.163332</td>
+      <td>0.4</td>
+      <td>4.9</td>
+      <td>3.5</td>
+      <td>5.210566</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1064,7 +1087,7 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>5.2</td>
       <td>4.1</td>
       <td>5.704384</td>
-      <td>True</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>33</th>
@@ -1075,17 +1098,17 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>5.5</td>
       <td>4.2</td>
       <td>5.746303</td>
-      <td>True</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>34</th>
       <td>35</td>
       <td>Iris-setosa</td>
-      <td>1.5</td>
-      <td>0.1</td>
+      <td>1.4</td>
+      <td>0.2</td>
       <td>4.9</td>
       <td>3.1</td>
-      <td>5.271622</td>
+      <td>5.282992</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1094,9 +1117,9 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>Iris-setosa</td>
       <td>1.2</td>
       <td>0.2</td>
-      <td>5.0</td>
-      <td>3.2</td>
-      <td>5.448853</td>
+      <td>5.2</td>
+      <td>3.6</td>
+      <td>5.597321</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1136,11 +1159,11 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <th>39</th>
       <td>40</td>
       <td>Iris-setosa</td>
-      <td>1.5</td>
-      <td>0.2</td>
+      <td>1.6</td>
+      <td>0.4</td>
       <td>5.1</td>
       <td>3.4</td>
-      <td>5.311309</td>
+      <td>5.132251</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1149,9 +1172,9 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>Iris-setosa</td>
       <td>1.3</td>
       <td>0.3</td>
-      <td>5.0</td>
+      <td>5.3</td>
       <td>3.5</td>
-      <td>5.453439</td>
+      <td>5.417564</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1174,7 +1197,7 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>4.4</td>
       <td>3.2</td>
       <td>5.499091</td>
-      <td>True</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>43</th>
@@ -1191,11 +1214,11 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <th>44</th>
       <td>45</td>
       <td>Iris-setosa</td>
-      <td>1.9</td>
-      <td>0.4</td>
+      <td>1.5</td>
+      <td>0.2</td>
       <td>5.1</td>
       <td>3.8</td>
-      <td>5.139066</td>
+      <td>5.503635</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1205,8 +1228,8 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>1.4</td>
       <td>0.3</td>
       <td>4.8</td>
-      <td>3.0</td>
-      <td>5.205766</td>
+      <td>3.2</td>
+      <td>5.285830</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1246,11 +1269,11 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <th>49</th>
       <td>50</td>
       <td>Iris-setosa</td>
-      <td>1.4</td>
-      <td>0.2</td>
-      <td>5.0</td>
-      <td>3.3</td>
-      <td>5.349766</td>
+      <td>1.6</td>
+      <td>4.0</td>
+      <td>4.1</td>
+      <td>3.2</td>
+      <td>4.540925</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1259,9 +1282,9 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>Iris-versicolor</td>
       <td>4.7</td>
       <td>1.4</td>
-      <td>7.0</td>
-      <td>3.2</td>
-      <td>3.111270</td>
+      <td>5.4</td>
+      <td>2.9</td>
+      <td>2.677686</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1301,11 +1324,11 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <th>54</th>
       <td>55</td>
       <td>Iris-versicolor</td>
-      <td>4.6</td>
-      <td>1.5</td>
+      <td>4.7</td>
+      <td>1.3</td>
       <td>6.5</td>
       <td>2.8</td>
-      <td>2.621068</td>
+      <td>2.738613</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1314,9 +1337,9 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>Iris-versicolor</td>
       <td>4.5</td>
       <td>1.3</td>
-      <td>5.7</td>
-      <td>2.8</td>
-      <td>2.687006</td>
+      <td>6.8</td>
+      <td>3.1</td>
+      <td>3.062679</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1334,12 +1357,12 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <th>57</th>
       <td>58</td>
       <td>Iris-versicolor</td>
-      <td>3.3</td>
-      <td>1.0</td>
-      <td>4.9</td>
-      <td>2.4</td>
-      <td>3.293934</td>
-      <td>False</td>
+      <td>87.0</td>
+      <td>94.0</td>
+      <td>97.0</td>
+      <td>96.0</td>
+      <td>179.707234</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>58</th>
@@ -1356,11 +1379,11 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <th>59</th>
       <td>60</td>
       <td>Iris-versicolor</td>
-      <td>3.9</td>
-      <td>1.4</td>
+      <td>4.3</td>
+      <td>1.2</td>
       <td>5.2</td>
       <td>2.7</td>
-      <td>2.816026</td>
+      <td>2.808914</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1369,9 +1392,9 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>Iris-versicolor</td>
       <td>3.5</td>
       <td>1.0</td>
-      <td>5.0</td>
-      <td>2.0</td>
-      <td>3.006659</td>
+      <td>5.7</td>
+      <td>2.7</td>
+      <td>3.209361</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1389,11 +1412,11 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <th>62</th>
       <td>63</td>
       <td>Iris-versicolor</td>
-      <td>4.0</td>
-      <td>1.0</td>
-      <td>6.0</td>
-      <td>2.2</td>
-      <td>2.744085</td>
+      <td>92.0</td>
+      <td>89.0</td>
+      <td>90.0</td>
+      <td>87.0</td>
+      <td>171.461045</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1411,11 +1434,11 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <th>64</th>
       <td>65</td>
       <td>Iris-versicolor</td>
-      <td>3.6</td>
-      <td>1.3</td>
+      <td>4.4</td>
+      <td>1.4</td>
       <td>5.6</td>
       <td>2.9</td>
-      <td>3.083829</td>
+      <td>2.716616</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1424,9 +1447,9 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>Iris-versicolor</td>
       <td>4.4</td>
       <td>1.4</td>
-      <td>6.7</td>
-      <td>3.1</td>
-      <td>2.991655</td>
+      <td>5.7</td>
+      <td>2.6</td>
+      <td>2.509980</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1467,10 +1490,10 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>70</td>
       <td>Iris-versicolor</td>
       <td>3.9</td>
-      <td>1.1</td>
+      <td>1.2</td>
       <td>5.6</td>
       <td>2.5</td>
-      <td>2.853069</td>
+      <td>2.780288</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1479,9 +1502,9 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>Iris-versicolor</td>
       <td>4.8</td>
       <td>1.8</td>
-      <td>5.9</td>
-      <td>3.2</td>
-      <td>2.626785</td>
+      <td>5.8</td>
+      <td>2.5</td>
+      <td>2.073644</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1730,12 +1753,12 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <th>93</th>
       <td>94</td>
       <td>Iris-versicolor</td>
-      <td>3.3</td>
-      <td>1.0</td>
-      <td>5.0</td>
-      <td>2.3</td>
-      <td>3.226453</td>
-      <td>False</td>
+      <td>92.0</td>
+      <td>89.0</td>
+      <td>120.0</td>
+      <td>99.0</td>
+      <td>193.801161</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>94</th>
@@ -1785,12 +1808,12 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <th>98</th>
       <td>99</td>
       <td>Iris-versicolor</td>
-      <td>3.0</td>
-      <td>1.1</td>
-      <td>5.1</td>
-      <td>2.5</td>
-      <td>3.400000</td>
-      <td>False</td>
+      <td>96.0</td>
+      <td>79.0</td>
+      <td>98.0</td>
+      <td>87.0</td>
+      <td>172.931460</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>99</th>
@@ -1873,11 +1896,11 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <th>106</th>
       <td>107</td>
       <td>Iris-virginica</td>
-      <td>4.5</td>
-      <td>1.7</td>
-      <td>4.9</td>
-      <td>2.5</td>
-      <td>2.381176</td>
+      <td>89.0</td>
+      <td>84.0</td>
+      <td>87.0</td>
+      <td>89.0</td>
+      <td>167.048765</td>
       <td>False</td>
     </tr>
     <tr>
@@ -2049,12 +2072,12 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <th>122</th>
       <td>123</td>
       <td>Iris-virginica</td>
-      <td>6.7</td>
-      <td>2.0</td>
-      <td>7.7</td>
-      <td>2.8</td>
-      <td>3.293934</td>
-      <td>False</td>
+      <td>99.0</td>
+      <td>89.0</td>
+      <td>111.0</td>
+      <td>96.0</td>
+      <td>190.449180</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>123</th>
@@ -2062,9 +2085,9 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>Iris-virginica</td>
       <td>4.9</td>
       <td>1.8</td>
-      <td>6.3</td>
-      <td>2.7</td>
-      <td>2.267157</td>
+      <td>6.4</td>
+      <td>2.8</td>
+      <td>2.366432</td>
       <td>False</td>
     </tr>
     <tr>
@@ -2073,9 +2096,9 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>Iris-virginica</td>
       <td>5.7</td>
       <td>2.1</td>
-      <td>6.7</td>
+      <td>6.2</td>
       <td>3.3</td>
-      <td>2.769476</td>
+      <td>2.649528</td>
       <td>False</td>
     </tr>
     <tr>
@@ -2084,20 +2107,20 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>Iris-virginica</td>
       <td>6.0</td>
       <td>1.8</td>
-      <td>7.2</td>
-      <td>3.2</td>
-      <td>3.093542</td>
+      <td>6.2</td>
+      <td>2.8</td>
+      <td>2.483948</td>
       <td>False</td>
     </tr>
     <tr>
       <th>126</th>
       <td>127</td>
       <td>Iris-virginica</td>
-      <td>4.8</td>
-      <td>1.8</td>
+      <td>5.3</td>
+      <td>1.4</td>
       <td>6.2</td>
       <td>2.8</td>
-      <td>2.334524</td>
+      <td>2.584570</td>
       <td>False</td>
     </tr>
     <tr>
@@ -2106,9 +2129,9 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <td>Iris-virginica</td>
       <td>4.9</td>
       <td>1.8</td>
-      <td>6.1</td>
-      <td>3.0</td>
-      <td>2.467793</td>
+      <td>6.4</td>
+      <td>3.1</td>
+      <td>2.601922</td>
       <td>False</td>
     </tr>
     <tr>
@@ -2126,12 +2149,12 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <th>129</th>
       <td>130</td>
       <td>Iris-virginica</td>
-      <td>5.8</td>
-      <td>1.6</td>
-      <td>7.2</td>
-      <td>3.0</td>
-      <td>3.001666</td>
-      <td>False</td>
+      <td>95.0</td>
+      <td>85.0</td>
+      <td>96.0</td>
+      <td>83.0</td>
+      <td>172.143225</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>130</th>
@@ -2258,12 +2281,12 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <th>141</th>
       <td>142</td>
       <td>Iris-virginica</td>
-      <td>5.1</td>
-      <td>2.3</td>
-      <td>6.9</td>
-      <td>3.1</td>
-      <td>2.535744</td>
-      <td>False</td>
+      <td>89.0</td>
+      <td>78.0</td>
+      <td>110.0</td>
+      <td>93.0</td>
+      <td>178.762104</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>142</th>
@@ -2313,12 +2336,12 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
       <th>146</th>
       <td>147</td>
       <td>Iris-virginica</td>
-      <td>5.0</td>
-      <td>1.9</td>
-      <td>6.3</td>
-      <td>2.5</td>
-      <td>2.049390</td>
-      <td>False</td>
+      <td>109.0</td>
+      <td>81.0</td>
+      <td>98.0</td>
+      <td>82.0</td>
+      <td>178.633396</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>147</th>
@@ -2414,113 +2437,113 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
   </thead>
   <tbody>
     <tr>
-      <th>1</th>
-      <td>2</td>
+      <th>9</th>
+      <td>10</td>
       <td>Iris-setosa</td>
-      <td>50.0</td>
-      <td>20.0</td>
-      <td>40.9</td>
-      <td>30.0</td>
-      <td>66.115505</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>Iris-setosa</td>
-      <td>1.4</td>
-      <td>0.2</td>
-      <td>5.0</td>
-      <td>3.6</td>
-      <td>5.485435</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>14</td>
-      <td>Iris-setosa</td>
-      <td>1.1</td>
-      <td>0.1</td>
-      <td>4.3</td>
-      <td>3.0</td>
-      <td>5.644466</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>15</td>
-      <td>Iris-setosa</td>
-      <td>1.2</td>
-      <td>0.2</td>
-      <td>5.8</td>
-      <td>4.0</td>
-      <td>5.762812</td>
+      <td>99.0</td>
+      <td>87.0</td>
+      <td>77.0</td>
+      <td>98.0</td>
+      <td>174.120906</td>
       <td>True</td>
     </tr>
     <tr>
       <th>15</th>
       <td>16</td>
       <td>Iris-setosa</td>
-      <td>1.5</td>
-      <td>0.4</td>
-      <td>5.7</td>
-      <td>4.4</td>
-      <td>5.689464</td>
+      <td>89.0</td>
+      <td>91.0</td>
+      <td>120.0</td>
+      <td>90.0</td>
+      <td>188.972723</td>
       <td>True</td>
     </tr>
     <tr>
-      <th>16</th>
-      <td>17</td>
+      <th>20</th>
+      <td>21</td>
       <td>Iris-setosa</td>
-      <td>1.3</td>
-      <td>0.4</td>
-      <td>5.4</td>
-      <td>3.9</td>
-      <td>5.554278</td>
+      <td>98.0</td>
+      <td>89.0</td>
+      <td>90.0</td>
+      <td>91.0</td>
+      <td>176.583380</td>
       <td>True</td>
     </tr>
     <tr>
-      <th>22</th>
-      <td>23</td>
-      <td>Iris-setosa</td>
-      <td>1.0</td>
-      <td>0.2</td>
-      <td>4.6</td>
-      <td>3.6</td>
-      <td>5.831809</td>
+      <th>57</th>
+      <td>58</td>
+      <td>Iris-versicolor</td>
+      <td>87.0</td>
+      <td>94.0</td>
+      <td>97.0</td>
+      <td>96.0</td>
+      <td>179.707234</td>
       <td>True</td>
     </tr>
     <tr>
-      <th>32</th>
-      <td>33</td>
-      <td>Iris-setosa</td>
-      <td>1.5</td>
-      <td>0.1</td>
-      <td>5.2</td>
-      <td>4.1</td>
-      <td>5.704384</td>
+      <th>93</th>
+      <td>94</td>
+      <td>Iris-versicolor</td>
+      <td>92.0</td>
+      <td>89.0</td>
+      <td>120.0</td>
+      <td>99.0</td>
+      <td>193.801161</td>
       <td>True</td>
     </tr>
     <tr>
-      <th>33</th>
-      <td>34</td>
-      <td>Iris-setosa</td>
-      <td>1.4</td>
-      <td>0.2</td>
-      <td>5.5</td>
-      <td>4.2</td>
-      <td>5.746303</td>
+      <th>98</th>
+      <td>99</td>
+      <td>Iris-versicolor</td>
+      <td>96.0</td>
+      <td>79.0</td>
+      <td>98.0</td>
+      <td>87.0</td>
+      <td>172.931460</td>
       <td>True</td>
     </tr>
     <tr>
-      <th>42</th>
-      <td>43</td>
-      <td>Iris-setosa</td>
-      <td>1.3</td>
-      <td>0.2</td>
-      <td>4.4</td>
-      <td>3.2</td>
-      <td>5.499091</td>
+      <th>122</th>
+      <td>123</td>
+      <td>Iris-virginica</td>
+      <td>99.0</td>
+      <td>89.0</td>
+      <td>111.0</td>
+      <td>96.0</td>
+      <td>190.449180</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>129</th>
+      <td>130</td>
+      <td>Iris-virginica</td>
+      <td>95.0</td>
+      <td>85.0</td>
+      <td>96.0</td>
+      <td>83.0</td>
+      <td>172.143225</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>141</th>
+      <td>142</td>
+      <td>Iris-virginica</td>
+      <td>89.0</td>
+      <td>78.0</td>
+      <td>110.0</td>
+      <td>93.0</td>
+      <td>178.762104</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>147</td>
+      <td>Iris-virginica</td>
+      <td>109.0</td>
+      <td>81.0</td>
+      <td>98.0</td>
+      <td>82.0</td>
+      <td>178.633396</td>
       <td>True</td>
     </tr>
   </tbody>
@@ -2555,7 +2578,7 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6d377364cd9fc9d5b64d73ba0f7b3d96c93b60f3e8792d5ec888c9c19dfb328f.png" src="_images/6d377364cd9fc9d5b64d73ba0f7b3d96c93b60f3e8792d5ec888c9c19dfb328f.png" />
+<img alt="_images/a503589abe42e04f975483bba8f1d8dc273099f451f698a5ebb8312a27bbdcb4.png" src="_images/a503589abe42e04f975483bba8f1d8dc273099f451f698a5ebb8312a27bbdcb4.png" />
 </div>
 </div>
 </section>

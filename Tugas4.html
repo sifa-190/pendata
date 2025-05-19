@@ -433,16 +433,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pymysql
-  Downloading PyMySQL-1.1.1-py3-none-any.whl.metadata (4.4 kB)
-Downloading PyMySQL-1.1.1-py3-none-any.whl (44 kB)
-?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/45.0 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">45.0/45.0 kB</span> <span class=" -Color -Color-Red">3.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-?25h
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: pymysql
-Successfully installed pymysql-1.1.1
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pymysql in /usr/local/lib/python3.11/dist-packages (1.1.1)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: psycopg2 in /usr/local/lib/python3.11/dist-packages (2.9.10)
@@ -454,18 +445,6 @@ Successfully installed pymysql-1.1.1
 <section id="penggabungan-database">
 <h3><strong>Penggabungan Database</strong><a class="headerlink" href="#penggabungan-database" title="Link to this heading">#</a></h3>
 <p>Koneksikan kedua database dengan informasi dari aiven. Gabung feature sepal length, sepal width, petal_length, dan petal_width dengan menggunakan fungsi merge dari pandas</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span>pg-3d261dbe-sifa-190.i.aivencloud.com
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/bin/bash: line 1: ping: command not found
-</pre></div>
-</div>
-</div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">psycopg2</span>
@@ -517,7 +496,7 @@ Successfully installed pymysql-1.1.1
 <span class="n">df_mysql</span> <span class="o">=</span> <span class="n">get_mysql_data</span><span class="p">()</span>
 
 <span class="c1"># Gabungkan berdasarkan kolom &#39;id&#39; dan &#39;Class&#39;</span>
-<span class="n">df_merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_mysql</span><span class="p">,</span> <span class="n">df_postgresql</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;class&quot;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">)</span>
+<span class="n">df_merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_mysql</span><span class="p">,</span> <span class="n">df_postgresql</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Id&quot;</span><span class="p">,</span> <span class="s2">&quot;Class&quot;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">)</span>
 
 <span class="n">feature_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;petal length&quot;</span><span class="p">,</span> <span class="s2">&quot;petal width&quot;</span><span class="p">,</span> <span class="s2">&quot;sepal_length&quot;</span><span class="p">,</span> <span class="s2">&quot;sepal_width&quot;</span><span class="p">]</span>
 <span class="n">data_values</span> <span class="o">=</span> <span class="n">df_merged</span><span class="p">[</span><span class="n">feature_columns</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
@@ -529,29 +508,24 @@ Successfully installed pymysql-1.1.1
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">OperationalError</span><span class="g g-Whitespace">                          </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-3-d782e44a312e&gt;</span> in <span class="ni">&lt;cell line: 0&gt;</span><span class="nt">()</span>
+<span class="ne">UndefinedTable</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="nn">&lt;ipython-input-2-2dd45ef5bd21&gt;</span> in <span class="ni">&lt;cell line: 0&gt;</span><span class="nt">()</span>
 <span class="g g-Whitespace">     </span><span class="mi">44</span> 
 <span class="g g-Whitespace">     </span><span class="mi">45</span> <span class="c1"># Ambil data dari kedua database</span>
 <span class="ne">---&gt; </span><span class="mi">46</span> <span class="n">df_postgresql</span> <span class="o">=</span> <span class="n">get_pg_data</span><span class="p">()</span>
 <span class="g g-Whitespace">     </span><span class="mi">47</span> <span class="n">df_mysql</span> <span class="o">=</span> <span class="n">get_mysql_data</span><span class="p">()</span>
 <span class="g g-Whitespace">     </span><span class="mi">48</span> 
 
-<span class="nn">&lt;ipython-input-3-d782e44a312e&gt;</span> in <span class="ni">get_pg_data</span><span class="nt">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> 
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_pg_data</span><span class="p">():</span>
-<span class="ne">---&gt; </span><span class="mi">12</span>     <span class="n">conn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">13</span>         <span class="n">host</span><span class="o">=</span><span class="s2">&quot;pg-3d261dbe-sifa-190.i.aivencloud.com&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span>         <span class="n">user</span><span class="o">=</span><span class="s2">&quot;avnadmin&quot;</span><span class="p">,</span>
+<span class="nn">&lt;ipython-input-2-2dd45ef5bd21&gt;</span> in <span class="ni">get_pg_data</span><span class="nt">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="ne">---&gt; </span><span class="mi">20</span>     <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM iris_data&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span>     <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">desc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">cursor</span><span class="o">.</span><span class="n">description</span><span class="p">]</span>  <span class="c1"># Ambil nama kolom</span>
 
-<span class="nn">/usr/local/lib/python3.11/dist-packages/psycopg2/__init__.py</span> in <span class="ni">connect</span><span class="nt">(dsn, connection_factory, cursor_factory, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">120</span> 
-<span class="g g-Whitespace">    </span><span class="mi">121</span>     <span class="n">dsn</span> <span class="o">=</span> <span class="n">_ext</span><span class="o">.</span><span class="n">make_dsn</span><span class="p">(</span><span class="n">dsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">122</span>     <span class="n">conn</span> <span class="o">=</span> <span class="n">_connect</span><span class="p">(</span><span class="n">dsn</span><span class="p">,</span> <span class="n">connection_factory</span><span class="o">=</span><span class="n">connection_factory</span><span class="p">,</span> <span class="o">**</span><span class="n">kwasync</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">123</span>     <span class="k">if</span> <span class="n">cursor_factory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">124</span>         <span class="n">conn</span><span class="o">.</span><span class="n">cursor_factory</span> <span class="o">=</span> <span class="n">cursor_factory</span>
-
-<span class="ne">OperationalError</span>: could not translate host name &quot;pg-3d261dbe-sifa-190.i.aivencloud.com&quot; to address: Name or service not known
+<span class="ne">UndefinedTable</span>: relation &quot;iris_data&quot; does not exist
+<span class="n">LINE</span> <span class="mi">1</span><span class="p">:</span> <span class="n">SELECT</span> <span class="o">*</span> <span class="n">FROM</span> <span class="n">iris_data</span>
+                      <span class="o">^</span>
 </pre></div>
 </div>
 </div>
