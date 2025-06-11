@@ -1,10 +1,17 @@
 Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/dist-packages/jupyter_core/utils/__init__.py", line 154, in wrapped
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
   File "/usr/local/lib/python3.11/dist-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
     executenb(
   File "/usr/local/lib/python3.11/dist-packages/nbclient/client.py", line 1319, in execute
     return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+  File "/usr/local/lib/python3.11/dist-packages/jupyter_core/utils/__init__.py", line 158, in wrapped
     return loop.run_until_complete(inner)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/usr/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
@@ -18,14 +25,53 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-[notice] A new release of pip is available: 24.3.1 -> 25.0.1
-[notice] To update, run: python3 -m pip install --upgrade pip
+import psycopg2
+
+# koneksi ke database mysql melalui aiven.io
+DB_HOST = "pg-359aec68-tugas-pendata.g.aivencloud.com"
+DB_PORT = "17416"
+DB_NAME = "defaultdb"
+DB_USER = "avnadmin"
+DB_PASS = "AVNS_oal2yP3mG6JLIwX3BUK"
+
+connect_1 = psycopg2.connect(
+    host=DB_HOST,
+    port=DB_PORT,
+    dbname=DB_NAME,
+    user=DB_USER,
+    password=DB_PASS,
+    sslmode="require"
+)
+
+data_posgre = connect_1.cursor()
+
+# akses ke data di database
+
+data_posgre.execute("SELECT * FROM iris_data ORDER BY id ASC LIMIT 10;")
+data_db = data_posgre.fetchall()
+
+print("10 Data dalam tabel data_irisposgresql:")
+for data in data_db:
+    print(data)
 ------------------
 
 
-[0;36m  File [0;32m"<ipython-input-2-12676a03bd81>"[0;36m, line [0;32m1[0m
-[0;31m    [notice] A new release of pip is available: 24.3.1 -> 25.0.1[0m
-[0m             ^[0m
-[0;31mSyntaxError[0m[0;31m:[0m invalid syntax
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mOperationalError[0m                          Traceback (most recent call last)
+[0;32m<ipython-input-3-2527102987>[0m in [0;36m<cell line: 0>[0;34m()[0m
+[1;32m      8[0m [0mDB_PASS[0m [0;34m=[0m [0;34m"AVNS_oal2yP3mG6JLIwX3BUK"[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      9[0m [0;34m[0m[0m
+[0;32m---> 10[0;31m connect_1 = psycopg2.connect(
+[0m[1;32m     11[0m     [0mhost[0m[0;34m=[0m[0mDB_HOST[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     12[0m     [0mport[0m[0;34m=[0m[0mDB_PORT[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/psycopg2/__init__.py[0m in [0;36mconnect[0;34m(dsn, connection_factory, cursor_factory, **kwargs)[0m
+[1;32m    120[0m [0;34m[0m[0m
+[1;32m    121[0m     [0mdsn[0m [0;34m=[0m [0m_ext[0m[0;34m.[0m[0mmake_dsn[0m[0;34m([0m[0mdsn[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 122[0;31m     [0mconn[0m [0;34m=[0m [0m_connect[0m[0;34m([0m[0mdsn[0m[0;34m,[0m [0mconnection_factory[0m[0;34m=[0m[0mconnection_factory[0m[0;34m,[0m [0;34m**[0m[0mkwasync[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    123[0m     [0;32mif[0m [0mcursor_factory[0m [0;32mis[0m [0;32mnot[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    124[0m         [0mconn[0m[0;34m.[0m[0mcursor_factory[0m [0;34m=[0m [0mcursor_factory[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mOperationalError[0m: could not translate host name "pg-359aec68-tugas-pendata.g.aivencloud.com" to address: Name or service not known
 
 

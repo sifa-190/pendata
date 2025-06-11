@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>DATA OUTLIER DAN DETEKSI &#8212; My sample book</title>
+    <title>Data Outlier Dan Deteksi &#8212; My sample book</title>
   
   
   
@@ -181,13 +181,15 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Tugas1.html"><strong>Proses dalam Memahami Data</strong></a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">DATA OUTLIER  DAN DETEKSI</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Data Outlier Dan Deteksi</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tugas3.html"><strong>Local Outlier Factor (LOF)</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tugas4.html"><strong>Data Preparation</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tugas5.html"><strong>Proyek UTS</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tugas6.html"><strong>Metode K-Mean</strong></a></li>
 
 
+<li class="toctree-l1"><a class="reference internal" href="Tugas7.html"><strong>Fuzzy C-Mean Clustering</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas8.html"><strong>DecisionTree</strong></a></li>
 </ul>
 
     </div>
@@ -373,7 +375,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>DATA OUTLIER  DAN DETEKSI</h1>
+    <h1>Data Outlier Dan Deteksi</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -410,7 +412,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="data-outlier-dan-deteksi">
-<h1>DATA OUTLIER  DAN DETEKSI<a class="headerlink" href="#data-outlier-dan-deteksi" title="Link to this heading">#</a></h1>
+<h1><strong>Data Outlier Dan Deteksi</strong><a class="headerlink" href="#data-outlier-dan-deteksi" title="Link to this heading">#</a></h1>
 <section id="data-outlier">
 <h2>1. Data Outlier<a class="headerlink" href="#data-outlier" title="Link to this heading">#</a></h2>
 <p>data outlier adalah nilai yang berbeda jauh dari mayoritas data lainnya dalam suatu set, dan keberadaannya dapat memberikan informasi yang berharga atau sebaliknya, menunjukkan adanya kesalahan atau anomali.</p>
@@ -512,7 +514,7 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
   Downloading PyMySQL-1.1.1-py3-none-any.whl.metadata (4.4 kB)
 Downloading PyMySQL-1.1.1-py3-none-any.whl (44 kB)
 ?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/45.0 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">45.0/45.0 kB</span> <span class=" -Color -Color-Red">2.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">45.0/45.0 kB</span> <span class=" -Color -Color-Red">1.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
 ?25h
 </pre></div>
 </div>
@@ -524,10 +526,12 @@ Successfully installed pymysql-1.1.1
   Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
 Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.0 MB)
 ?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/3.0 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-   ━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">1.0/3.0 MB</span> <span class=" -Color -Color-Red">33.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.1/3.0 MB</span> <span class=" -Color -Color-Red">2.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
+   ━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.7/3.0 MB</span> <span class=" -Color -Color-Red">9.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">3.0/3.0 MB</span> <span class=" -Color -Color-Red">30.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">3.0/3.0 MB</span> <span class=" -Color -Color-Red">45.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">3.0/3.0 MB</span> <span class=" -Color -Color-Red">24.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
 ?25h
 </pre></div>
 </div>
@@ -598,17 +602,23 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10 Data dalam tabel data_irisposgresql:
-(1, &#39;Iris-setosa&#39;, 5.1, 3.5)
-(2, &#39;Iris-setosa&#39;, 90.0, 80.0)
-(3, &#39;Iris-setosa&#39;, 6.3, 2.8)
-(4, &#39;Iris-setosa&#39;, 4.7, 3.2)
-(5, &#39;Iris-setosa&#39;, 5.1, 3.6)
-(6, &#39;Iris-setosa&#39;, 5.1, 3.4)
-(7, &#39;Iris-setosa&#39;, 4.6, 3.4)
-(8, &#39;Iris-setosa&#39;, 5.0, 3.4)
-(9, &#39;Iris-setosa&#39;, 4.4, 2.9)
-(10, &#39;Iris-setosa&#39;, 77.0, 98.0)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">OperationalError</span><span class="g g-Whitespace">                          </span>Traceback (most recent call last)
+<span class="nn">&lt;ipython-input-3-2527102987&gt;</span> in <span class="ni">&lt;cell line: 0&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">DB_PASS</span> <span class="o">=</span> <span class="s2">&quot;AVNS_oal2yP3mG6JLIwX3BUK&quot;</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> 
+<span class="ne">---&gt; </span><span class="mi">10</span> <span class="n">connect_1</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>     <span class="n">host</span><span class="o">=</span><span class="n">DB_HOST</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>     <span class="n">port</span><span class="o">=</span><span class="n">DB_PORT</span><span class="p">,</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/psycopg2/__init__.py</span> in <span class="ni">connect</span><span class="nt">(dsn, connection_factory, cursor_factory, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">120</span> 
+<span class="g g-Whitespace">    </span><span class="mi">121</span>     <span class="n">dsn</span> <span class="o">=</span> <span class="n">_ext</span><span class="o">.</span><span class="n">make_dsn</span><span class="p">(</span><span class="n">dsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">122</span>     <span class="n">conn</span> <span class="o">=</span> <span class="n">_connect</span><span class="p">(</span><span class="n">dsn</span><span class="p">,</span> <span class="n">connection_factory</span><span class="o">=</span><span class="n">connection_factory</span><span class="p">,</span> <span class="o">**</span><span class="n">kwasync</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">123</span>     <span class="k">if</span> <span class="n">cursor_factory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">124</span>         <span class="n">conn</span><span class="o">.</span><span class="n">cursor_factory</span> <span class="o">=</span> <span class="n">cursor_factory</span>
+
+<span class="ne">OperationalError</span>: could not translate host name &quot;pg-359aec68-tugas-pendata.g.aivencloud.com&quot; to address: Name or service not known
 </pre></div>
 </div>
 </div>
@@ -653,15 +663,15 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10 data dalam tabel iris_data
 (1, &#39;Iris-setosa&#39;, 1.4, 0.2)
-(2, &#39;Iris-setosa&#39;, 78.0, 88.0)
-(3, &#39;Iris-setosa&#39;, 1.6, 0.4)
+(2, &#39;Iris-setosa&#39;, 50.0, 20.0)
+(3, &#39;Iris-setosa&#39;, 1.3, 0.2)
 (4, &#39;Iris-setosa&#39;, 1.5, 0.2)
 (5, &#39;Iris-setosa&#39;, 1.4, 0.2)
 (6, &#39;Iris-setosa&#39;, 1.7, 0.4)
 (7, &#39;Iris-setosa&#39;, 1.4, 0.3)
 (8, &#39;Iris-setosa&#39;, 1.5, 0.2)
 (9, &#39;Iris-setosa&#39;, 1.4, 0.2)
-(10, &#39;Iris-setosa&#39;, 99.0, 87.0)
+(10, &#39;Iris-setosa&#39;, 1.5, 0.1)
 </pre></div>
 </div>
 </div>
@@ -742,22 +752,22 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <th>1</th>
       <td>2</td>
       <td>Iris-setosa</td>
-      <td>78.0</td>
-      <td>88.0</td>
-      <td>90.0</td>
-      <td>80.0</td>
-      <td>160.736088</td>
-      <td>False</td>
+      <td>50.0</td>
+      <td>20.0</td>
+      <td>40.9</td>
+      <td>30.0</td>
+      <td>66.115505</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>2</th>
       <td>3</td>
       <td>Iris-setosa</td>
-      <td>1.6</td>
-      <td>0.4</td>
-      <td>6.3</td>
-      <td>2.8</td>
-      <td>4.855924</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>5.430470</td>
       <td>False</td>
     </tr>
     <tr>
@@ -766,9 +776,9 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>Iris-setosa</td>
       <td>1.5</td>
       <td>0.2</td>
-      <td>4.7</td>
-      <td>3.2</td>
-      <td>5.292447</td>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>5.273519</td>
       <td>False</td>
     </tr>
     <tr>
@@ -777,10 +787,10 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>Iris-setosa</td>
       <td>1.4</td>
       <td>0.2</td>
-      <td>5.1</td>
+      <td>5.0</td>
       <td>3.6</td>
-      <td>5.471746</td>
-      <td>False</td>
+      <td>5.485435</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>5</th>
@@ -788,9 +798,9 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>Iris-setosa</td>
       <td>1.7</td>
       <td>0.4</td>
-      <td>5.1</td>
-      <td>3.4</td>
-      <td>5.064583</td>
+      <td>5.4</td>
+      <td>3.9</td>
+      <td>5.288667</td>
       <td>False</td>
     </tr>
     <tr>
@@ -830,12 +840,12 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <th>9</th>
       <td>10</td>
       <td>Iris-setosa</td>
-      <td>99.0</td>
-      <td>87.0</td>
-      <td>77.0</td>
-      <td>98.0</td>
-      <td>174.120906</td>
-      <td>True</td>
+      <td>1.5</td>
+      <td>0.1</td>
+      <td>4.9</td>
+      <td>3.1</td>
+      <td>5.271622</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>10</th>
@@ -879,28 +889,28 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>4.3</td>
       <td>3.0</td>
       <td>5.644466</td>
-      <td>False</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>14</th>
       <td>15</td>
       <td>Iris-setosa</td>
-      <td>1.5</td>
-      <td>0.3</td>
-      <td>5.2</td>
-      <td>4.1</td>
-      <td>5.598214</td>
-      <td>False</td>
+      <td>1.2</td>
+      <td>0.2</td>
+      <td>5.8</td>
+      <td>4.0</td>
+      <td>5.762812</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>15</th>
       <td>16</td>
       <td>Iris-setosa</td>
-      <td>89.0</td>
-      <td>91.0</td>
-      <td>120.0</td>
-      <td>90.0</td>
-      <td>188.972723</td>
+      <td>1.5</td>
+      <td>0.4</td>
+      <td>5.7</td>
+      <td>4.4</td>
+      <td>5.689464</td>
       <td>True</td>
     </tr>
     <tr>
@@ -912,7 +922,7 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>5.4</td>
       <td>3.9</td>
       <td>5.554278</td>
-      <td>False</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>17</th>
@@ -931,32 +941,32 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>Iris-setosa</td>
       <td>1.7</td>
       <td>0.3</td>
-      <td>4.6</td>
-      <td>3.1</td>
-      <td>5.081338</td>
+      <td>5.7</td>
+      <td>3.8</td>
+      <td>5.274467</td>
       <td>False</td>
     </tr>
     <tr>
       <th>19</th>
       <td>20</td>
       <td>Iris-setosa</td>
-      <td>1.4</td>
+      <td>1.5</td>
       <td>0.3</td>
       <td>5.1</td>
       <td>3.8</td>
-      <td>5.516339</td>
+      <td>5.449771</td>
       <td>False</td>
     </tr>
     <tr>
       <th>20</th>
       <td>21</td>
       <td>Iris-setosa</td>
-      <td>98.0</td>
-      <td>89.0</td>
-      <td>90.0</td>
-      <td>91.0</td>
-      <td>176.583380</td>
-      <td>True</td>
+      <td>1.7</td>
+      <td>0.2</td>
+      <td>5.4</td>
+      <td>3.4</td>
+      <td>5.145872</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>21</th>
@@ -973,12 +983,12 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <th>22</th>
       <td>23</td>
       <td>Iris-setosa</td>
-      <td>78.0</td>
-      <td>87.0</td>
-      <td>98.0</td>
-      <td>76.0</td>
-      <td>162.673569</td>
-      <td>False</td>
+      <td>1.0</td>
+      <td>0.2</td>
+      <td>4.6</td>
+      <td>3.6</td>
+      <td>5.831809</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>23</th>
@@ -995,11 +1005,11 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <th>24</th>
       <td>25</td>
       <td>Iris-setosa</td>
-      <td>1.5</td>
+      <td>1.9</td>
       <td>0.2</td>
       <td>4.8</td>
       <td>3.4</td>
-      <td>5.359104</td>
+      <td>5.099020</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1008,9 +1018,9 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>Iris-setosa</td>
       <td>1.6</td>
       <td>0.2</td>
-      <td>4.8</td>
-      <td>3.2</td>
-      <td>5.204805</td>
+      <td>5.0</td>
+      <td>3.0</td>
+      <td>5.088222</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1050,11 +1060,11 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <th>29</th>
       <td>30</td>
       <td>Iris-setosa</td>
-      <td>1.4</td>
+      <td>1.6</td>
       <td>0.2</td>
       <td>4.7</td>
       <td>3.2</td>
-      <td>5.360970</td>
+      <td>5.224940</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1062,10 +1072,10 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>31</td>
       <td>Iris-setosa</td>
       <td>1.6</td>
-      <td>0.4</td>
-      <td>4.9</td>
-      <td>3.5</td>
-      <td>5.210566</td>
+      <td>0.2</td>
+      <td>4.8</td>
+      <td>3.1</td>
+      <td>5.163332</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1088,7 +1098,7 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>5.2</td>
       <td>4.1</td>
       <td>5.704384</td>
-      <td>False</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>33</th>
@@ -1099,17 +1109,17 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>5.5</td>
       <td>4.2</td>
       <td>5.746303</td>
-      <td>False</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>34</th>
       <td>35</td>
       <td>Iris-setosa</td>
-      <td>1.4</td>
-      <td>0.2</td>
+      <td>1.5</td>
+      <td>0.1</td>
       <td>4.9</td>
       <td>3.1</td>
-      <td>5.282992</td>
+      <td>5.271622</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1118,9 +1128,9 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>Iris-setosa</td>
       <td>1.2</td>
       <td>0.2</td>
-      <td>5.2</td>
-      <td>3.6</td>
-      <td>5.597321</td>
+      <td>5.0</td>
+      <td>3.2</td>
+      <td>5.448853</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1160,11 +1170,11 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <th>39</th>
       <td>40</td>
       <td>Iris-setosa</td>
-      <td>1.6</td>
-      <td>0.4</td>
+      <td>1.5</td>
+      <td>0.2</td>
       <td>5.1</td>
       <td>3.4</td>
-      <td>5.132251</td>
+      <td>5.311309</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1173,9 +1183,9 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>Iris-setosa</td>
       <td>1.3</td>
       <td>0.3</td>
-      <td>5.3</td>
+      <td>5.0</td>
       <td>3.5</td>
-      <td>5.417564</td>
+      <td>5.453439</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1198,7 +1208,7 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>4.4</td>
       <td>3.2</td>
       <td>5.499091</td>
-      <td>False</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>43</th>
@@ -1215,11 +1225,11 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <th>44</th>
       <td>45</td>
       <td>Iris-setosa</td>
-      <td>1.5</td>
-      <td>0.2</td>
+      <td>1.9</td>
+      <td>0.4</td>
       <td>5.1</td>
       <td>3.8</td>
-      <td>5.503635</td>
+      <td>5.139066</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1229,8 +1239,8 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>1.4</td>
       <td>0.3</td>
       <td>4.8</td>
-      <td>3.2</td>
-      <td>5.285830</td>
+      <td>3.0</td>
+      <td>5.205766</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1270,11 +1280,11 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <th>49</th>
       <td>50</td>
       <td>Iris-setosa</td>
-      <td>1.6</td>
-      <td>4.0</td>
-      <td>4.1</td>
-      <td>3.2</td>
-      <td>4.540925</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>5.0</td>
+      <td>3.3</td>
+      <td>5.349766</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1283,9 +1293,9 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>Iris-versicolor</td>
       <td>4.7</td>
       <td>1.4</td>
-      <td>5.4</td>
-      <td>2.9</td>
-      <td>2.677686</td>
+      <td>7.0</td>
+      <td>3.2</td>
+      <td>3.111270</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1325,11 +1335,11 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <th>54</th>
       <td>55</td>
       <td>Iris-versicolor</td>
-      <td>4.7</td>
-      <td>1.3</td>
+      <td>4.6</td>
+      <td>1.5</td>
       <td>6.5</td>
       <td>2.8</td>
-      <td>2.738613</td>
+      <td>2.621068</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1338,9 +1348,9 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>Iris-versicolor</td>
       <td>4.5</td>
       <td>1.3</td>
-      <td>6.8</td>
-      <td>3.1</td>
-      <td>3.062679</td>
+      <td>5.7</td>
+      <td>2.8</td>
+      <td>2.687006</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1358,12 +1368,12 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <th>57</th>
       <td>58</td>
       <td>Iris-versicolor</td>
-      <td>87.0</td>
-      <td>94.0</td>
-      <td>97.0</td>
-      <td>96.0</td>
-      <td>179.707234</td>
-      <td>True</td>
+      <td>3.3</td>
+      <td>1.0</td>
+      <td>4.9</td>
+      <td>2.4</td>
+      <td>3.293934</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>58</th>
@@ -1380,11 +1390,11 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <th>59</th>
       <td>60</td>
       <td>Iris-versicolor</td>
-      <td>4.3</td>
-      <td>1.2</td>
+      <td>3.9</td>
+      <td>1.4</td>
       <td>5.2</td>
       <td>2.7</td>
-      <td>2.808914</td>
+      <td>2.816026</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1393,9 +1403,9 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>Iris-versicolor</td>
       <td>3.5</td>
       <td>1.0</td>
-      <td>5.7</td>
-      <td>2.7</td>
-      <td>3.209361</td>
+      <td>5.0</td>
+      <td>2.0</td>
+      <td>3.006659</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1413,11 +1423,11 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <th>62</th>
       <td>63</td>
       <td>Iris-versicolor</td>
-      <td>92.0</td>
-      <td>89.0</td>
-      <td>90.0</td>
-      <td>87.0</td>
-      <td>171.461045</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>6.0</td>
+      <td>2.2</td>
+      <td>2.744085</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1435,11 +1445,11 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <th>64</th>
       <td>65</td>
       <td>Iris-versicolor</td>
-      <td>4.4</td>
-      <td>1.4</td>
+      <td>3.6</td>
+      <td>1.3</td>
       <td>5.6</td>
       <td>2.9</td>
-      <td>2.716616</td>
+      <td>3.083829</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1448,9 +1458,9 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>Iris-versicolor</td>
       <td>4.4</td>
       <td>1.4</td>
-      <td>5.7</td>
-      <td>2.6</td>
-      <td>2.509980</td>
+      <td>6.7</td>
+      <td>3.1</td>
+      <td>2.991655</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1491,10 +1501,10 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>70</td>
       <td>Iris-versicolor</td>
       <td>3.9</td>
-      <td>1.2</td>
+      <td>1.1</td>
       <td>5.6</td>
       <td>2.5</td>
-      <td>2.780288</td>
+      <td>2.853069</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1503,9 +1513,9 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>Iris-versicolor</td>
       <td>4.8</td>
       <td>1.8</td>
-      <td>5.8</td>
-      <td>2.5</td>
-      <td>2.073644</td>
+      <td>5.9</td>
+      <td>3.2</td>
+      <td>2.626785</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1754,12 +1764,12 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <th>93</th>
       <td>94</td>
       <td>Iris-versicolor</td>
-      <td>92.0</td>
-      <td>89.0</td>
-      <td>120.0</td>
-      <td>99.0</td>
-      <td>193.801161</td>
-      <td>True</td>
+      <td>3.3</td>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>2.3</td>
+      <td>3.226453</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>94</th>
@@ -1809,12 +1819,12 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <th>98</th>
       <td>99</td>
       <td>Iris-versicolor</td>
-      <td>96.0</td>
-      <td>79.0</td>
-      <td>98.0</td>
-      <td>87.0</td>
-      <td>172.931460</td>
-      <td>True</td>
+      <td>3.0</td>
+      <td>1.1</td>
+      <td>5.1</td>
+      <td>2.5</td>
+      <td>3.400000</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>99</th>
@@ -1897,11 +1907,11 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <th>106</th>
       <td>107</td>
       <td>Iris-virginica</td>
-      <td>89.0</td>
-      <td>84.0</td>
-      <td>87.0</td>
-      <td>89.0</td>
-      <td>167.048765</td>
+      <td>4.5</td>
+      <td>1.7</td>
+      <td>4.9</td>
+      <td>2.5</td>
+      <td>2.381176</td>
       <td>False</td>
     </tr>
     <tr>
@@ -2073,12 +2083,12 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <th>122</th>
       <td>123</td>
       <td>Iris-virginica</td>
-      <td>99.0</td>
-      <td>89.0</td>
-      <td>111.0</td>
-      <td>96.0</td>
-      <td>190.449180</td>
-      <td>True</td>
+      <td>6.7</td>
+      <td>2.0</td>
+      <td>7.7</td>
+      <td>2.8</td>
+      <td>3.293934</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>123</th>
@@ -2086,9 +2096,9 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>Iris-virginica</td>
       <td>4.9</td>
       <td>1.8</td>
-      <td>6.4</td>
-      <td>2.8</td>
-      <td>2.366432</td>
+      <td>6.3</td>
+      <td>2.7</td>
+      <td>2.267157</td>
       <td>False</td>
     </tr>
     <tr>
@@ -2097,9 +2107,9 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>Iris-virginica</td>
       <td>5.7</td>
       <td>2.1</td>
-      <td>6.2</td>
+      <td>6.7</td>
       <td>3.3</td>
-      <td>2.649528</td>
+      <td>2.769476</td>
       <td>False</td>
     </tr>
     <tr>
@@ -2108,20 +2118,20 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>Iris-virginica</td>
       <td>6.0</td>
       <td>1.8</td>
-      <td>6.2</td>
-      <td>2.8</td>
-      <td>2.483948</td>
+      <td>7.2</td>
+      <td>3.2</td>
+      <td>3.093542</td>
       <td>False</td>
     </tr>
     <tr>
       <th>126</th>
       <td>127</td>
       <td>Iris-virginica</td>
-      <td>5.3</td>
-      <td>1.4</td>
+      <td>4.8</td>
+      <td>1.8</td>
       <td>6.2</td>
       <td>2.8</td>
-      <td>2.584570</td>
+      <td>2.334524</td>
       <td>False</td>
     </tr>
     <tr>
@@ -2130,9 +2140,9 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <td>Iris-virginica</td>
       <td>4.9</td>
       <td>1.8</td>
-      <td>6.4</td>
-      <td>3.1</td>
-      <td>2.601922</td>
+      <td>6.1</td>
+      <td>3.0</td>
+      <td>2.467793</td>
       <td>False</td>
     </tr>
     <tr>
@@ -2150,12 +2160,12 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <th>129</th>
       <td>130</td>
       <td>Iris-virginica</td>
-      <td>95.0</td>
-      <td>85.0</td>
-      <td>96.0</td>
-      <td>83.0</td>
-      <td>172.143225</td>
-      <td>True</td>
+      <td>5.8</td>
+      <td>1.6</td>
+      <td>7.2</td>
+      <td>3.0</td>
+      <td>3.001666</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>130</th>
@@ -2282,12 +2292,12 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <th>141</th>
       <td>142</td>
       <td>Iris-virginica</td>
-      <td>89.0</td>
-      <td>78.0</td>
-      <td>110.0</td>
-      <td>93.0</td>
-      <td>178.762104</td>
-      <td>True</td>
+      <td>5.1</td>
+      <td>2.3</td>
+      <td>6.9</td>
+      <td>3.1</td>
+      <td>2.535744</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>142</th>
@@ -2337,12 +2347,12 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
       <th>146</th>
       <td>147</td>
       <td>Iris-virginica</td>
-      <td>109.0</td>
-      <td>81.0</td>
-      <td>98.0</td>
-      <td>82.0</td>
-      <td>178.633396</td>
-      <td>True</td>
+      <td>5.0</td>
+      <td>1.9</td>
+      <td>6.3</td>
+      <td>2.5</td>
+      <td>2.049390</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>147</th>
@@ -2438,113 +2448,113 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
   </thead>
   <tbody>
     <tr>
-      <th>9</th>
-      <td>10</td>
+      <th>1</th>
+      <td>2</td>
       <td>Iris-setosa</td>
-      <td>99.0</td>
-      <td>87.0</td>
-      <td>77.0</td>
-      <td>98.0</td>
-      <td>174.120906</td>
+      <td>50.0</td>
+      <td>20.0</td>
+      <td>40.9</td>
+      <td>30.0</td>
+      <td>66.115505</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Iris-setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>5.485435</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>14</td>
+      <td>Iris-setosa</td>
+      <td>1.1</td>
+      <td>0.1</td>
+      <td>4.3</td>
+      <td>3.0</td>
+      <td>5.644466</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>15</td>
+      <td>Iris-setosa</td>
+      <td>1.2</td>
+      <td>0.2</td>
+      <td>5.8</td>
+      <td>4.0</td>
+      <td>5.762812</td>
       <td>True</td>
     </tr>
     <tr>
       <th>15</th>
       <td>16</td>
       <td>Iris-setosa</td>
-      <td>89.0</td>
-      <td>91.0</td>
-      <td>120.0</td>
-      <td>90.0</td>
-      <td>188.972723</td>
+      <td>1.5</td>
+      <td>0.4</td>
+      <td>5.7</td>
+      <td>4.4</td>
+      <td>5.689464</td>
       <td>True</td>
     </tr>
     <tr>
-      <th>20</th>
-      <td>21</td>
+      <th>16</th>
+      <td>17</td>
       <td>Iris-setosa</td>
-      <td>98.0</td>
-      <td>89.0</td>
-      <td>90.0</td>
-      <td>91.0</td>
-      <td>176.583380</td>
+      <td>1.3</td>
+      <td>0.4</td>
+      <td>5.4</td>
+      <td>3.9</td>
+      <td>5.554278</td>
       <td>True</td>
     </tr>
     <tr>
-      <th>57</th>
-      <td>58</td>
-      <td>Iris-versicolor</td>
-      <td>87.0</td>
-      <td>94.0</td>
-      <td>97.0</td>
-      <td>96.0</td>
-      <td>179.707234</td>
+      <th>22</th>
+      <td>23</td>
+      <td>Iris-setosa</td>
+      <td>1.0</td>
+      <td>0.2</td>
+      <td>4.6</td>
+      <td>3.6</td>
+      <td>5.831809</td>
       <td>True</td>
     </tr>
     <tr>
-      <th>93</th>
-      <td>94</td>
-      <td>Iris-versicolor</td>
-      <td>92.0</td>
-      <td>89.0</td>
-      <td>120.0</td>
-      <td>99.0</td>
-      <td>193.801161</td>
+      <th>32</th>
+      <td>33</td>
+      <td>Iris-setosa</td>
+      <td>1.5</td>
+      <td>0.1</td>
+      <td>5.2</td>
+      <td>4.1</td>
+      <td>5.704384</td>
       <td>True</td>
     </tr>
     <tr>
-      <th>98</th>
-      <td>99</td>
-      <td>Iris-versicolor</td>
-      <td>96.0</td>
-      <td>79.0</td>
-      <td>98.0</td>
-      <td>87.0</td>
-      <td>172.931460</td>
+      <th>33</th>
+      <td>34</td>
+      <td>Iris-setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>5.5</td>
+      <td>4.2</td>
+      <td>5.746303</td>
       <td>True</td>
     </tr>
     <tr>
-      <th>122</th>
-      <td>123</td>
-      <td>Iris-virginica</td>
-      <td>99.0</td>
-      <td>89.0</td>
-      <td>111.0</td>
-      <td>96.0</td>
-      <td>190.449180</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>129</th>
-      <td>130</td>
-      <td>Iris-virginica</td>
-      <td>95.0</td>
-      <td>85.0</td>
-      <td>96.0</td>
-      <td>83.0</td>
-      <td>172.143225</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>141</th>
-      <td>142</td>
-      <td>Iris-virginica</td>
-      <td>89.0</td>
-      <td>78.0</td>
-      <td>110.0</td>
-      <td>93.0</td>
-      <td>178.762104</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>146</th>
-      <td>147</td>
-      <td>Iris-virginica</td>
-      <td>109.0</td>
-      <td>81.0</td>
-      <td>98.0</td>
-      <td>82.0</td>
-      <td>178.633396</td>
+      <th>42</th>
+      <td>43</td>
+      <td>Iris-setosa</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>4.4</td>
+      <td>3.2</td>
+      <td>5.499091</td>
       <td>True</td>
     </tr>
   </tbody>
@@ -2579,7 +2589,7 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a503589abe42e04f975483bba8f1d8dc273099f451f698a5ebb8312a27bbdcb4.png" src="_images/a503589abe42e04f975483bba8f1d8dc273099f451f698a5ebb8312a27bbdcb4.png" />
+<img alt="_images/6d377364cd9fc9d5b64d73ba0f7b3d96c93b60f3e8792d5ec888c9c19dfb328f.png" src="_images/6d377364cd9fc9d5b64d73ba0f7b3d96c93b60f3e8792d5ec888c9c19dfb328f.png" />
 </div>
 </div>
 </section>
