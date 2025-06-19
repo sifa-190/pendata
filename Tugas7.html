@@ -191,6 +191,7 @@
 
 
 <li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Fuzzy C-Mean Clustering</strong></a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="Tugas8.html"><strong>DecisionTree</strong></a></li>
 </ul>
 
@@ -387,6 +388,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>Fuzzy C-Mean Clustering</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dekritisasi-menggunakan-kameans-clustering"><strong>Dekritisasi menggunakan kameans clustering</strong></a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konsep-dasar-fuzzy-c-mean-clustering"><strong>Konsep dasar Fuzzy C-Mean Clustering</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algoritma-fuzzy-c-mean-clustering"><strong>Algoritma Fuzzy C-Mean Clustering</strong></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-langkah-fuzzy-c-mean-clustering"><strong>Langkah-langkah Fuzzy C-Mean Clustering</strong></a></li>
@@ -409,6 +412,9 @@ document.write(`
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -421,6 +427,849 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="fuzzy-c-mean-clustering">
 <h1><strong>Fuzzy C-Mean Clustering</strong><a class="headerlink" href="#fuzzy-c-mean-clustering" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="dekritisasi-menggunakan-kameans-clustering">
+<h1><strong>Dekritisasi menggunakan kameans clustering</strong><a class="headerlink" href="#dekritisasi-menggunakan-kameans-clustering" title="Link to this heading">#</a></h1>
+<p>ambil sepal light saja hanya kolom sepal light</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Fungsi ambil data Iris dan atur ulang kolom</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_iris_data</span><span class="p">():</span>
+    <span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="o">.</span><span class="n">from_codes</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">target_names</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># ID dimulai dari 1</span>
+
+    <span class="c1"># Susun ulang kolom: id, class, lalu fitur</span>
+    <span class="n">columns_order</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;class&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">columns_order</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="c1"># Ambil data</span>
+<span class="n">df_iris</span> <span class="o">=</span> <span class="n">get_iris_data</span><span class="p">()</span>
+
+<span class="c1"># Ambil hanya fitur sepal length</span>
+<span class="n">df_sepal_length</span> <span class="o">=</span> <span class="n">df_iris</span><span class="p">[[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal length (cm)&#39;</span><span class="p">]]</span>
+
+<span class="c1"># Cetak data sepal length tanpa indeks</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_sepal_length</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+<span class="c1"># Ambil nilai sepal length untuk clustering</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df_sepal_length</span><span class="p">[[</span><span class="s1">&#39;sepal length (cm)&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Lakukan clustering KMeans dengan 4 cluster</span>
+<span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">kmeans</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">labels_</span>
+
+<span class="c1"># Mapping label angka ke huruf</span>
+<span class="n">label_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;D&#39;</span><span class="p">}</span>
+<span class="n">labels_mapped</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">label_mapping</span><span class="p">)</span>
+
+<span class="c1"># Tambahkan label cluster ke dataframe</span>
+<span class="n">df_sepal_length</span><span class="p">[</span><span class="s1">&#39;Cluster&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">labels_mapped</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">📌 Hasil Clustering KMeans (4 Cluster) dengan Label Huruf:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_sepal_length</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+<span class="c1"># Visualisasi hasil clustering</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_sepal_length</span><span class="p">[</span><span class="s1">&#39;sepal length (cm)&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">df_sepal_length</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">kmeans</span><span class="o">.</span><span class="n">cluster_centers_</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Centroid&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Clustering Sepal Length (4 Cluster)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Sepal Length (cm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> id      class  sepal length (cm)
+  1     setosa                5.1
+  2     setosa                4.9
+  3     setosa                4.7
+  4     setosa                4.6
+  5     setosa                5.0
+  6     setosa                5.4
+  7     setosa                4.6
+  8     setosa                5.0
+  9     setosa                4.4
+ 10     setosa                4.9
+ 11     setosa                5.4
+ 12     setosa                4.8
+ 13     setosa                4.8
+ 14     setosa                4.3
+ 15     setosa                5.8
+ 16     setosa                5.7
+ 17     setosa                5.4
+ 18     setosa                5.1
+ 19     setosa                5.7
+ 20     setosa                5.1
+ 21     setosa                5.4
+ 22     setosa                5.1
+ 23     setosa                4.6
+ 24     setosa                5.1
+ 25     setosa                4.8
+ 26     setosa                5.0
+ 27     setosa                5.0
+ 28     setosa                5.2
+ 29     setosa                5.2
+ 30     setosa                4.7
+ 31     setosa                4.8
+ 32     setosa                5.4
+ 33     setosa                5.2
+ 34     setosa                5.5
+ 35     setosa                4.9
+ 36     setosa                5.0
+ 37     setosa                5.5
+ 38     setosa                4.9
+ 39     setosa                4.4
+ 40     setosa                5.1
+ 41     setosa                5.0
+ 42     setosa                4.5
+ 43     setosa                4.4
+ 44     setosa                5.0
+ 45     setosa                5.1
+ 46     setosa                4.8
+ 47     setosa                5.1
+ 48     setosa                4.6
+ 49     setosa                5.3
+ 50     setosa                5.0
+ 51 versicolor                7.0
+ 52 versicolor                6.4
+ 53 versicolor                6.9
+ 54 versicolor                5.5
+ 55 versicolor                6.5
+ 56 versicolor                5.7
+ 57 versicolor                6.3
+ 58 versicolor                4.9
+ 59 versicolor                6.6
+ 60 versicolor                5.2
+ 61 versicolor                5.0
+ 62 versicolor                5.9
+ 63 versicolor                6.0
+ 64 versicolor                6.1
+ 65 versicolor                5.6
+ 66 versicolor                6.7
+ 67 versicolor                5.6
+ 68 versicolor                5.8
+ 69 versicolor                6.2
+ 70 versicolor                5.6
+ 71 versicolor                5.9
+ 72 versicolor                6.1
+ 73 versicolor                6.3
+ 74 versicolor                6.1
+ 75 versicolor                6.4
+ 76 versicolor                6.6
+ 77 versicolor                6.8
+ 78 versicolor                6.7
+ 79 versicolor                6.0
+ 80 versicolor                5.7
+ 81 versicolor                5.5
+ 82 versicolor                5.5
+ 83 versicolor                5.8
+ 84 versicolor                6.0
+ 85 versicolor                5.4
+ 86 versicolor                6.0
+ 87 versicolor                6.7
+ 88 versicolor                6.3
+ 89 versicolor                5.6
+ 90 versicolor                5.5
+ 91 versicolor                5.5
+ 92 versicolor                6.1
+ 93 versicolor                5.8
+ 94 versicolor                5.0
+ 95 versicolor                5.6
+ 96 versicolor                5.7
+ 97 versicolor                5.7
+ 98 versicolor                6.2
+ 99 versicolor                5.1
+100 versicolor                5.7
+101  virginica                6.3
+102  virginica                5.8
+103  virginica                7.1
+104  virginica                6.3
+105  virginica                6.5
+106  virginica                7.6
+107  virginica                4.9
+108  virginica                7.3
+109  virginica                6.7
+110  virginica                7.2
+111  virginica                6.5
+112  virginica                6.4
+113  virginica                6.8
+114  virginica                5.7
+115  virginica                5.8
+116  virginica                6.4
+117  virginica                6.5
+118  virginica                7.7
+119  virginica                7.7
+120  virginica                6.0
+121  virginica                6.9
+122  virginica                5.6
+123  virginica                7.7
+124  virginica                6.3
+125  virginica                6.7
+126  virginica                7.2
+127  virginica                6.2
+128  virginica                6.1
+129  virginica                6.4
+130  virginica                7.2
+131  virginica                7.4
+132  virginica                7.9
+133  virginica                6.4
+134  virginica                6.3
+135  virginica                6.1
+136  virginica                7.7
+137  virginica                6.3
+138  virginica                6.4
+139  virginica                6.0
+140  virginica                6.9
+141  virginica                6.7
+142  virginica                6.9
+143  virginica                5.8
+144  virginica                6.8
+145  virginica                6.7
+146  virginica                6.7
+147  virginica                6.3
+148  virginica                6.5
+149  virginica                6.2
+150  virginica                5.9
+
+📌 Hasil Clustering KMeans (4 Cluster) dengan Label Huruf:
+ id      class  sepal length (cm) Cluster
+  1     setosa                5.1       A
+  2     setosa                4.9       A
+  3     setosa                4.7       A
+  4     setosa                4.6       A
+  5     setosa                5.0       A
+  6     setosa                5.4       D
+  7     setosa                4.6       A
+  8     setosa                5.0       A
+  9     setosa                4.4       A
+ 10     setosa                4.9       A
+ 11     setosa                5.4       D
+ 12     setosa                4.8       A
+ 13     setosa                4.8       A
+ 14     setosa                4.3       A
+ 15     setosa                5.8       D
+ 16     setosa                5.7       D
+ 17     setosa                5.4       D
+ 18     setosa                5.1       A
+ 19     setosa                5.7       D
+ 20     setosa                5.1       A
+ 21     setosa                5.4       D
+ 22     setosa                5.1       A
+ 23     setosa                4.6       A
+ 24     setosa                5.1       A
+ 25     setosa                4.8       A
+ 26     setosa                5.0       A
+ 27     setosa                5.0       A
+ 28     setosa                5.2       A
+ 29     setosa                5.2       A
+ 30     setosa                4.7       A
+ 31     setosa                4.8       A
+ 32     setosa                5.4       D
+ 33     setosa                5.2       A
+ 34     setosa                5.5       D
+ 35     setosa                4.9       A
+ 36     setosa                5.0       A
+ 37     setosa                5.5       D
+ 38     setosa                4.9       A
+ 39     setosa                4.4       A
+ 40     setosa                5.1       A
+ 41     setosa                5.0       A
+ 42     setosa                4.5       A
+ 43     setosa                4.4       A
+ 44     setosa                5.0       A
+ 45     setosa                5.1       A
+ 46     setosa                4.8       A
+ 47     setosa                5.1       A
+ 48     setosa                4.6       A
+ 49     setosa                5.3       D
+ 50     setosa                5.0       A
+ 51 versicolor                7.0       C
+ 52 versicolor                6.4       B
+ 53 versicolor                6.9       B
+ 54 versicolor                5.5       D
+ 55 versicolor                6.5       B
+ 56 versicolor                5.7       D
+ 57 versicolor                6.3       B
+ 58 versicolor                4.9       A
+ 59 versicolor                6.6       B
+ 60 versicolor                5.2       A
+ 61 versicolor                5.0       A
+ 62 versicolor                5.9       D
+ 63 versicolor                6.0       D
+ 64 versicolor                6.1       B
+ 65 versicolor                5.6       D
+ 66 versicolor                6.7       B
+ 67 versicolor                5.6       D
+ 68 versicolor                5.8       D
+ 69 versicolor                6.2       B
+ 70 versicolor                5.6       D
+ 71 versicolor                5.9       D
+ 72 versicolor                6.1       B
+ 73 versicolor                6.3       B
+ 74 versicolor                6.1       B
+ 75 versicolor                6.4       B
+ 76 versicolor                6.6       B
+ 77 versicolor                6.8       B
+ 78 versicolor                6.7       B
+ 79 versicolor                6.0       D
+ 80 versicolor                5.7       D
+ 81 versicolor                5.5       D
+ 82 versicolor                5.5       D
+ 83 versicolor                5.8       D
+ 84 versicolor                6.0       D
+ 85 versicolor                5.4       D
+ 86 versicolor                6.0       D
+ 87 versicolor                6.7       B
+ 88 versicolor                6.3       B
+ 89 versicolor                5.6       D
+ 90 versicolor                5.5       D
+ 91 versicolor                5.5       D
+ 92 versicolor                6.1       B
+ 93 versicolor                5.8       D
+ 94 versicolor                5.0       A
+ 95 versicolor                5.6       D
+ 96 versicolor                5.7       D
+ 97 versicolor                5.7       D
+ 98 versicolor                6.2       B
+ 99 versicolor                5.1       A
+100 versicolor                5.7       D
+101  virginica                6.3       B
+102  virginica                5.8       D
+103  virginica                7.1       C
+104  virginica                6.3       B
+105  virginica                6.5       B
+106  virginica                7.6       C
+107  virginica                4.9       A
+108  virginica                7.3       C
+109  virginica                6.7       B
+110  virginica                7.2       C
+111  virginica                6.5       B
+112  virginica                6.4       B
+113  virginica                6.8       B
+114  virginica                5.7       D
+115  virginica                5.8       D
+116  virginica                6.4       B
+117  virginica                6.5       B
+118  virginica                7.7       C
+119  virginica                7.7       C
+120  virginica                6.0       D
+121  virginica                6.9       B
+122  virginica                5.6       D
+123  virginica                7.7       C
+124  virginica                6.3       B
+125  virginica                6.7       B
+126  virginica                7.2       C
+127  virginica                6.2       B
+128  virginica                6.1       B
+129  virginica                6.4       B
+130  virginica                7.2       C
+131  virginica                7.4       C
+132  virginica                7.9       C
+133  virginica                6.4       B
+134  virginica                6.3       B
+135  virginica                6.1       B
+136  virginica                7.7       C
+137  virginica                6.3       B
+138  virginica                6.4       B
+139  virginica                6.0       D
+140  virginica                6.9       B
+141  virginica                6.7       B
+142  virginica                6.9       B
+143  virginica                5.8       D
+144  virginica                6.8       B
+145  virginica                6.7       B
+146  virginica                6.7       B
+147  virginica                6.3       B
+148  virginica                6.5       B
+149  virginica                6.2       B
+150  virginica                5.9       D
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipython-input-1-2507309177.py:41: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  df_sepal_length[&#39;Cluster&#39;] = labels_mapped
+</pre></div>
+</div>
+<img alt="_images/68ec46171b9e595e906d6d8b94932b7981e66e68faff08057d4d84eaac529553.png" src="_images/68ec46171b9e595e906d6d8b94932b7981e66e68faff08057d4d84eaac529553.png" />
+</div>
+</div>
+<p>lakukan 4 smuanya mendjadi 4 kategori</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Fungsi ambil data Iris dan atur ulang kolom</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_iris_data</span><span class="p">():</span>
+    <span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="o">.</span><span class="n">from_codes</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">target_names</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># ID dimulai dari 1</span>
+
+    <span class="c1"># Susun ulang kolom: id, class, lalu fitur</span>
+    <span class="n">columns_order</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;class&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">columns_order</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="c1"># Fungsi Fuzzy C-Means</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fuzzy_c_means</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Jumlah data</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Jumlah fitur</span>
+
+    <span class="c1"># Inisialisasi matriks keanggotaan acak</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">dirichlet</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">iteration</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+        <span class="n">U_prev</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="c1"># Hitung pusat cluster</span>
+        <span class="n">centroids</span> <span class="o">=</span> <span class="p">(</span><span class="n">U</span> <span class="o">**</span> <span class="n">m</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">U</span> <span class="o">**</span> <span class="n">m</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+
+        <span class="c1"># Hitung jarak</span>
+        <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+            <span class="n">distances</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="n">centroids</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Update U</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">distances</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">U</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="n">U</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">U</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">distances</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">/</span> <span class="n">distances</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:])</span> <span class="o">**</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)))</span>
+
+        <span class="c1"># Cek konvergensi</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">U</span> <span class="o">-</span> <span class="n">U_prev</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">epsilon</span><span class="p">:</span>
+            <span class="k">break</span>
+
+    <span class="k">return</span> <span class="n">centroids</span><span class="p">,</span> <span class="n">U</span>
+
+<span class="c1"># Ambil data</span>
+<span class="n">df_iris</span> <span class="o">=</span> <span class="n">get_iris_data</span><span class="p">()</span>
+
+<span class="c1"># Ambil semua fitur</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span>
+
+<span class="c1"># Parameter FCM</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">4</span>                  <span class="c1"># Jumlah cluster</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mf">2.0</span>                <span class="c1"># Derajat fuzziness</span>
+<span class="n">max_iter</span> <span class="o">=</span> <span class="mi">100</span>         <span class="c1"># Maksimum iterasi</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">0.01</span>         <span class="c1"># Ambang batas konvergensi</span>
+
+<span class="c1"># Jalankan FCM</span>
+<span class="n">centroids</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">fuzzy_c_means</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">)</span>
+
+<span class="c1"># Dapatkan label cluster dari keanggotaan maksimum</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Mapping label numerik ke huruf</span>
+<span class="n">label_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;D&#39;</span><span class="p">}</span>
+<span class="n">labels_huruf</span> <span class="o">=</span> <span class="p">[</span><span class="n">label_mapping</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">]</span>
+
+<span class="c1"># Tambahkan hasil cluster ke dataframe</span>
+<span class="n">df_iris</span><span class="p">[</span><span class="s1">&#39;Cluster&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">labels_huruf</span>
+
+<span class="c1"># Cetak hasil clustering</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">📌 Hasil Clustering Fuzzy C-Means (4 Cluster) dengan Label Kategori:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_iris</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+<span class="c1"># Visualisasi dengan PCA</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">X_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># Mapping label huruf ke warna</span>
+<span class="n">color_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">color_mapping</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">labels_huruf</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">scatter</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_pca</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_pca</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Clustering Fuzzy C-Means (4 Cluster)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;PCA 1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;PCA 2&#39;</span><span class="p">)</span>
+
+<span class="c1"># Manual legend</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="kn">import</span> <span class="n">Patch</span>
+<span class="n">legend_labels</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">(</span><span class="mi">0</span><span class="o">/</span><span class="mi">3</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Cluster A&#39;</span><span class="p">),</span>
+    <span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Cluster B&#39;</span><span class="p">),</span>
+    <span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Cluster C&#39;</span><span class="p">),</span>
+    <span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">3</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Cluster D&#39;</span><span class="p">)</span>
+<span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">legend_labels</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>📌 Hasil Clustering Fuzzy C-Means (4 Cluster) dengan Label Kategori:
+ id      class  sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm) Cluster
+  1     setosa                5.1               3.5                1.4               0.2       B
+  2     setosa                4.9               3.0                1.4               0.2       B
+  3     setosa                4.7               3.2                1.3               0.2       B
+  4     setosa                4.6               3.1                1.5               0.2       B
+  5     setosa                5.0               3.6                1.4               0.2       B
+  6     setosa                5.4               3.9                1.7               0.4       B
+  7     setosa                4.6               3.4                1.4               0.3       B
+  8     setosa                5.0               3.4                1.5               0.2       B
+  9     setosa                4.4               2.9                1.4               0.2       B
+ 10     setosa                4.9               3.1                1.5               0.1       B
+ 11     setosa                5.4               3.7                1.5               0.2       B
+ 12     setosa                4.8               3.4                1.6               0.2       B
+ 13     setosa                4.8               3.0                1.4               0.1       B
+ 14     setosa                4.3               3.0                1.1               0.1       B
+ 15     setosa                5.8               4.0                1.2               0.2       B
+ 16     setosa                5.7               4.4                1.5               0.4       B
+ 17     setosa                5.4               3.9                1.3               0.4       B
+ 18     setosa                5.1               3.5                1.4               0.3       B
+ 19     setosa                5.7               3.8                1.7               0.3       B
+ 20     setosa                5.1               3.8                1.5               0.3       B
+ 21     setosa                5.4               3.4                1.7               0.2       B
+ 22     setosa                5.1               3.7                1.5               0.4       B
+ 23     setosa                4.6               3.6                1.0               0.2       B
+ 24     setosa                5.1               3.3                1.7               0.5       B
+ 25     setosa                4.8               3.4                1.9               0.2       B
+ 26     setosa                5.0               3.0                1.6               0.2       B
+ 27     setosa                5.0               3.4                1.6               0.4       B
+ 28     setosa                5.2               3.5                1.5               0.2       B
+ 29     setosa                5.2               3.4                1.4               0.2       B
+ 30     setosa                4.7               3.2                1.6               0.2       B
+ 31     setosa                4.8               3.1                1.6               0.2       B
+ 32     setosa                5.4               3.4                1.5               0.4       B
+ 33     setosa                5.2               4.1                1.5               0.1       B
+ 34     setosa                5.5               4.2                1.4               0.2       B
+ 35     setosa                4.9               3.1                1.5               0.2       B
+ 36     setosa                5.0               3.2                1.2               0.2       B
+ 37     setosa                5.5               3.5                1.3               0.2       B
+ 38     setosa                4.9               3.6                1.4               0.1       B
+ 39     setosa                4.4               3.0                1.3               0.2       B
+ 40     setosa                5.1               3.4                1.5               0.2       B
+ 41     setosa                5.0               3.5                1.3               0.3       B
+ 42     setosa                4.5               2.3                1.3               0.3       B
+ 43     setosa                4.4               3.2                1.3               0.2       B
+ 44     setosa                5.0               3.5                1.6               0.6       B
+ 45     setosa                5.1               3.8                1.9               0.4       B
+ 46     setosa                4.8               3.0                1.4               0.3       B
+ 47     setosa                5.1               3.8                1.6               0.2       B
+ 48     setosa                4.6               3.2                1.4               0.2       B
+ 49     setosa                5.3               3.7                1.5               0.2       B
+ 50     setosa                5.0               3.3                1.4               0.2       B
+ 51 versicolor                7.0               3.2                4.7               1.4       D
+ 52 versicolor                6.4               3.2                4.5               1.5       D
+ 53 versicolor                6.9               3.1                4.9               1.5       D
+ 54 versicolor                5.5               2.3                4.0               1.3       A
+ 55 versicolor                6.5               2.8                4.6               1.5       D
+ 56 versicolor                5.7               2.8                4.5               1.3       A
+ 57 versicolor                6.3               3.3                4.7               1.6       D
+ 58 versicolor                4.9               2.4                3.3               1.0       A
+ 59 versicolor                6.6               2.9                4.6               1.3       D
+ 60 versicolor                5.2               2.7                3.9               1.4       A
+ 61 versicolor                5.0               2.0                3.5               1.0       A
+ 62 versicolor                5.9               3.0                4.2               1.5       A
+ 63 versicolor                6.0               2.2                4.0               1.0       A
+ 64 versicolor                6.1               2.9                4.7               1.4       D
+ 65 versicolor                5.6               2.9                3.6               1.3       A
+ 66 versicolor                6.7               3.1                4.4               1.4       D
+ 67 versicolor                5.6               3.0                4.5               1.5       A
+ 68 versicolor                5.8               2.7                4.1               1.0       A
+ 69 versicolor                6.2               2.2                4.5               1.5       D
+ 70 versicolor                5.6               2.5                3.9               1.1       A
+ 71 versicolor                5.9               3.2                4.8               1.8       D
+ 72 versicolor                6.1               2.8                4.0               1.3       A
+ 73 versicolor                6.3               2.5                4.9               1.5       D
+ 74 versicolor                6.1               2.8                4.7               1.2       D
+ 75 versicolor                6.4               2.9                4.3               1.3       D
+ 76 versicolor                6.6               3.0                4.4               1.4       D
+ 77 versicolor                6.8               2.8                4.8               1.4       D
+ 78 versicolor                6.7               3.0                5.0               1.7       D
+ 79 versicolor                6.0               2.9                4.5               1.5       D
+ 80 versicolor                5.7               2.6                3.5               1.0       A
+ 81 versicolor                5.5               2.4                3.8               1.1       A
+ 82 versicolor                5.5               2.4                3.7               1.0       A
+ 83 versicolor                5.8               2.7                3.9               1.2       A
+ 84 versicolor                6.0               2.7                5.1               1.6       D
+ 85 versicolor                5.4               3.0                4.5               1.5       A
+ 86 versicolor                6.0               3.4                4.5               1.6       D
+ 87 versicolor                6.7               3.1                4.7               1.5       D
+ 88 versicolor                6.3               2.3                4.4               1.3       A
+ 89 versicolor                5.6               3.0                4.1               1.3       A
+ 90 versicolor                5.5               2.5                4.0               1.3       A
+ 91 versicolor                5.5               2.6                4.4               1.2       A
+ 92 versicolor                6.1               3.0                4.6               1.4       D
+ 93 versicolor                5.8               2.6                4.0               1.2       A
+ 94 versicolor                5.0               2.3                3.3               1.0       A
+ 95 versicolor                5.6               2.7                4.2               1.3       A
+ 96 versicolor                5.7               3.0                4.2               1.2       A
+ 97 versicolor                5.7               2.9                4.2               1.3       A
+ 98 versicolor                6.2               2.9                4.3               1.3       A
+ 99 versicolor                5.1               2.5                3.0               1.1       A
+100 versicolor                5.7               2.8                4.1               1.3       A
+101  virginica                6.3               3.3                6.0               2.5       C
+102  virginica                5.8               2.7                5.1               1.9       D
+103  virginica                7.1               3.0                5.9               2.1       C
+104  virginica                6.3               2.9                5.6               1.8       D
+105  virginica                6.5               3.0                5.8               2.2       C
+106  virginica                7.6               3.0                6.6               2.1       C
+107  virginica                4.9               2.5                4.5               1.7       A
+108  virginica                7.3               2.9                6.3               1.8       C
+109  virginica                6.7               2.5                5.8               1.8       C
+110  virginica                7.2               3.6                6.1               2.5       C
+111  virginica                6.5               3.2                5.1               2.0       D
+112  virginica                6.4               2.7                5.3               1.9       D
+113  virginica                6.8               3.0                5.5               2.1       C
+114  virginica                5.7               2.5                5.0               2.0       D
+115  virginica                5.8               2.8                5.1               2.4       D
+116  virginica                6.4               3.2                5.3               2.3       D
+117  virginica                6.5               3.0                5.5               1.8       D
+118  virginica                7.7               3.8                6.7               2.2       C
+119  virginica                7.7               2.6                6.9               2.3       C
+120  virginica                6.0               2.2                5.0               1.5       D
+121  virginica                6.9               3.2                5.7               2.3       C
+122  virginica                5.6               2.8                4.9               2.0       D
+123  virginica                7.7               2.8                6.7               2.0       C
+124  virginica                6.3               2.7                4.9               1.8       D
+125  virginica                6.7               3.3                5.7               2.1       C
+126  virginica                7.2               3.2                6.0               1.8       C
+127  virginica                6.2               2.8                4.8               1.8       D
+128  virginica                6.1               3.0                4.9               1.8       D
+129  virginica                6.4               2.8                5.6               2.1       C
+130  virginica                7.2               3.0                5.8               1.6       C
+131  virginica                7.4               2.8                6.1               1.9       C
+132  virginica                7.9               3.8                6.4               2.0       C
+133  virginica                6.4               2.8                5.6               2.2       C
+134  virginica                6.3               2.8                5.1               1.5       D
+135  virginica                6.1               2.6                5.6               1.4       D
+136  virginica                7.7               3.0                6.1               2.3       C
+137  virginica                6.3               3.4                5.6               2.4       C
+138  virginica                6.4               3.1                5.5               1.8       D
+139  virginica                6.0               3.0                4.8               1.8       D
+140  virginica                6.9               3.1                5.4               2.1       C
+141  virginica                6.7               3.1                5.6               2.4       C
+142  virginica                6.9               3.1                5.1               2.3       C
+143  virginica                5.8               2.7                5.1               1.9       D
+144  virginica                6.8               3.2                5.9               2.3       C
+145  virginica                6.7               3.3                5.7               2.5       C
+146  virginica                6.7               3.0                5.2               2.3       C
+147  virginica                6.3               2.5                5.0               1.9       D
+148  virginica                6.5               3.0                5.2               2.0       D
+149  virginica                6.2               3.4                5.4               2.3       D
+150  virginica                5.9               3.0                5.1               1.8       D
+</pre></div>
+</div>
+<img alt="_images/5909adf37a7995ca3ce2c2d8a900702f8779779a03f6ffb015ce12aee1330d82.png" src="_images/5909adf37a7995ca3ce2c2d8a900702f8779779a03f6ffb015ce12aee1330d82.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_iris</span>
+
+<span class="c1"># Fungsi ambil data Iris dan atur ulang kolom</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_iris_data</span><span class="p">():</span>
+    <span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># ID dimulai dari 1</span>
+
+    <span class="c1"># Hapus kolom duplikat jika ada</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="o">~</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()]</span>
+
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="c1"># Ambil data</span>
+<span class="n">df_iris</span> <span class="o">=</span> <span class="n">get_iris_data</span><span class="p">()</span>
+
+<span class="c1"># Ubah setiap fitur menjadi kategori</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span><span class="o">.</span><span class="n">feature_names</span>
+<span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">features</span><span class="p">:</span>
+    <span class="c1"># Buat 4 bin berdasarkan quartile</span>
+    <span class="n">df_iris</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">feature</span><span class="si">}</span><span class="s1">_kategori&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">qcut</span><span class="p">(</span><span class="n">df_iris</span><span class="p">[</span><span class="n">feature</span><span class="p">],</span> <span class="n">q</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">])</span>
+
+<span class="c1"># Ambil hanya kolom id dan kolom kategori</span>
+<span class="n">kategori_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">feature</span><span class="si">}</span><span class="s1">_kategori&#39;</span> <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">features</span><span class="p">]</span>
+<span class="n">df_kategori</span> <span class="o">=</span> <span class="n">df_iris</span><span class="p">[</span><span class="n">kategori_columns</span><span class="p">]</span>
+
+<span class="c1"># Tampilkan hasil</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">📌 Data Iris Hasil Kategori (Tanpa Data Numerik dan Tanpa Kelas Iris):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_kategori</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>📌 Data Iris Hasil Kategori (Tanpa Data Numerik dan Tanpa Kelas Iris):
+ id sepal length (cm)_kategori sepal width (cm)_kategori petal length (cm)_kategori petal width (cm)_kategori
+  1                          A                         D                          A                         A
+  2                          A                         B                          A                         A
+  3                          A                         C                          A                         A
+  4                          A                         C                          A                         A
+  5                          A                         D                          A                         A
+  6                          B                         D                          B                         B
+  7                          A                         D                          A                         A
+  8                          A                         D                          A                         A
+  9                          A                         B                          A                         A
+ 10                          A                         C                          A                         A
+ 11                          B                         D                          A                         A
+ 12                          A                         D                          A                         A
+ 13                          A                         B                          A                         A
+ 14                          A                         B                          A                         A
+ 15                          B                         D                          A                         A
+ 16                          B                         D                          A                         B
+ 17                          B                         D                          A                         B
+ 18                          A                         D                          A                         A
+ 19                          B                         D                          B                         A
+ 20                          A                         D                          A                         A
+ 21                          B                         D                          B                         A
+ 22                          A                         D                          A                         B
+ 23                          A                         D                          A                         A
+ 24                          A                         C                          B                         B
+ 25                          A                         D                          B                         A
+ 26                          A                         B                          A                         A
+ 27                          A                         D                          A                         B
+ 28                          B                         D                          A                         A
+ 29                          B                         D                          A                         A
+ 30                          A                         C                          A                         A
+ 31                          A                         C                          A                         A
+ 32                          B                         D                          A                         B
+ 33                          B                         D                          A                         A
+ 34                          B                         D                          A                         A
+ 35                          A                         C                          A                         A
+ 36                          A                         C                          A                         A
+ 37                          B                         D                          A                         A
+ 38                          A                         D                          A                         A
+ 39                          A                         B                          A                         A
+ 40                          A                         D                          A                         A
+ 41                          A                         D                          A                         A
+ 42                          A                         A                          A                         A
+ 43                          A                         C                          A                         A
+ 44                          A                         D                          A                         B
+ 45                          A                         D                          B                         B
+ 46                          A                         B                          A                         A
+ 47                          A                         D                          A                         A
+ 48                          A                         C                          A                         A
+ 49                          B                         D                          A                         A
+ 50                          A                         C                          A                         A
+ 51                          D                         C                          C                         C
+ 52                          C                         C                          C                         C
+ 53                          D                         C                          C                         C
+ 54                          B                         A                          B                         B
+ 55                          D                         A                          C                         C
+ 56                          B                         A                          C                         B
+ 57                          C                         C                          C                         C
+ 58                          A                         A                          B                         B
+ 59                          D                         B                          C                         B
+ 60                          B                         A                          B                         C
+ 61                          A                         A                          B                         B
+ 62                          C                         B                          B                         C
+ 63                          C                         A                          B                         B
+ 64                          C                         B                          C                         C
+ 65                          B                         B                          B                         B
+ 66                          D                         C                          C                         C
+ 67                          B                         B                          C                         C
+ 68                          B                         A                          B                         B
+ 69                          C                         A                          C                         C
+ 70                          B                         A                          B                         B
+ 71                          C                         C                          C                         C
+ 72                          C                         A                          B                         B
+ 73                          C                         A                          C                         C
+ 74                          C                         A                          C                         B
+ 75                          C                         B                          B                         B
+ 76                          D                         B                          C                         C
+ 77                          D                         A                          C                         C
+ 78                          D                         B                          C                         C
+ 79                          C                         B                          C                         C
+ 80                          B                         A                          B                         B
+ 81                          B                         A                          B                         B
+ 82                          B                         A                          B                         B
+ 83                          B                         A                          B                         B
+ 84                          C                         A                          C                         C
+ 85                          B                         B                          C                         C
+ 86                          C                         D                          C                         C
+ 87                          D                         C                          C                         C
+ 88                          C                         A                          C                         B
+ 89                          B                         B                          B                         B
+ 90                          B                         A                          B                         B
+ 91                          B                         A                          C                         B
+ 92                          C                         B                          C                         C
+ 93                          B                         A                          B                         B
+ 94                          A                         A                          B                         B
+ 95                          B                         A                          B                         B
+ 96                          B                         B                          B                         B
+ 97                          B                         B                          B                         B
+ 98                          C                         B                          B                         B
+ 99                          A                         A                          B                         B
+100                          B                         A                          B                         B
+101                          C                         C                          D                         D
+102                          B                         A                          C                         D
+103                          D                         B                          D                         D
+104                          C                         B                          D                         C
+105                          D                         B                          D                         D
+106                          D                         B                          D                         D
+107                          A                         A                          C                         C
+108                          D                         B                          D                         C
+109                          D                         A                          D                         C
+110                          D                         D                          D                         D
+111                          D                         C                          C                         D
+112                          C                         A                          D                         D
+113                          D                         B                          D                         D
+114                          B                         A                          C                         D
+115                          B                         A                          C                         D
+116                          C                         C                          D                         D
+117                          D                         B                          D                         C
+118                          D                         D                          D                         D
+119                          D                         A                          D                         D
+120                          C                         A                          C                         C
+121                          D                         C                          D                         D
+122                          B                         A                          C                         D
+123                          D                         A                          D                         D
+124                          C                         A                          C                         C
+125                          D                         C                          D                         D
+126                          D                         C                          D                         C
+127                          C                         A                          C                         C
+128                          C                         B                          C                         C
+129                          C                         A                          D                         D
+130                          D                         B                          D                         C
+131                          D                         A                          D                         D
+132                          D                         D                          D                         D
+133                          C                         A                          D                         D
+134                          C                         A                          C                         C
+135                          C                         A                          D                         C
+136                          D                         B                          D                         D
+137                          C                         D                          D                         D
+138                          C                         C                          D                         C
+139                          C                         B                          C                         C
+140                          D                         C                          D                         D
+141                          D                         C                          D                         D
+142                          D                         C                          C                         D
+143                          B                         A                          C                         D
+144                          D                         C                          D                         D
+145                          D                         C                          D                         D
+146                          D                         B                          D                         D
+147                          C                         A                          C                         D
+148                          D                         B                          D                         D
+149                          C                         D                          D                         D
+150                          C                         B                          C                         C
+</pre></div>
+</div>
+</div>
+</div>
 <section id="konsep-dasar-fuzzy-c-mean-clustering">
 <h2><strong>Konsep dasar Fuzzy C-Mean Clustering</strong><a class="headerlink" href="#konsep-dasar-fuzzy-c-mean-clustering" title="Link to this heading">#</a></h2>
 <p>Fuzzy C-Means (FCM) adalah salah satu metode clustering yang memungkinkan satu data menjadi anggota lebih dari satu cluster dengan derajat keanggotaan tertentu (nilai antara 0 dan 1). Berbeda dengan k-means yang bersifat hard clustering (anggota hanya milik satu cluster), FCM bersifat <em>soft clustering</em>.</p>
@@ -1191,156 +2040,156 @@ Shape matriks keanggotaan U: (150, 3)
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Matriks Keanggotaan Awal (U) ===
  id  Cluster_1  Cluster_2  Cluster_3
-  1   0.181570   0.052401   0.766029
-  2   0.234534   0.723404   0.042061
-  3   0.207553   0.198562   0.593886
-  4   0.252692   0.395327   0.351981
-  5   0.085228   0.778473   0.136299
-  6   0.321457   0.531250   0.147294
-  7   0.090015   0.364760   0.545225
-  8   0.062797   0.234146   0.703057
-  9   0.676267   0.088699   0.235034
- 10   0.027278   0.833742   0.138980
- 11   0.483289   0.309313   0.207399
- 12   0.505333   0.442119   0.052547
- 13   0.512429   0.249486   0.238085
- 14   0.705852   0.109550   0.184598
- 15   0.132017   0.541814   0.326169
- 16   0.514380   0.037616   0.448004
- 17   0.131249   0.052551   0.816200
- 18   0.151057   0.130245   0.718698
- 19   0.763818   0.220661   0.015522
- 20   0.296763   0.502712   0.200526
- 21   0.075075   0.709363   0.215562
- 22   0.431353   0.311855   0.256792
- 23   0.378722   0.382563   0.238715
- 24   0.503987   0.390917   0.105095
- 25   0.186175   0.651630   0.162195
- 26   0.782469   0.213651   0.003880
- 27   0.190622   0.455919   0.353458
- 28   0.387557   0.553076   0.059367
- 29   0.155846   0.443996   0.400158
- 30   0.190867   0.063582   0.745550
- 31   0.035186   0.173791   0.791024
- 32   0.677916   0.244586   0.077498
- 33   0.083098   0.116509   0.800393
- 34   0.076582   0.569658   0.353760
- 35   0.114167   0.825587   0.060246
- 36   0.207528   0.253218   0.539254
- 37   0.319645   0.312491   0.367864
- 38   0.629126   0.190142   0.180732
- 39   0.555977   0.310618   0.133404
- 40   0.333668   0.025437   0.640895
- 41   0.635654   0.017169   0.347178
- 42   0.640129   0.071607   0.288264
- 43   0.035554   0.958999   0.005447
- 44   0.861000   0.138780   0.000220
- 45   0.079862   0.233050   0.687088
- 46   0.419855   0.289000   0.291145
- 47   0.109928   0.673371   0.216701
- 48   0.413220   0.114650   0.472130
- 49   0.811047   0.041783   0.147170
- 50   0.658231   0.002576   0.339192
- 51   0.129016   0.123646   0.747338
- 52   0.365560   0.149925   0.484515
- 53   0.712704   0.065786   0.221510
- 54   0.145978   0.766806   0.087215
- 55   0.333419   0.049740   0.616841
- 56   0.238125   0.019149   0.742727
- 57   0.352022   0.335587   0.312391
- 58   0.366998   0.435083   0.197918
- 59   0.114314   0.310006   0.575680
- 60   0.066290   0.712608   0.221102
- 61   0.083812   0.209972   0.706217
- 62   0.411912   0.546584   0.041504
- 63   0.103725   0.198092   0.698184
- 64   0.749551   0.104387   0.146062
- 65   0.011507   0.968005   0.020488
- 66   0.315637   0.434132   0.250232
- 67   0.150737   0.815408   0.033855
- 68   0.046110   0.780065   0.173826
- 69   0.077670   0.246225   0.676105
- 70   0.408244   0.415467   0.176289
- 71   0.740435   0.009660   0.249904
- 72   0.479990   0.454522   0.065489
- 73   0.768291   0.228411   0.003298
- 74   0.067501   0.786106   0.146393
- 75   0.086534   0.550060   0.363406
- 76   0.314056   0.571827   0.114117
- 77   0.130923   0.646987   0.222090
- 78   0.185566   0.226541   0.587893
- 79   0.050428   0.436956   0.512616
- 80   0.465837   0.471992   0.062171
- 81   0.488765   0.315409   0.195826
- 82   0.217025   0.072186   0.710789
- 83   0.032173   0.049622   0.918205
- 84   0.154478   0.454929   0.390593
- 85   0.358288   0.198605   0.443108
- 86   0.711307   0.050132   0.238561
- 87   0.641802   0.155519   0.202679
- 88   0.226480   0.277978   0.495543
- 89   0.457172   0.121129   0.421699
- 90   0.580731   0.228593   0.190676
- 91   0.156250   0.184309   0.659441
- 92   0.342555   0.413847   0.243598
- 93   0.065266   0.756776   0.177957
- 94   0.160724   0.425794   0.413481
- 95   0.394645   0.263070   0.342286
- 96   0.937774   0.025210   0.037016
- 97   0.331281   0.465276   0.203443
- 98   0.276689   0.206638   0.516673
- 99   0.587462   0.081758   0.330780
-100   0.529653   0.244389   0.225958
-101   0.083048   0.189652   0.727300
-102   0.459244   0.169694   0.371062
-103   0.366558   0.213442   0.419999
-104   0.032745   0.915981   0.051274
-105   0.290691   0.492730   0.216579
-106   0.292748   0.155426   0.551826
-107   0.159225   0.323355   0.517420
-108   0.582664   0.015853   0.401483
-109   0.588061   0.246326   0.165613
-110   0.065650   0.403232   0.531118
-111   0.439110   0.053337   0.507553
-112   0.258745   0.557433   0.183822
-113   0.554484   0.092794   0.352722
-114   0.082431   0.861273   0.056296
-115   0.579470   0.140448   0.280082
-116   0.135686   0.527925   0.336389
-117   0.702577   0.116046   0.181377
-118   0.042171   0.332430   0.625400
-119   0.300363   0.338490   0.361147
-120   0.079293   0.574530   0.346177
-121   0.062198   0.249475   0.688327
-122   0.382843   0.242770   0.374386
-123   0.322118   0.487071   0.190811
-124   0.097722   0.878214   0.024064
-125   0.592882   0.368334   0.038784
-126   0.487004   0.358838   0.154158
-127   0.207999   0.263800   0.528201
-128   0.083030   0.430547   0.486423
-129   0.516628   0.118338   0.365033
-130   0.497202   0.047078   0.455720
-131   0.353338   0.506663   0.139999
-132   0.390124   0.182998   0.426878
-133   0.292203   0.391550   0.316247
-134   0.079451   0.735772   0.184777
-135   0.128218   0.455738   0.416044
-136   0.071325   0.868574   0.060100
-137   0.708747   0.058193   0.233060
-138   0.623066   0.182769   0.194165
-139   0.258125   0.556876   0.184999
-140   0.395244   0.557193   0.047563
-141   0.236457   0.287036   0.476507
-142   0.283591   0.069663   0.646746
-143   0.166418   0.702107   0.131476
-144   0.404476   0.507101   0.088423
-145   0.611790   0.231478   0.156732
-146   0.122684   0.021121   0.856195
-147   0.043032   0.209179   0.747789
-148   0.004438   0.916281   0.079281
-149   0.278280   0.541061   0.180659
-150   0.205394   0.555688   0.238919
+  1   0.336900   0.614614   0.048486
+  2   0.052653   0.035564   0.911783
+  3   0.175511   0.635042   0.189447
+  4   0.366946   0.494016   0.139037
+  5   0.238891   0.282621   0.478488
+  6   0.422246   0.264098   0.313656
+  7   0.038015   0.633396   0.328589
+  8   0.233229   0.092119   0.674653
+  9   0.847445   0.127122   0.025433
+ 10   0.165450   0.310067   0.524483
+ 11   0.338366   0.268486   0.393148
+ 12   0.590529   0.196180   0.213290
+ 13   0.209325   0.714566   0.076110
+ 14   0.095778   0.275273   0.628948
+ 15   0.762040   0.078668   0.159292
+ 16   0.039943   0.631592   0.328465
+ 17   0.179934   0.069843   0.750223
+ 18   0.137644   0.030822   0.831535
+ 19   0.145766   0.373590   0.480643
+ 20   0.109335   0.192049   0.698616
+ 21   0.438322   0.283113   0.278566
+ 22   0.468038   0.248349   0.283613
+ 23   0.538405   0.362321   0.099274
+ 24   0.562145   0.284530   0.153325
+ 25   0.736318   0.059508   0.204174
+ 26   0.690207   0.032659   0.277135
+ 27   0.464592   0.506736   0.028673
+ 28   0.080621   0.637075   0.282304
+ 29   0.077090   0.575167   0.347743
+ 30   0.715536   0.147270   0.137194
+ 31   0.532677   0.428216   0.039107
+ 32   0.053657   0.841283   0.105060
+ 33   0.138196   0.197487   0.664317
+ 34   0.437749   0.545538   0.016714
+ 35   0.032606   0.476432   0.490962
+ 36   0.598820   0.303124   0.098056
+ 37   0.468992   0.317570   0.213437
+ 38   0.095351   0.421292   0.483358
+ 39   0.879537   0.069937   0.050526
+ 40   0.153462   0.729718   0.116820
+ 41   0.290819   0.095053   0.614128
+ 42   0.294744   0.653284   0.051972
+ 43   0.714022   0.123282   0.162696
+ 44   0.158195   0.781596   0.060210
+ 45   0.231604   0.245527   0.522869
+ 46   0.184828   0.120681   0.694490
+ 47   0.698434   0.117512   0.184054
+ 48   0.315932   0.422272   0.261796
+ 49   0.358586   0.466317   0.175097
+ 50   0.330876   0.552664   0.116460
+ 51   0.153810   0.174606   0.671584
+ 52   0.145806   0.365534   0.488660
+ 53   0.528321   0.325202   0.146477
+ 54   0.552592   0.321195   0.126214
+ 55   0.107338   0.163003   0.729659
+ 56   0.297031   0.699336   0.003633
+ 57   0.099552   0.135326   0.765122
+ 58   0.677639   0.013077   0.309284
+ 59   0.023651   0.169510   0.806839
+ 60   0.261106   0.700716   0.038177
+ 61   0.302061   0.208994   0.488946
+ 62   0.384661   0.378946   0.236393
+ 63   0.499419   0.010677   0.489904
+ 64   0.394205   0.560829   0.044966
+ 65   0.309785   0.449541   0.240674
+ 66   0.242648   0.049513   0.707839
+ 67   0.316909   0.247944   0.435147
+ 68   0.689894   0.136906   0.173200
+ 69   0.260298   0.411934   0.327768
+ 70   0.546245   0.262848   0.190907
+ 71   0.159666   0.217134   0.623200
+ 72   0.143234   0.471135   0.385631
+ 73   0.005606   0.688311   0.306082
+ 74   0.788331   0.054277   0.157392
+ 75   0.241692   0.548683   0.209625
+ 76   0.089435   0.714171   0.196394
+ 77   0.157711   0.768295   0.073994
+ 78   0.463454   0.531070   0.005476
+ 79   0.431964   0.315629   0.252407
+ 80   0.196271   0.106480   0.697249
+ 81   0.021728   0.902724   0.075548
+ 82   0.124407   0.131191   0.744402
+ 83   0.205711   0.239415   0.554875
+ 84   0.463367   0.409673   0.126960
+ 85   0.724257   0.219696   0.056046
+ 86   0.237583   0.741769   0.020648
+ 87   0.326064   0.516898   0.157039
+ 88   0.016817   0.298083   0.685100
+ 89   0.042066   0.853311   0.104623
+ 90   0.574207   0.369980   0.055813
+ 91   0.339108   0.526203   0.134689
+ 92   0.491156   0.218102   0.290742
+ 93   0.395405   0.216836   0.387759
+ 94   0.195548   0.427801   0.376650
+ 95   0.355189   0.119037   0.525774
+ 96   0.029134   0.045268   0.925598
+ 97   0.078899   0.869987   0.051113
+ 98   0.287740   0.082377   0.629883
+ 99   0.031065   0.138388   0.830547
+100   0.020527   0.897545   0.081928
+101   0.482965   0.226058   0.290977
+102   0.257087   0.170307   0.572605
+103   0.226768   0.401687   0.371545
+104   0.085334   0.761224   0.153442
+105   0.465334   0.397607   0.137059
+106   0.200946   0.461982   0.337072
+107   0.350679   0.157706   0.491615
+108   0.624356   0.043539   0.332105
+109   0.112098   0.380354   0.507547
+110   0.357942   0.566052   0.076006
+111   0.183223   0.094285   0.722492
+112   0.269615   0.013432   0.716952
+113   0.448108   0.187817   0.364075
+114   0.270815   0.430448   0.298737
+115   0.460748   0.527875   0.011377
+116   0.002648   0.638540   0.358813
+117   0.766459   0.134168   0.099374
+118   0.142684   0.500300   0.357016
+119   0.226760   0.252172   0.521068
+120   0.705238   0.202293   0.092469
+121   0.410949   0.560697   0.028355
+122   0.414197   0.445045   0.140759
+123   0.582103   0.009717   0.408181
+124   0.536754   0.133873   0.329373
+125   0.064159   0.432459   0.503382
+126   0.033096   0.660292   0.306612
+127   0.078847   0.741314   0.179839
+128   0.039388   0.857215   0.103397
+129   0.008954   0.634294   0.356753
+130   0.505988   0.458260   0.035752
+131   0.098542   0.430707   0.470752
+132   0.651996   0.199408   0.148597
+133   0.443746   0.258307   0.297947
+134   0.039252   0.831136   0.129612
+135   0.472546   0.366894   0.160560
+136   0.127336   0.851062   0.021603
+137   0.285717   0.393341   0.320942
+138   0.432857   0.351433   0.215710
+139   0.408952   0.514439   0.076609
+140   0.218131   0.132390   0.649479
+141   0.682084   0.251775   0.066141
+142   0.045234   0.094589   0.860177
+143   0.180045   0.703324   0.116630
+144   0.645125   0.214381   0.140494
+145   0.125540   0.182004   0.692456
+146   0.062711   0.068250   0.869039
+147   0.507295   0.358314   0.134391
+148   0.936405   0.001590   0.062005
+149   0.680831   0.299101   0.020068
+150   0.338397   0.484802   0.176801
 </pre></div>
 </div>
 </div>
@@ -1365,9 +2214,9 @@ Shape matriks keanggotaan U: (150, 3)
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Centroid Awal (Iterasi ke-1) ===
-Centroid Cluster 1: [5.78061498 3.10335995 3.59596243 1.13960753]
-Centroid Cluster 2: [5.81571966 3.00995011 3.80231773 1.20783012]
-Centroid Cluster 3: [5.86214665 3.07027826 3.71528268 1.18832643]
+Centroid Cluster 1: [5.74737678 3.05369822 3.67316209 1.14469046]
+Centroid Cluster 2: [5.87048871 3.04680911 3.8421839  1.23776775]
+Centroid Cluster 3: [5.88628433 3.05759976 3.69276642 1.19496491]
 </pre></div>
 </div>
 </div>
@@ -1404,156 +2253,156 @@ Centroid Cluster 3: [5.86214665 3.07027826 3.71528268 1.18832643]
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Matriks Keanggotaan Baru (Setelah Iterasi ke-1) ===
  id  Cluster_1  Cluster_2  Cluster_3
-  1   0.366352   0.307381   0.326267
-  2   0.364379   0.310182   0.325439
-  3   0.363222   0.311151   0.325627
-  4   0.364069   0.311217   0.324714
-  5   0.365974   0.307830   0.326196
-  6   0.370879   0.302313   0.326808
-  7   0.364321   0.310445   0.325234
-  8   0.367102   0.307377   0.325521
-  9   0.361121   0.313920   0.324958
- 10   0.365255   0.309521   0.325224
- 11   0.367802   0.305038   0.327160
- 12   0.367130   0.308105   0.324766
- 13   0.363421   0.311155   0.325424
- 14   0.358763   0.315230   0.326007
- 15   0.362831   0.307365   0.329804
- 16   0.364417   0.305777   0.329806
- 17   0.365736   0.306264   0.328000
- 18   0.366876   0.306962   0.326161
- 19   0.370310   0.301678   0.328012
- 20   0.367565   0.306076   0.326359
- 21   0.370858   0.303257   0.325885
- 22   0.368345   0.305604   0.326051
- 23   0.360740   0.312423   0.326837
- 24   0.371972   0.303777   0.324251
- 25   0.370455   0.306173   0.323372
- 26   0.366959   0.308267   0.324774
- 27   0.369519   0.305670   0.324810
- 28   0.367819   0.306020   0.326161
- 29   0.366553   0.307054   0.326394
- 30   0.366029   0.309535   0.324436
- 31   0.366338   0.309185   0.324478
- 32   0.369272   0.304262   0.326465
- 33   0.365375   0.307105   0.327520
- 34   0.364490   0.306706   0.328804
- 35   0.365858   0.309081   0.325062
- 36   0.363473   0.310078   0.326449
- 37   0.365538   0.306667   0.327795
- 38   0.365032   0.308842   0.326126
- 39   0.360874   0.313806   0.325320
- 40   0.367491   0.306760   0.325749
- 41   0.365384   0.308312   0.326304
- 42   0.357512   0.316888   0.325600
- 43   0.361507   0.313089   0.325404
- 44   0.370348   0.304838   0.324814
- 45   0.373473   0.301926   0.324601
- 46   0.364351   0.310485   0.325164
- 47   0.368144   0.305734   0.326123
- 48   0.363535   0.311304   0.325162
- 49   0.367734   0.305444   0.326822
- 50   0.365816   0.308381   0.325803
- 51   0.292716   0.357066   0.350218
- 52   0.268360   0.378718   0.352922
- 53   0.290526   0.362086   0.347388
- 54   0.284232   0.398496   0.317272
- 55   0.270174   0.382611   0.347215
- 56   0.250158   0.426129   0.323714
- 57   0.276420   0.376108   0.347472
- 58   0.359124   0.328408   0.312469
- 59   0.274028   0.376271   0.349701
- 60   0.305450   0.386493   0.308057
- 61   0.337717   0.344299   0.317984
- 62   0.217005   0.449803   0.333192
- 63   0.283434   0.384246   0.332320
- 64   0.261206   0.399225   0.339570
- 65   0.366236   0.337993   0.295771
- 66   0.277860   0.365930   0.356211
- 67   0.259071   0.414705   0.326224
- 68   0.234758   0.449316   0.315926
- 69   0.275235   0.387923   0.336842
- 70   0.276027   0.413234   0.310739
- 71   0.278446   0.382700   0.338855
- 72   0.202551   0.449813   0.347636
- 73   0.277627   0.383298   0.339075
- 74   0.262441   0.399412   0.338147
- 75   0.252570   0.392073   0.355357
- 76   0.270489   0.374201   0.355311
- 77   0.284624   0.368611   0.346765
- 78   0.287609   0.367455   0.344936
- 79   0.247566   0.415159   0.337275
- 80   0.358490   0.327330   0.314180
- 81   0.301977   0.385263   0.312759
- 82   0.319574   0.367258   0.313168
- 83   0.203013   0.496727   0.300260
- 84   0.280786   0.383111   0.336103
- 85   0.272929   0.403954   0.323117
- 86   0.271283   0.382438   0.346279
- 87   0.282102   0.368147   0.349751
- 88   0.270934   0.389456   0.339610
- 89   0.216098   0.485711   0.298191
- 90   0.270274   0.419219   0.310507
- 91   0.265428   0.417126   0.317446
- 92   0.255558   0.402780   0.341662
- 93   0.227203   0.460703   0.312094
- 94   0.355706   0.330669   0.313626
- 95   0.238818   0.452466   0.308716
- 96   0.213015   0.478489   0.308496
- 97   0.211397   0.482417   0.306186
- 98   0.234715   0.416808   0.348476
- 99   0.375948   0.311793   0.312259
-100   0.203943   0.499111   0.296946
-101   0.305885   0.356147   0.337968
-102   0.285693   0.379770   0.334537
-103   0.304524   0.355088   0.340388
-104   0.294752   0.366686   0.338562
-105   0.301013   0.360013   0.338974
-106   0.311217   0.349720   0.339063
-107   0.302169   0.375458   0.322373
-108   0.307659   0.352862   0.339479
-109   0.299445   0.361733   0.338823
-110   0.310340   0.349707   0.339952
-111   0.291563   0.365429   0.343007
-112   0.290317   0.370134   0.339549
-113   0.298802   0.359921   0.341277
-114   0.287515   0.379445   0.333040
-115   0.294919   0.369225   0.335856
-116   0.297339   0.362043   0.340618
-117   0.294479   0.365176   0.340345
-118   0.314485   0.346342   0.339172
-119   0.312653   0.349152   0.338194
-120   0.284349   0.381579   0.334072
-121   0.303596   0.355665   0.340739
-122   0.285881   0.381378   0.332742
-123   0.311670   0.349527   0.338803
-124   0.279200   0.380290   0.340510
-125   0.301888   0.357526   0.340586
-126   0.305952   0.353422   0.340626
-127   0.274742   0.384788   0.340470
-128   0.277974   0.382070   0.339956
-129   0.296937   0.364296   0.338768
-130   0.303490   0.355277   0.341233
-131   0.306905   0.353070   0.340024
-132   0.314263   0.345733   0.340004
-133   0.297807   0.363480   0.338714
-134   0.281467   0.378478   0.340055
-135   0.293443   0.370351   0.336206
-136   0.309962   0.349814   0.340223
-137   0.302686   0.358118   0.339195
-138   0.294500   0.365435   0.340065
-139   0.274425   0.386681   0.338894
-140   0.299239   0.358503   0.342258
-141   0.301931   0.357793   0.340276
-142   0.298840   0.357797   0.343363
-143   0.285693   0.379770   0.334537
-144   0.304583   0.355618   0.339799
-145   0.304558   0.355405   0.340036
-146   0.296991   0.361025   0.341983
-147   0.284704   0.376353   0.338943
-148   0.291317   0.366982   0.341701
-149   0.299866   0.360630   0.339504
-150   0.284193   0.379025   0.336782
+  1   0.357455   0.304465   0.338080
+  2   0.358690   0.304579   0.336731
+  3   0.357893   0.306194   0.335913
+  4   0.359997   0.305157   0.334846
+  5   0.357466   0.305058   0.337476
+  6   0.357236   0.302548   0.340217
+  7   0.358793   0.305893   0.335314
+  8   0.359128   0.303575   0.337297
+  9   0.358730   0.307153   0.334117
+ 10   0.359486   0.304071   0.336443
+ 11   0.356153   0.303928   0.339919
+ 12   0.360634   0.303561   0.335805
+ 13   0.358586   0.305360   0.336054
+ 14   0.355986   0.309530   0.334483
+ 15   0.349940   0.308423   0.341637
+ 16   0.350164   0.308573   0.341264
+ 17   0.353700   0.306163   0.340137
+ 18   0.357637   0.304120   0.338243
+ 19   0.355112   0.302493   0.342396
+ 20   0.357407   0.304505   0.338088
+ 21   0.359480   0.300546   0.339974
+ 22   0.358033   0.303693   0.338275
+ 23   0.354742   0.309195   0.336063
+ 24   0.362291   0.299589   0.338120
+ 25   0.364358   0.300906   0.334737
+ 26   0.360759   0.302296   0.336944
+ 27   0.360784   0.301815   0.337401
+ 28   0.358067   0.303306   0.338626
+ 29   0.357302   0.303991   0.338707
+ 30   0.361066   0.303808   0.335126
+ 31   0.361110   0.303207   0.335682
+ 32   0.357546   0.301948   0.340507
+ 33   0.354950   0.306821   0.338228
+ 34   0.352202   0.307767   0.340031
+ 35   0.359807   0.303627   0.336566
+ 36   0.356376   0.305965   0.337659
+ 37   0.354392   0.305044   0.340563
+ 38   0.357490   0.305736   0.336773
+ 39   0.357888   0.307675   0.334437
+ 40   0.358794   0.303255   0.337951
+ 41   0.356964   0.305298   0.337738
+ 42   0.356518   0.308803   0.334680
+ 43   0.357847   0.307648   0.334505
+ 44   0.360587   0.301694   0.337719
+ 45   0.362098   0.300398   0.337504
+ 46   0.359066   0.304673   0.336261
+ 47   0.358193   0.304020   0.337787
+ 48   0.358908   0.305923   0.335169
+ 49   0.356759   0.303989   0.339251
+ 50   0.358256   0.304305   0.337439
+ 51   0.287012   0.377318   0.335670
+ 52   0.264334   0.412657   0.323008
+ 53   0.288655   0.379928   0.331417
+ 54   0.336950   0.353913   0.309136
+ 55   0.273382   0.401551   0.325067
+ 56   0.286978   0.422034   0.290988
+ 57   0.276648   0.403637   0.319715
+ 58   0.387532   0.295752   0.316716
+ 59   0.274927   0.396820   0.328253
+ 60   0.371103   0.335118   0.293780
+ 61   0.368014   0.312207   0.319778
+ 62   0.229011   0.492697   0.278292
+ 63   0.315079   0.355688   0.329232
+ 64   0.274716   0.416328   0.308956
+ 65   0.483665   0.230130   0.286206
+ 66   0.269701   0.394196   0.336103
+ 67   0.289672   0.419064   0.291264
+ 68   0.302185   0.402914   0.294901
+ 69   0.292543   0.384335   0.323122
+ 70   0.353869   0.342447   0.303684
+ 71   0.288360   0.399783   0.311857
+ 72   0.212081   0.476170   0.311748
+ 73   0.290186   0.389529   0.320284
+ 74   0.280055   0.410163   0.309782
+ 75   0.251403   0.422703   0.325894
+ 76   0.265094   0.402366   0.332540
+ 77   0.285906   0.383627   0.330466
+ 78   0.288982   0.383584   0.327434
+ 79   0.262523   0.436400   0.301077
+ 80   0.407329   0.262226   0.330445
+ 81   0.367617   0.323110   0.309273
+ 82   0.380229   0.306753   0.313018
+ 83   0.291905   0.409489   0.298606
+ 84   0.295973   0.389024   0.315003
+ 85   0.309056   0.397899   0.293045
+ 86   0.273248   0.416277   0.310475
+ 87   0.279515   0.390672   0.329813
+ 88   0.287057   0.387147   0.325795
+ 89   0.288537   0.457302   0.254160
+ 90   0.338496   0.363011   0.298493
+ 91   0.316566   0.389143   0.294291
+ 92   0.266359   0.427265   0.306376
+ 93   0.293914   0.405343   0.300744
+ 94   0.384365   0.296889   0.318746
+ 95   0.301521   0.415658   0.282822
+ 96   0.266988   0.474690   0.258322
+ 97   0.263603   0.473045   0.263353
+ 98   0.240265   0.451398   0.308337
+ 99   0.390446   0.284438   0.325116
+100   0.271424   0.462047   0.266529
+101   0.310372   0.363826   0.325802
+102   0.301143   0.383706   0.315150
+103   0.306604   0.363842   0.329554
+104   0.302801   0.374819   0.322380
+105   0.306009   0.368252   0.325740
+106   0.312879   0.356234   0.330887
+107   0.334529   0.357471   0.308000
+108   0.310354   0.359806   0.329840
+109   0.306026   0.367437   0.326538
+110   0.310445   0.358984   0.330571
+111   0.293417   0.381165   0.325418
+112   0.297941   0.378714   0.323346
+113   0.301297   0.370633   0.328070
+114   0.304745   0.379424   0.315831
+115   0.305251   0.374473   0.320276
+116   0.300470   0.374059   0.325471
+117   0.300040   0.375693   0.324267
+118   0.314471   0.354065   0.331465
+119   0.314990   0.354079   0.330930
+120   0.302958   0.378755   0.318288
+121   0.305062   0.365910   0.329028
+122   0.303300   0.384120   0.312580
+123   0.313656   0.355308   0.331036
+124   0.287884   0.391336   0.320780
+125   0.304324   0.368406   0.327269
+126   0.307528   0.362627   0.329845
+127   0.283812   0.398189   0.317999
+128   0.286952   0.397084   0.315964
+129   0.303577   0.372001   0.324423
+130   0.305431   0.364540   0.330029
+131   0.309000   0.360351   0.330649
+132   0.313218   0.354283   0.332498
+133   0.304110   0.371084   0.324806
+134   0.291475   0.389175   0.319350
+135   0.306409   0.373677   0.319914
+136   0.310186   0.357628   0.332186
+137   0.306245   0.368391   0.325365
+138   0.300368   0.376379   0.323252
+139   0.285069   0.401924   0.313006
+140   0.300170   0.370538   0.329292
+141   0.304405   0.367670   0.327925
+142   0.297869   0.371139   0.330992
+143   0.301143   0.383706   0.315150
+144   0.307131   0.364748   0.328120
+145   0.306387   0.365381   0.328232
+146   0.298497   0.372998   0.328505
+147   0.294502   0.383064   0.322435
+148   0.295224   0.379821   0.324955
+149   0.303782   0.372185   0.324034
+150   0.296676   0.388772   0.314552
 </pre></div>
 </div>
 </div>
@@ -1614,13 +2463,13 @@ Centroid Cluster 3: [5.86214665 3.07027826 3.71528268 1.18832643]
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Fungsi Objektif (J) Iterasi ke-1 ===
-J = 226.3675
+J = 226.3094
 
-Perubahan matriks keanggotaan (delta) = 5.019009
+Perubahan matriks keanggotaan (delta) = 5.000295
 ❌ Belum konvergen, lanjut ke iterasi berikutnya.
 </pre></div>
 </div>
-<img alt="_images/d816175212b5c2674ae04add76576e5c0ad455faada78ee4ef9c1d34d5b4602f.png" src="_images/d816175212b5c2674ae04add76576e5c0ad455faada78ee4ef9c1d34d5b4602f.png" />
+<img alt="_images/c973a3666f73cb5cd70898309786e62f1ee15fe18ad6a5a4d2e11d405c08b061.png" src="_images/c973a3666f73cb5cd70898309786e62f1ee15fe18ad6a5a4d2e11d405c08b061.png" />
 </div>
 </div>
 <p><strong>Karena dari perhitungan diatas belum mencapai konvergensi maka Akan dilakukan perhitungan ulang pada iterasi hingga mencapai konvergensi</strong></p>
@@ -2110,6 +2959,8 @@ Cluster 3: [5.0039628  3.41415712 1.48270448 0.2534965 ]
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>Fuzzy C-Mean Clustering</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dekritisasi-menggunakan-kameans-clustering"><strong>Dekritisasi menggunakan kameans clustering</strong></a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konsep-dasar-fuzzy-c-mean-clustering"><strong>Konsep dasar Fuzzy C-Mean Clustering</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algoritma-fuzzy-c-mean-clustering"><strong>Algoritma Fuzzy C-Mean Clustering</strong></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-langkah-fuzzy-c-mean-clustering"><strong>Langkah-langkah Fuzzy C-Mean Clustering</strong></a></li>
@@ -2132,6 +2983,9 @@ Cluster 3: [5.0039628  3.41415712 1.48270448 0.2534965 ]
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>

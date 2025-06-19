@@ -189,6 +189,7 @@
 
 
 <li class="toctree-l1"><a class="reference internal" href="Tugas7.html"><strong>Fuzzy C-Mean Clustering</strong></a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="Tugas8.html"><strong>DecisionTree</strong></a></li>
 </ul>
 
@@ -510,35 +511,10 @@ Langkah untuk mengumpulkan data dilakukan menggunakan <strong>Python</strong> se
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pymysql
-  Downloading PyMySQL-1.1.1-py3-none-any.whl.metadata (4.4 kB)
-Downloading PyMySQL-1.1.1-py3-none-any.whl (44 kB)
-?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/45.0 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">45.0/45.0 kB</span> <span class=" -Color -Color-Red">1.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-?25h
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pymysql in /usr/local/lib/python3.11/dist-packages (1.1.1)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: pymysql
-Successfully installed pymysql-1.1.1
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting psycopg2-binary
-  Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
-Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.0 MB)
-?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/3.0 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-   ━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.1/3.0 MB</span> <span class=" -Color -Color-Red">2.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:02</span>
-   ━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.7/3.0 MB</span> <span class=" -Color -Color-Red">9.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">3.0/3.0 MB</span> <span class=" -Color -Color-Red">30.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">3.0/3.0 MB</span> <span class=" -Color -Color-Red">24.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-?25h
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: psycopg2-binary
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed psycopg2-binary-2.9.10
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: psycopg2-binary in /usr/local/lib/python3.11/dist-packages (2.9.10)
 </pre></div>
 </div>
 </div>
@@ -602,23 +578,17 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">OperationalError</span><span class="g g-Whitespace">                          </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-3-2527102987&gt;</span> in <span class="ni">&lt;cell line: 0&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">DB_PASS</span> <span class="o">=</span> <span class="s2">&quot;AVNS_oal2yP3mG6JLIwX3BUK&quot;</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> 
-<span class="ne">---&gt; </span><span class="mi">10</span> <span class="n">connect_1</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span>     <span class="n">host</span><span class="o">=</span><span class="n">DB_HOST</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span>     <span class="n">port</span><span class="o">=</span><span class="n">DB_PORT</span><span class="p">,</span>
-
-<span class="nn">/usr/local/lib/python3.11/dist-packages/psycopg2/__init__.py</span> in <span class="ni">connect</span><span class="nt">(dsn, connection_factory, cursor_factory, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">120</span> 
-<span class="g g-Whitespace">    </span><span class="mi">121</span>     <span class="n">dsn</span> <span class="o">=</span> <span class="n">_ext</span><span class="o">.</span><span class="n">make_dsn</span><span class="p">(</span><span class="n">dsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">122</span>     <span class="n">conn</span> <span class="o">=</span> <span class="n">_connect</span><span class="p">(</span><span class="n">dsn</span><span class="p">,</span> <span class="n">connection_factory</span><span class="o">=</span><span class="n">connection_factory</span><span class="p">,</span> <span class="o">**</span><span class="n">kwasync</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">123</span>     <span class="k">if</span> <span class="n">cursor_factory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">124</span>         <span class="n">conn</span><span class="o">.</span><span class="n">cursor_factory</span> <span class="o">=</span> <span class="n">cursor_factory</span>
-
-<span class="ne">OperationalError</span>: could not translate host name &quot;pg-359aec68-tugas-pendata.g.aivencloud.com&quot; to address: Name or service not known
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10 Data dalam tabel data_irisposgresql:
+(1, &#39;Iris-setosa&#39;, 5.1, 3.5)
+(2, &#39;Iris-setosa&#39;, 4.9, 3.0)
+(3, &#39;Iris-setosa&#39;, 4.7, 3.2)
+(4, &#39;Iris-setosa&#39;, 4.6, 3.1)
+(5, &#39;Iris-setosa&#39;, 5.0, 3.6)
+(6, &#39;Iris-setosa&#39;, 5.4, 3.9)
+(7, &#39;Iris-setosa&#39;, 4.6, 3.4)
+(8, &#39;Iris-setosa&#39;, 5.0, 3.4)
+(9, &#39;Iris-setosa&#39;, 4.4, 2.9)
+(10, &#39;Iris-setosa&#39;, 4.9, 3.1)
 </pre></div>
 </div>
 </div>
@@ -663,7 +633,7 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10 data dalam tabel iris_data
 (1, &#39;Iris-setosa&#39;, 1.4, 0.2)
-(2, &#39;Iris-setosa&#39;, 50.0, 20.0)
+(2, &#39;Iris-setosa&#39;, 1.4, 0.2)
 (3, &#39;Iris-setosa&#39;, 1.3, 0.2)
 (4, &#39;Iris-setosa&#39;, 1.5, 0.2)
 (5, &#39;Iris-setosa&#39;, 1.4, 0.2)
@@ -722,1684 +692,192 @@ Downloading psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux20
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>id</th>
-      <th>class</th>
-      <th>petal_length</th>
-      <th>petal_width</th>
-      <th>sepal_length</th>
-      <th>sepal_width</th>
-      <th>distance</th>
-      <th>outlier</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>Iris-setosa</td>
-      <td>1.4</td>
-      <td>0.2</td>
-      <td>5.1</td>
-      <td>3.5</td>
-      <td>5.424942</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>Iris-setosa</td>
-      <td>50.0</td>
-      <td>20.0</td>
-      <td>40.9</td>
-      <td>30.0</td>
-      <td>66.115505</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>Iris-setosa</td>
-      <td>1.3</td>
-      <td>0.2</td>
-      <td>4.7</td>
-      <td>3.2</td>
-      <td>5.430470</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4</td>
-      <td>Iris-setosa</td>
-      <td>1.5</td>
-      <td>0.2</td>
-      <td>4.6</td>
-      <td>3.1</td>
-      <td>5.273519</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>Iris-setosa</td>
-      <td>1.4</td>
-      <td>0.2</td>
-      <td>5.0</td>
-      <td>3.6</td>
-      <td>5.485435</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>6</td>
-      <td>Iris-setosa</td>
-      <td>1.7</td>
-      <td>0.4</td>
-      <td>5.4</td>
-      <td>3.9</td>
-      <td>5.288667</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>7</td>
-      <td>Iris-setosa</td>
-      <td>1.4</td>
-      <td>0.3</td>
-      <td>4.6</td>
-      <td>3.4</td>
-      <td>5.412947</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>8</td>
-      <td>Iris-setosa</td>
-      <td>1.5</td>
-      <td>0.2</td>
-      <td>5.0</td>
-      <td>3.4</td>
-      <td>5.325411</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>9</td>
-      <td>Iris-setosa</td>
-      <td>1.4</td>
-      <td>0.2</td>
-      <td>4.4</td>
-      <td>2.9</td>
-      <td>5.316014</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>10</td>
-      <td>Iris-setosa</td>
-      <td>1.5</td>
-      <td>0.1</td>
-      <td>4.9</td>
-      <td>3.1</td>
-      <td>5.271622</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>11</td>
-      <td>Iris-setosa</td>
-      <td>1.5</td>
-      <td>0.2</td>
-      <td>5.4</td>
-      <td>3.7</td>
-      <td>5.423099</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>12</td>
-      <td>Iris-setosa</td>
-      <td>1.6</td>
-      <td>0.2</td>
-      <td>4.8</td>
-      <td>3.4</td>
-      <td>5.292447</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>13</td>
-      <td>Iris-setosa</td>
-      <td>1.4</td>
-      <td>0.1</td>
-      <td>4.8</td>
-      <td>3.0</td>
-      <td>5.319774</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>14</td>
-      <td>Iris-setosa</td>
-      <td>1.1</td>
-      <td>0.1</td>
-      <td>4.3</td>
-      <td>3.0</td>
-      <td>5.644466</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>15</td>
-      <td>Iris-setosa</td>
-      <td>1.2</td>
-      <td>0.2</td>
-      <td>5.8</td>
-      <td>4.0</td>
-      <td>5.762812</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>16</td>
-      <td>Iris-setosa</td>
-      <td>1.5</td>
-      <td>0.4</td>
-      <td>5.7</td>
-      <td>4.4</td>
-      <td>5.689464</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>17</td>
-      <td>Iris-setosa</td>
-      <td>1.3</td>
-      <td>0.4</td>
-      <td>5.4</td>
-      <td>3.9</td>
-      <td>5.554278</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>18</td>
-      <td>Iris-setosa</td>
-      <td>1.4</td>
-      <td>0.3</td>
-      <td>5.1</td>
-      <td>3.5</td>
-      <td>5.370289</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>19</td>
-      <td>Iris-setosa</td>
-      <td>1.7</td>
-      <td>0.3</td>
-      <td>5.7</td>
-      <td>3.8</td>
-      <td>5.274467</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>20</td>
-      <td>Iris-setosa</td>
-      <td>1.5</td>
-      <td>0.3</td>
-      <td>5.1</td>
-      <td>3.8</td>
-      <td>5.449771</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>21</td>
-      <td>Iris-setosa</td>
-      <td>1.7</td>
-      <td>0.2</td>
-      <td>5.4</td>
-      <td>3.4</td>
-      <td>5.145872</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>22</td>
-      <td>Iris-setosa</td>
-      <td>1.5</td>
-      <td>0.4</td>
-      <td>5.1</td>
-      <td>3.7</td>
-      <td>5.346027</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>23</td>
-      <td>Iris-setosa</td>
-      <td>1.0</td>
-      <td>0.2</td>
-      <td>4.6</td>
-      <td>3.6</td>
-      <td>5.831809</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>24</td>
-      <td>Iris-setosa</td>
-      <td>1.7</td>
-      <td>0.5</td>
-      <td>5.1</td>
-      <td>3.3</td>
-      <td>4.962862</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>25</td>
-      <td>Iris-setosa</td>
-      <td>1.9</td>
-      <td>0.2</td>
-      <td>4.8</td>
-      <td>3.4</td>
-      <td>5.099020</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>26</td>
-      <td>Iris-setosa</td>
-      <td>1.6</td>
-      <td>0.2</td>
-      <td>5.0</td>
-      <td>3.0</td>
-      <td>5.088222</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>26</th>
-      <td>27</td>
-      <td>Iris-setosa</td>
-      <td>1.6</td>
-      <td>0.4</td>
-      <td>5.0</td>
-      <td>3.4</td>
-      <td>5.146844</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>27</th>
-      <td>28</td>
-      <td>Iris-setosa</td>
-      <td>1.5</td>
-      <td>0.2</td>
-      <td>5.2</td>
-      <td>3.5</td>
-      <td>5.345091</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>29</td>
-      <td>Iris-setosa</td>
-      <td>1.4</td>
-      <td>0.2</td>
-      <td>5.2</td>
-      <td>3.4</td>
-      <td>5.367495</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>29</th>
-      <td>30</td>
-      <td>Iris-setosa</td>
-      <td>1.6</td>
-      <td>0.2</td>
-      <td>4.7</td>
-      <td>3.2</td>
-      <td>5.224940</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>30</th>
-      <td>31</td>
-      <td>Iris-setosa</td>
-      <td>1.6</td>
-      <td>0.2</td>
-      <td>4.8</td>
-      <td>3.1</td>
-      <td>5.163332</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>31</th>
-      <td>32</td>
-      <td>Iris-setosa</td>
-      <td>1.5</td>
-      <td>0.4</td>
-      <td>5.4</td>
-      <td>3.4</td>
-      <td>5.169139</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>32</th>
-      <td>33</td>
-      <td>Iris-setosa</td>
-      <td>1.5</td>
-      <td>0.1</td>
-      <td>5.2</td>
-      <td>4.1</td>
-      <td>5.704384</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>33</th>
-      <td>34</td>
-      <td>Iris-setosa</td>
-      <td>1.4</td>
-      <td>0.2</td>
-      <td>5.5</td>
-      <td>4.2</td>
-      <td>5.746303</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>34</th>
-      <td>35</td>
-      <td>Iris-setosa</td>
-      <td>1.5</td>
-      <td>0.1</td>
-      <td>4.9</td>
-      <td>3.1</td>
-      <td>5.271622</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>35</th>
-      <td>36</td>
-      <td>Iris-setosa</td>
-      <td>1.2</td>
-      <td>0.2</td>
-      <td>5.0</td>
-      <td>3.2</td>
-      <td>5.448853</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>36</th>
-      <td>37</td>
-      <td>Iris-setosa</td>
-      <td>1.3</td>
-      <td>0.2</td>
-      <td>5.5</td>
-      <td>3.5</td>
-      <td>5.457105</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>37</th>
-      <td>38</td>
-      <td>Iris-setosa</td>
-      <td>1.5</td>
-      <td>0.1</td>
-      <td>4.9</td>
-      <td>3.1</td>
-      <td>5.271622</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>38</th>
-      <td>39</td>
-      <td>Iris-setosa</td>
-      <td>1.3</td>
-      <td>0.2</td>
-      <td>4.4</td>
-      <td>3.0</td>
-      <td>5.422177</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>39</th>
-      <td>40</td>
-      <td>Iris-setosa</td>
-      <td>1.5</td>
-      <td>0.2</td>
-      <td>5.1</td>
-      <td>3.4</td>
-      <td>5.311309</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>40</th>
-      <td>41</td>
-      <td>Iris-setosa</td>
-      <td>1.3</td>
-      <td>0.3</td>
-      <td>5.0</td>
-      <td>3.5</td>
-      <td>5.453439</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>41</th>
-      <td>42</td>
-      <td>Iris-setosa</td>
-      <td>1.3</td>
-      <td>0.3</td>
-      <td>4.5</td>
-      <td>2.3</td>
-      <td>5.121523</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>42</th>
-      <td>43</td>
-      <td>Iris-setosa</td>
-      <td>1.3</td>
-      <td>0.2</td>
-      <td>4.4</td>
-      <td>3.2</td>
-      <td>5.499091</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>43</th>
-      <td>44</td>
-      <td>Iris-setosa</td>
-      <td>1.6</td>
-      <td>0.6</td>
-      <td>5.0</td>
-      <td>3.5</td>
-      <td>5.089204</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>44</th>
-      <td>45</td>
-      <td>Iris-setosa</td>
-      <td>1.9</td>
-      <td>0.4</td>
-      <td>5.1</td>
-      <td>3.8</td>
-      <td>5.139066</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>45</th>
-      <td>46</td>
-      <td>Iris-setosa</td>
-      <td>1.4</td>
-      <td>0.3</td>
-      <td>4.8</td>
-      <td>3.0</td>
-      <td>5.205766</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>46</th>
-      <td>47</td>
-      <td>Iris-setosa</td>
-      <td>1.6</td>
-      <td>0.2</td>
-      <td>5.1</td>
-      <td>3.8</td>
-      <td>5.438750</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>47</th>
-      <td>48</td>
-      <td>Iris-setosa</td>
-      <td>1.4</td>
-      <td>0.2</td>
-      <td>4.6</td>
-      <td>3.2</td>
-      <td>5.382379</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>48</th>
-      <td>49</td>
-      <td>Iris-setosa</td>
-      <td>1.5</td>
-      <td>0.2</td>
-      <td>5.3</td>
-      <td>3.7</td>
-      <td>5.431390</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>49</th>
-      <td>50</td>
-      <td>Iris-setosa</td>
-      <td>1.4</td>
-      <td>0.2</td>
-      <td>5.0</td>
-      <td>3.3</td>
-      <td>5.349766</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>50</th>
-      <td>51</td>
-      <td>Iris-versicolor</td>
-      <td>4.7</td>
-      <td>1.4</td>
-      <td>7.0</td>
-      <td>3.2</td>
-      <td>3.111270</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>51</th>
-      <td>52</td>
-      <td>Iris-versicolor</td>
-      <td>4.5</td>
-      <td>1.5</td>
-      <td>6.4</td>
-      <td>3.2</td>
-      <td>2.906888</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>52</th>
-      <td>53</td>
-      <td>Iris-versicolor</td>
-      <td>4.9</td>
-      <td>1.5</td>
-      <td>6.9</td>
-      <td>3.1</td>
-      <td>2.924038</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>53</th>
-      <td>54</td>
-      <td>Iris-versicolor</td>
-      <td>4.0</td>
-      <td>1.3</td>
-      <td>5.5</td>
-      <td>2.3</td>
-      <td>2.569047</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>54</th>
-      <td>55</td>
-      <td>Iris-versicolor</td>
-      <td>4.6</td>
-      <td>1.5</td>
-      <td>6.5</td>
-      <td>2.8</td>
-      <td>2.621068</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>55</th>
-      <td>56</td>
-      <td>Iris-versicolor</td>
-      <td>4.5</td>
-      <td>1.3</td>
-      <td>5.7</td>
-      <td>2.8</td>
-      <td>2.687006</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>56</th>
-      <td>57</td>
-      <td>Iris-versicolor</td>
-      <td>4.7</td>
-      <td>1.6</td>
-      <td>6.3</td>
-      <td>3.3</td>
-      <td>2.874022</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>57</th>
-      <td>58</td>
-      <td>Iris-versicolor</td>
-      <td>3.3</td>
-      <td>1.0</td>
-      <td>4.9</td>
-      <td>2.4</td>
-      <td>3.293934</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>58</th>
-      <td>59</td>
-      <td>Iris-versicolor</td>
-      <td>4.6</td>
-      <td>1.3</td>
-      <td>6.6</td>
-      <td>2.9</td>
-      <td>2.847806</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>59</th>
-      <td>60</td>
-      <td>Iris-versicolor</td>
-      <td>3.9</td>
-      <td>1.4</td>
-      <td>5.2</td>
-      <td>2.7</td>
-      <td>2.816026</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>60</th>
-      <td>61</td>
-      <td>Iris-versicolor</td>
-      <td>3.5</td>
-      <td>1.0</td>
-      <td>5.0</td>
-      <td>2.0</td>
-      <td>3.006659</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>61</th>
-      <td>62</td>
-      <td>Iris-versicolor</td>
-      <td>4.2</td>
-      <td>1.5</td>
-      <td>5.9</td>
-      <td>3.0</td>
-      <td>2.776689</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>62</th>
-      <td>63</td>
-      <td>Iris-versicolor</td>
-      <td>4.0</td>
-      <td>1.0</td>
-      <td>6.0</td>
-      <td>2.2</td>
-      <td>2.744085</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>63</th>
-      <td>64</td>
-      <td>Iris-versicolor</td>
-      <td>4.7</td>
-      <td>1.4</td>
-      <td>6.1</td>
-      <td>2.9</td>
-      <td>2.664583</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>64</th>
-      <td>65</td>
-      <td>Iris-versicolor</td>
-      <td>3.6</td>
-      <td>1.3</td>
-      <td>5.6</td>
-      <td>2.9</td>
-      <td>3.083829</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>65</th>
-      <td>66</td>
-      <td>Iris-versicolor</td>
-      <td>4.4</td>
-      <td>1.4</td>
-      <td>6.7</td>
-      <td>3.1</td>
-      <td>2.991655</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>66</th>
-      <td>67</td>
-      <td>Iris-versicolor</td>
-      <td>4.5</td>
-      <td>1.5</td>
-      <td>5.6</td>
-      <td>3.0</td>
-      <td>2.700000</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>67</th>
-      <td>68</td>
-      <td>Iris-versicolor</td>
-      <td>4.1</td>
-      <td>1.0</td>
-      <td>5.8</td>
-      <td>2.7</td>
-      <td>2.954657</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>68</th>
-      <td>69</td>
-      <td>Iris-versicolor</td>
-      <td>4.5</td>
-      <td>1.5</td>
-      <td>6.2</td>
-      <td>2.2</td>
-      <td>2.202272</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>69</th>
-      <td>70</td>
-      <td>Iris-versicolor</td>
-      <td>3.9</td>
-      <td>1.1</td>
-      <td>5.6</td>
-      <td>2.5</td>
-      <td>2.853069</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>70</th>
-      <td>71</td>
-      <td>Iris-versicolor</td>
-      <td>4.8</td>
-      <td>1.8</td>
-      <td>5.9</td>
-      <td>3.2</td>
-      <td>2.626785</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>71</th>
-      <td>72</td>
-      <td>Iris-versicolor</td>
-      <td>4.0</td>
-      <td>1.3</td>
-      <td>6.1</td>
-      <td>2.8</td>
-      <td>2.854820</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>72</th>
-      <td>73</td>
-      <td>Iris-versicolor</td>
-      <td>4.9</td>
-      <td>1.5</td>
-      <td>6.3</td>
-      <td>2.5</td>
-      <td>2.330236</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>73</th>
-      <td>74</td>
-      <td>Iris-versicolor</td>
-      <td>4.7</td>
-      <td>1.2</td>
-      <td>6.1</td>
-      <td>2.8</td>
-      <td>2.736786</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>74</th>
-      <td>75</td>
-      <td>Iris-versicolor</td>
-      <td>4.3</td>
-      <td>1.3</td>
-      <td>6.4</td>
-      <td>2.9</td>
-      <td>2.867054</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>75</th>
-      <td>76</td>
-      <td>Iris-versicolor</td>
-      <td>4.4</td>
-      <td>1.4</td>
-      <td>6.6</td>
-      <td>3.0</td>
-      <td>2.893095</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>76</th>
-      <td>77</td>
-      <td>Iris-versicolor</td>
-      <td>4.8</td>
-      <td>1.4</td>
-      <td>6.8</td>
-      <td>2.8</td>
-      <td>2.751363</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>77</th>
-      <td>78</td>
-      <td>Iris-versicolor</td>
-      <td>5.0</td>
-      <td>1.7</td>
-      <td>6.7</td>
-      <td>3.0</td>
-      <td>2.658947</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>78</th>
-      <td>79</td>
-      <td>Iris-versicolor</td>
-      <td>4.5</td>
-      <td>1.5</td>
-      <td>6.0</td>
-      <td>2.9</td>
-      <td>2.626785</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>79</th>
-      <td>80</td>
-      <td>Iris-versicolor</td>
-      <td>3.5</td>
-      <td>1.0</td>
-      <td>5.7</td>
-      <td>2.6</td>
-      <td>3.157531</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>80</th>
-      <td>81</td>
-      <td>Iris-versicolor</td>
-      <td>3.8</td>
-      <td>1.1</td>
-      <td>5.5</td>
-      <td>2.4</td>
-      <td>2.854820</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>81</th>
-      <td>82</td>
-      <td>Iris-versicolor</td>
-      <td>3.7</td>
-      <td>1.0</td>
-      <td>5.5</td>
-      <td>2.4</td>
-      <td>2.974895</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>82</th>
-      <td>83</td>
-      <td>Iris-versicolor</td>
-      <td>3.9</td>
-      <td>1.2</td>
-      <td>5.8</td>
-      <td>2.7</td>
-      <td>2.886174</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>83</th>
-      <td>84</td>
-      <td>Iris-versicolor</td>
-      <td>5.1</td>
-      <td>1.6</td>
-      <td>6.0</td>
-      <td>2.7</td>
-      <td>2.343075</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>84</th>
-      <td>85</td>
-      <td>Iris-versicolor</td>
-      <td>4.5</td>
-      <td>1.5</td>
-      <td>5.4</td>
-      <td>3.0</td>
-      <td>2.722132</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>85</th>
-      <td>86</td>
-      <td>Iris-versicolor</td>
-      <td>4.5</td>
-      <td>1.6</td>
-      <td>6.0</td>
-      <td>3.4</td>
-      <td>2.952965</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>86</th>
-      <td>87</td>
-      <td>Iris-versicolor</td>
-      <td>4.7</td>
-      <td>1.5</td>
-      <td>6.7</td>
-      <td>3.1</td>
-      <td>2.875761</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>87</th>
-      <td>88</td>
-      <td>Iris-versicolor</td>
-      <td>4.4</td>
-      <td>1.3</td>
-      <td>6.3</td>
-      <td>2.3</td>
-      <td>2.457641</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>88</th>
-      <td>89</td>
-      <td>Iris-versicolor</td>
-      <td>4.1</td>
-      <td>1.3</td>
-      <td>5.6</td>
-      <td>3.0</td>
-      <td>2.941088</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>89</th>
-      <td>90</td>
-      <td>Iris-versicolor</td>
-      <td>4.0</td>
-      <td>1.3</td>
-      <td>5.5</td>
-      <td>2.5</td>
-      <td>2.675818</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>90</th>
-      <td>91</td>
-      <td>Iris-versicolor</td>
-      <td>4.4</td>
-      <td>1.2</td>
-      <td>5.5</td>
-      <td>2.6</td>
-      <td>2.672078</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>91</th>
-      <td>92</td>
-      <td>Iris-versicolor</td>
-      <td>4.6</td>
-      <td>1.4</td>
-      <td>6.1</td>
-      <td>3.0</td>
-      <td>2.753180</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>92</th>
-      <td>93</td>
-      <td>Iris-versicolor</td>
-      <td>4.0</td>
-      <td>1.2</td>
-      <td>5.8</td>
-      <td>2.6</td>
-      <td>2.787472</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>93</th>
-      <td>94</td>
-      <td>Iris-versicolor</td>
-      <td>3.3</td>
-      <td>1.0</td>
-      <td>5.0</td>
-      <td>2.3</td>
-      <td>3.226453</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>94</th>
-      <td>95</td>
-      <td>Iris-versicolor</td>
-      <td>4.2</td>
-      <td>1.3</td>
-      <td>5.6</td>
-      <td>2.7</td>
-      <td>2.711088</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>95</th>
-      <td>96</td>
-      <td>Iris-versicolor</td>
-      <td>4.2</td>
-      <td>1.2</td>
-      <td>5.7</td>
-      <td>3.0</td>
-      <td>2.969848</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>96</th>
-      <td>97</td>
-      <td>Iris-versicolor</td>
-      <td>4.2</td>
-      <td>1.3</td>
-      <td>5.7</td>
-      <td>2.9</td>
-      <td>2.835489</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>97</th>
-      <td>98</td>
-      <td>Iris-versicolor</td>
-      <td>4.3</td>
-      <td>1.3</td>
-      <td>6.2</td>
-      <td>2.9</td>
-      <td>2.831960</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>98</th>
-      <td>99</td>
-      <td>Iris-versicolor</td>
-      <td>3.0</td>
-      <td>1.1</td>
-      <td>5.1</td>
-      <td>2.5</td>
-      <td>3.400000</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>99</th>
-      <td>100</td>
-      <td>Iris-versicolor</td>
-      <td>4.1</td>
-      <td>1.3</td>
-      <td>5.7</td>
-      <td>2.8</td>
-      <td>2.803569</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>100</th>
-      <td>101</td>
-      <td>Iris-virginica</td>
-      <td>6.0</td>
-      <td>2.5</td>
-      <td>6.3</td>
-      <td>3.3</td>
-      <td>2.615339</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>101</th>
-      <td>102</td>
-      <td>Iris-virginica</td>
-      <td>5.1</td>
-      <td>1.9</td>
-      <td>5.8</td>
-      <td>2.7</td>
-      <td>2.140093</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>102</th>
-      <td>103</td>
-      <td>Iris-virginica</td>
-      <td>5.9</td>
-      <td>2.1</td>
-      <td>7.1</td>
-      <td>3.0</td>
-      <td>2.745906</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>103</th>
-      <td>104</td>
-      <td>Iris-virginica</td>
-      <td>5.6</td>
-      <td>1.8</td>
-      <td>6.3</td>
-      <td>2.9</td>
-      <td>2.463737</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>104</th>
-      <td>105</td>
-      <td>Iris-virginica</td>
-      <td>5.8</td>
-      <td>2.2</td>
-      <td>6.5</td>
-      <td>3.0</td>
-      <td>2.445404</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>105</th>
-      <td>106</td>
-      <td>Iris-virginica</td>
-      <td>6.6</td>
-      <td>2.1</td>
-      <td>7.6</td>
-      <td>3.0</td>
-      <td>3.271085</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>106</th>
-      <td>107</td>
-      <td>Iris-virginica</td>
-      <td>4.5</td>
-      <td>1.7</td>
-      <td>4.9</td>
-      <td>2.5</td>
-      <td>2.381176</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>107</th>
-      <td>108</td>
-      <td>Iris-virginica</td>
-      <td>6.3</td>
-      <td>1.8</td>
-      <td>7.3</td>
-      <td>2.9</td>
-      <td>3.043025</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>108</th>
-      <td>109</td>
-      <td>Iris-virginica</td>
-      <td>5.8</td>
-      <td>1.8</td>
-      <td>6.7</td>
-      <td>2.5</td>
-      <td>2.347339</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>109</th>
-      <td>110</td>
-      <td>Iris-virginica</td>
-      <td>6.1</td>
-      <td>2.5</td>
-      <td>7.2</td>
-      <td>3.6</td>
-      <td>3.195309</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>110</th>
-      <td>111</td>
-      <td>Iris-virginica</td>
-      <td>5.1</td>
-      <td>2.0</td>
-      <td>6.5</td>
-      <td>3.2</td>
-      <td>2.601922</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>111</th>
-      <td>112</td>
-      <td>Iris-virginica</td>
-      <td>5.3</td>
-      <td>1.9</td>
-      <td>6.4</td>
-      <td>2.7</td>
-      <td>2.231591</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>112</th>
-      <td>113</td>
-      <td>Iris-virginica</td>
-      <td>5.5</td>
-      <td>2.1</td>
-      <td>6.8</td>
-      <td>3.0</td>
-      <td>2.523886</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>113</th>
-      <td>114</td>
-      <td>Iris-virginica</td>
-      <td>5.0</td>
-      <td>2.0</td>
-      <td>5.7</td>
-      <td>2.5</td>
-      <td>1.926136</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>114</th>
-      <td>115</td>
-      <td>Iris-virginica</td>
-      <td>5.1</td>
-      <td>2.4</td>
-      <td>5.8</td>
-      <td>2.8</td>
-      <td>1.969772</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>115</th>
-      <td>116</td>
-      <td>Iris-virginica</td>
-      <td>5.3</td>
-      <td>2.3</td>
-      <td>6.4</td>
-      <td>3.2</td>
-      <td>2.459675</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>116</th>
-      <td>117</td>
-      <td>Iris-virginica</td>
-      <td>5.5</td>
-      <td>1.8</td>
-      <td>6.5</td>
-      <td>3.0</td>
-      <td>2.570992</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>117</th>
-      <td>118</td>
-      <td>Iris-virginica</td>
-      <td>6.7</td>
-      <td>2.2</td>
-      <td>7.7</td>
-      <td>3.8</td>
-      <td>3.874274</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>118</th>
-      <td>119</td>
-      <td>Iris-virginica</td>
-      <td>6.9</td>
-      <td>2.3</td>
-      <td>7.7</td>
-      <td>2.6</td>
-      <td>3.196873</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>119</th>
-      <td>120</td>
-      <td>Iris-virginica</td>
-      <td>5.0</td>
-      <td>1.5</td>
-      <td>6.0</td>
-      <td>2.2</td>
-      <td>2.092845</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>120</th>
-      <td>121</td>
-      <td>Iris-virginica</td>
-      <td>5.7</td>
-      <td>2.3</td>
-      <td>6.9</td>
-      <td>3.2</td>
-      <td>2.687006</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>121</th>
-      <td>122</td>
-      <td>Iris-virginica</td>
-      <td>4.9</td>
-      <td>2.0</td>
-      <td>5.6</td>
-      <td>2.8</td>
-      <td>2.181742</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>122</th>
-      <td>123</td>
-      <td>Iris-virginica</td>
-      <td>6.7</td>
-      <td>2.0</td>
-      <td>7.7</td>
-      <td>2.8</td>
-      <td>3.293934</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>123</th>
-      <td>124</td>
-      <td>Iris-virginica</td>
-      <td>4.9</td>
-      <td>1.8</td>
-      <td>6.3</td>
-      <td>2.7</td>
-      <td>2.267157</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>124</th>
-      <td>125</td>
-      <td>Iris-virginica</td>
-      <td>5.7</td>
-      <td>2.1</td>
-      <td>6.7</td>
-      <td>3.3</td>
-      <td>2.769476</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>125</th>
-      <td>126</td>
-      <td>Iris-virginica</td>
-      <td>6.0</td>
-      <td>1.8</td>
-      <td>7.2</td>
-      <td>3.2</td>
-      <td>3.093542</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>126</th>
-      <td>127</td>
-      <td>Iris-virginica</td>
-      <td>4.8</td>
-      <td>1.8</td>
-      <td>6.2</td>
-      <td>2.8</td>
-      <td>2.334524</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>127</th>
-      <td>128</td>
-      <td>Iris-virginica</td>
-      <td>4.9</td>
-      <td>1.8</td>
-      <td>6.1</td>
-      <td>3.0</td>
-      <td>2.467793</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>128</th>
-      <td>129</td>
-      <td>Iris-virginica</td>
-      <td>5.6</td>
-      <td>2.1</td>
-      <td>6.4</td>
-      <td>2.8</td>
-      <td>2.249444</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>129</th>
-      <td>130</td>
-      <td>Iris-virginica</td>
-      <td>5.8</td>
-      <td>1.6</td>
-      <td>7.2</td>
-      <td>3.0</td>
-      <td>3.001666</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>130</th>
-      <td>131</td>
-      <td>Iris-virginica</td>
-      <td>6.1</td>
-      <td>1.9</td>
-      <td>7.4</td>
-      <td>2.8</td>
-      <td>2.913760</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>131</th>
-      <td>132</td>
-      <td>Iris-virginica</td>
-      <td>6.4</td>
-      <td>2.0</td>
-      <td>7.9</td>
-      <td>3.8</td>
-      <td>3.921734</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>132</th>
-      <td>133</td>
-      <td>Iris-virginica</td>
-      <td>5.6</td>
-      <td>2.2</td>
-      <td>6.4</td>
-      <td>2.8</td>
-      <td>2.202272</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>133</th>
-      <td>134</td>
-      <td>Iris-virginica</td>
-      <td>5.1</td>
-      <td>1.5</td>
-      <td>6.3</td>
-      <td>2.8</td>
-      <td>2.525866</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>134</th>
-      <td>135</td>
-      <td>Iris-virginica</td>
-      <td>5.6</td>
-      <td>1.4</td>
-      <td>6.1</td>
-      <td>2.6</td>
-      <td>2.477902</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>135</th>
-      <td>136</td>
-      <td>Iris-virginica</td>
-      <td>6.1</td>
-      <td>2.3</td>
-      <td>7.7</td>
-      <td>3.0</td>
-      <td>3.069202</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>136</th>
-      <td>137</td>
-      <td>Iris-virginica</td>
-      <td>5.6</td>
-      <td>2.4</td>
-      <td>6.3</td>
-      <td>3.4</td>
-      <td>2.626785</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>137</th>
-      <td>138</td>
-      <td>Iris-virginica</td>
-      <td>5.5</td>
-      <td>1.8</td>
-      <td>6.4</td>
-      <td>3.1</td>
-      <td>2.624881</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>138</th>
-      <td>139</td>
-      <td>Iris-virginica</td>
-      <td>4.8</td>
-      <td>1.8</td>
-      <td>6.0</td>
-      <td>3.0</td>
-      <td>2.467793</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>139</th>
-      <td>140</td>
-      <td>Iris-virginica</td>
-      <td>5.4</td>
-      <td>2.1</td>
-      <td>6.9</td>
-      <td>3.1</td>
-      <td>2.630589</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>140</th>
-      <td>141</td>
-      <td>Iris-virginica</td>
-      <td>5.6</td>
-      <td>2.4</td>
-      <td>6.7</td>
-      <td>3.1</td>
-      <td>2.471841</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>141</th>
-      <td>142</td>
-      <td>Iris-virginica</td>
-      <td>5.1</td>
-      <td>2.3</td>
-      <td>6.9</td>
-      <td>3.1</td>
-      <td>2.535744</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>142</th>
-      <td>143</td>
-      <td>Iris-virginica</td>
-      <td>5.1</td>
-      <td>1.9</td>
-      <td>5.8</td>
-      <td>2.7</td>
-      <td>2.140093</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>143</th>
-      <td>144</td>
-      <td>Iris-virginica</td>
-      <td>5.9</td>
-      <td>2.3</td>
-      <td>6.8</td>
-      <td>3.2</td>
-      <td>2.700000</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>144</th>
-      <td>145</td>
-      <td>Iris-virginica</td>
-      <td>5.7</td>
-      <td>2.5</td>
-      <td>6.7</td>
-      <td>3.3</td>
-      <td>2.636285</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>145</th>
-      <td>146</td>
-      <td>Iris-virginica</td>
-      <td>5.2</td>
-      <td>2.3</td>
-      <td>6.7</td>
-      <td>3.0</td>
-      <td>2.372762</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>146</th>
-      <td>147</td>
-      <td>Iris-virginica</td>
-      <td>5.0</td>
-      <td>1.9</td>
-      <td>6.3</td>
-      <td>2.5</td>
-      <td>2.049390</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>147</th>
-      <td>148</td>
-      <td>Iris-virginica</td>
-      <td>5.2</td>
-      <td>2.0</td>
-      <td>6.5</td>
-      <td>3.0</td>
-      <td>2.437212</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>148</th>
-      <td>149</td>
-      <td>Iris-virginica</td>
-      <td>5.4</td>
-      <td>2.3</td>
-      <td>6.2</td>
-      <td>3.4</td>
-      <td>2.611513</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>149</th>
-      <td>150</td>
-      <td>Iris-virginica</td>
-      <td>5.1</td>
-      <td>1.8</td>
-      <td>5.9</td>
-      <td>3.0</td>
-      <td>2.443358</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>150</th>
-      <td>151</td>
-      <td>?</td>
-      <td>5.1</td>
-      <td>3.2</td>
-      <td>5.8</td>
-      <td>1.0</td>
-      <td>0.000000</td>
-      <td>False</td>
-    </tr>
-  </tbody>
-</table></div></div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">OperationalError</span><span class="g g-Whitespace">                          </span>Traceback (most recent call last)
+<span class="nn">/usr/local/lib/python3.11/dist-packages/sqlalchemy/engine/base.py</span> in <span class="ni">_exec_single_context</span><span class="nt">(self, dialect, context, statement, parameters)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1962</span>                 <span class="k">if</span> <span class="ow">not</span> <span class="n">evt_handled</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1963</span>                     <span class="bp">self</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">do_execute</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1964</span>                         <span class="n">cursor</span><span class="p">,</span> <span class="n">str_statement</span><span class="p">,</span> <span class="n">effective_parameters</span><span class="p">,</span> <span class="n">context</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/sqlalchemy/engine/default.py</span> in <span class="ni">do_execute</span><span class="nt">(self, cursor, statement, parameters, context)</span>
+<span class="g g-Whitespace">    </span><span class="mi">942</span>     <span class="k">def</span><span class="w"> </span><span class="nf">do_execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cursor</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">943</span>         <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">944</span> 
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/pymysql/cursors.py</span> in <span class="ni">execute</span><span class="nt">(self, query, args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">152</span> 
+<span class="ne">--&gt; </span><span class="mi">153</span>         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">154</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_executed</span> <span class="o">=</span> <span class="n">query</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/pymysql/cursors.py</span> in <span class="ni">_query</span><span class="nt">(self, q)</span>
+<span class="g g-Whitespace">    </span><span class="mi">321</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_clear_result</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">322</span>         <span class="n">conn</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">323</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_do_get_result</span><span class="p">()</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/pymysql/connections.py</span> in <span class="ni">query</span><span class="nt">(self, sql, unbuffered)</span>
+<span class="g g-Whitespace">    </span><span class="mi">562</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_execute_command</span><span class="p">(</span><span class="n">COMMAND</span><span class="o">.</span><span class="n">COM_QUERY</span><span class="p">,</span> <span class="n">sql</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">563</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_affected_rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_query_result</span><span class="p">(</span><span class="n">unbuffered</span><span class="o">=</span><span class="n">unbuffered</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">564</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_affected_rows</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/pymysql/connections.py</span> in <span class="ni">_read_query_result</span><span class="nt">(self, unbuffered)</span>
+<span class="g g-Whitespace">    </span><span class="mi">824</span>             <span class="n">result</span> <span class="o">=</span> <span class="n">MySQLResult</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">825</span>             <span class="n">result</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">826</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_result</span> <span class="o">=</span> <span class="n">result</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/pymysql/connections.py</span> in <span class="ni">read</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1198</span>         <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1199</span>             <span class="n">first_packet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_read_packet</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1200</span> 
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/pymysql/connections.py</span> in <span class="ni">_read_packet</span><span class="nt">(self, packet_type)</span>
+<span class="g g-Whitespace">    </span><span class="mi">774</span>                 <span class="bp">self</span><span class="o">.</span><span class="n">_result</span><span class="o">.</span><span class="n">unbuffered_active</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="ne">--&gt; </span><span class="mi">775</span>             <span class="n">packet</span><span class="o">.</span><span class="n">raise_for_error</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">776</span>         <span class="k">return</span> <span class="n">packet</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/pymysql/protocol.py</span> in <span class="ni">raise_for_error</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">218</span>             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;errno =&quot;</span><span class="p">,</span> <span class="n">errno</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">219</span>         <span class="n">err</span><span class="o">.</span><span class="n">raise_mysql_exception</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">220</span> 
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/pymysql/err.py</span> in <span class="ni">raise_mysql_exception</span><span class="nt">(data)</span>
+<span class="g g-Whitespace">    </span><span class="mi">149</span>         <span class="n">errorclass</span> <span class="o">=</span> <span class="n">InternalError</span> <span class="k">if</span> <span class="n">errno</span> <span class="o">&lt;</span> <span class="mi">1000</span> <span class="k">else</span> <span class="n">OperationalError</span>
+<span class="ne">--&gt; </span><span class="mi">150</span>     <span class="k">raise</span> <span class="n">errorclass</span><span class="p">(</span><span class="n">errno</span><span class="p">,</span> <span class="n">errval</span><span class="p">)</span>
+
+<span class="ne">OperationalError</span>: (1054, &quot;Unknown column &#39;petal length&#39; in &#39;field list&#39;&quot;)
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">OperationalError</span><span class="g g-Whitespace">                          </span>Traceback (most recent call last)
+<span class="nn">/tmp/ipython-input-5-375164422.py</span> in <span class="ni">&lt;cell line: 0&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># Query ke MySQL</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">mysql_query</span> <span class="o">=</span> <span class="s2">&quot;SELECT id, class, `petal length` AS petal_length, `petal width` AS petal_width FROM iris_data;&quot;</span>
+<span class="ne">----&gt; </span><span class="mi">7</span> <span class="n">df_mysql</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">mysql_query</span><span class="p">,</span> <span class="n">mysql_url</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> 
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="c1"># Query ke PostgreSQL</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/pandas/io/sql.py</span> in <span class="ni">read_sql</span><span class="nt">(sql, con, index_col, coerce_float, params, parse_dates, columns, chunksize, dtype_backend, dtype)</span>
+<span class="g g-Whitespace">    </span><span class="mi">732</span>             <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">733</span>         <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">734</span>             <span class="k">return</span> <span class="n">pandas_sql</span><span class="o">.</span><span class="n">read_query</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">735</span>                 <span class="n">sql</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">736</span>                 <span class="n">index_col</span><span class="o">=</span><span class="n">index_col</span><span class="p">,</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/pandas/io/sql.py</span> in <span class="ni">read_query</span><span class="nt">(self, sql, index_col, coerce_float, parse_dates, params, chunksize, dtype, dtype_backend)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1834</span> 
+<span class="g g-Whitespace">   </span><span class="mi">1835</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">1836</span><span class="s2">         result = self.execute(sql, params)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1837</span><span class="s2">         columns = result.keys()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1838</span><span class="s2"> </span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/pandas/io/sql.py</span> in <span class="ni">execute</span><span class="nt">(self, sql, params)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1657</span><span class="s2">         args = [] if params is None else [params]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1658</span><span class="s2">         if isinstance(sql, str):</span>
+<span class="ne">-&gt; </span><span class="mi">1659</span><span class="s2">             return self.con.exec_driver_sql(sql, *args)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1660</span><span class="s2">         return self.con.execute(sql, *args)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1661</span><span class="s2"> </span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/sqlalchemy/engine/base.py</span> in <span class="ni">exec_driver_sql</span><span class="nt">(self, statement, parameters, execution_options)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1773</span><span class="s2"> </span>
+<span class="g g-Whitespace">   </span><span class="mi">1774</span><span class="s2">         dialect = self.dialect</span>
+<span class="ne">-&gt; </span><span class="mi">1775</span><span class="s2">         ret = self._execute_context(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1776</span><span class="s2">             dialect,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1777</span><span class="s2">             dialect.execution_ctx_cls._init_statement,</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/sqlalchemy/engine/base.py</span> in <span class="ni">_execute_context</span><span class="nt">(self, dialect, constructor, statement, parameters, execution_options, *args, **kw)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1840</span><span class="s2">             return self._exec_insertmany_context(dialect, context)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1841</span><span class="s2">         else:</span>
+<span class="ne">-&gt; </span><span class="mi">1842</span><span class="s2">             return self._exec_single_context(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1843</span><span class="s2">                 dialect, context, statement, parameters</span>
+<span class="g g-Whitespace">   </span><span class="mi">1844</span><span class="s2">             )</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/sqlalchemy/engine/base.py</span> in <span class="ni">_exec_single_context</span><span class="nt">(self, dialect, context, statement, parameters)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1980</span><span class="s2"> </span>
+<span class="g g-Whitespace">   </span><span class="mi">1981</span><span class="s2">         except BaseException as e:</span>
+<span class="ne">-&gt; </span><span class="mi">1982</span><span class="s2">             self._handle_dbapi_exception(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1983</span><span class="s2">                 e, str_statement, effective_parameters, cursor, context</span>
+<span class="g g-Whitespace">   </span><span class="mi">1984</span><span class="s2">             )</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/sqlalchemy/engine/base.py</span> in <span class="ni">_handle_dbapi_exception</span><span class="nt">(self, e, statement, parameters, cursor, context, is_sub_exec)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2349</span><span class="s2">             elif should_wrap:</span>
+<span class="g g-Whitespace">   </span><span class="mi">2350</span><span class="s2">                 assert sqlalchemy_exception is not None</span>
+<span class="ne">-&gt; </span><span class="mi">2351</span><span class="s2">                 raise sqlalchemy_exception.with_traceback(exc_info[2]) from e</span>
+<span class="g g-Whitespace">   </span><span class="mi">2352</span><span class="s2">             else:</span>
+<span class="g g-Whitespace">   </span><span class="mi">2353</span><span class="s2">                 assert exc_info[1] is not None</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/sqlalchemy/engine/base.py</span> in <span class="ni">_exec_single_context</span><span class="nt">(self, dialect, context, statement, parameters)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1961</span><span class="s2">                             break</span>
+<span class="g g-Whitespace">   </span><span class="mi">1962</span><span class="s2">                 if not evt_handled:</span>
+<span class="ne">-&gt; </span><span class="mi">1963</span><span class="s2">                     self.dialect.do_execute(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1964</span><span class="s2">                         cursor, str_statement, effective_parameters, context</span>
+<span class="g g-Whitespace">   </span><span class="mi">1965</span><span class="s2">                     )</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/sqlalchemy/engine/default.py</span> in <span class="ni">do_execute</span><span class="nt">(self, cursor, statement, parameters, context)</span>
+<span class="g g-Whitespace">    </span><span class="mi">941</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">942</span><span class="s2">     def do_execute(self, cursor, statement, parameters, context=None):</span>
+<span class="ne">--&gt; </span><span class="mi">943</span><span class="s2">         cursor.execute(statement, parameters)</span>
+<span class="g g-Whitespace">    </span><span class="mi">944</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">945</span><span class="s2">     def do_execute_no_params(self, cursor, statement, context=None):</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/pymysql/cursors.py</span> in <span class="ni">execute</span><span class="nt">(self, query, args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">151</span><span class="s2">         query = self.mogrify(query, args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">152</span><span class="s2"> </span>
+<span class="ne">--&gt; </span><span class="mi">153</span><span class="s2">         result = self._query(query)</span>
+<span class="g g-Whitespace">    </span><span class="mi">154</span><span class="s2">         self._executed = query</span>
+<span class="g g-Whitespace">    </span><span class="mi">155</span><span class="s2">         return result</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/pymysql/cursors.py</span> in <span class="ni">_query</span><span class="nt">(self, q)</span>
+<span class="g g-Whitespace">    </span><span class="mi">320</span><span class="s2">         conn = self._get_db()</span>
+<span class="g g-Whitespace">    </span><span class="mi">321</span><span class="s2">         self._clear_result()</span>
+<span class="ne">--&gt; </span><span class="mi">322</span><span class="s2">         conn.query(q)</span>
+<span class="g g-Whitespace">    </span><span class="mi">323</span><span class="s2">         self._do_get_result()</span>
+<span class="g g-Whitespace">    </span><span class="mi">324</span><span class="s2">         return self.rowcount</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/pymysql/connections.py</span> in <span class="ni">query</span><span class="nt">(self, sql, unbuffered)</span>
+<span class="g g-Whitespace">    </span><span class="mi">561</span><span class="s2">             sql = sql.encode(self.encoding, &quot;surrogateescape&quot;)</span>
+<span class="g g-Whitespace">    </span><span class="mi">562</span><span class="s2">         self._execute_command(COMMAND.COM_QUERY, sql)</span>
+<span class="ne">--&gt; </span><span class="mi">563</span><span class="s2">         self._affected_rows = self._read_query_result(unbuffered=unbuffered)</span>
+<span class="g g-Whitespace">    </span><span class="mi">564</span><span class="s2">         return self._affected_rows</span>
+<span class="g g-Whitespace">    </span><span class="mi">565</span><span class="s2"> </span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/pymysql/connections.py</span> in <span class="ni">_read_query_result</span><span class="nt">(self, unbuffered)</span>
+<span class="g g-Whitespace">    </span><span class="mi">823</span><span class="s2">         else:</span>
+<span class="g g-Whitespace">    </span><span class="mi">824</span><span class="s2">             result = MySQLResult(self)</span>
+<span class="ne">--&gt; </span><span class="mi">825</span><span class="s2">             result.read()</span>
+<span class="g g-Whitespace">    </span><span class="mi">826</span><span class="s2">         self._result = result</span>
+<span class="g g-Whitespace">    </span><span class="mi">827</span><span class="s2">         if result.server_status is not None:</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/pymysql/connections.py</span> in <span class="ni">read</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1197</span><span class="s2">     def read(self):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1198</span><span class="s2">         try:</span>
+<span class="ne">-&gt; </span><span class="mi">1199</span><span class="s2">             first_packet = self.connection._read_packet()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1200</span><span class="s2"> </span>
+<span class="g g-Whitespace">   </span><span class="mi">1201</span><span class="s2">             if first_packet.is_ok_packet():</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/pymysql/connections.py</span> in <span class="ni">_read_packet</span><span class="nt">(self, packet_type)</span>
+<span class="g g-Whitespace">    </span><span class="mi">773</span><span class="s2">             if self._result is not None and self._result.unbuffered_active is True:</span>
+<span class="g g-Whitespace">    </span><span class="mi">774</span><span class="s2">                 self._result.unbuffered_active = False</span>
+<span class="ne">--&gt; </span><span class="mi">775</span><span class="s2">             packet.raise_for_error()</span>
+<span class="g g-Whitespace">    </span><span class="mi">776</span><span class="s2">         return packet</span>
+<span class="g g-Whitespace">    </span><span class="mi">777</span><span class="s2"> </span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/pymysql/protocol.py</span> in <span class="ni">raise_for_error</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">217</span><span class="s2">         if DEBUG:</span>
+<span class="g g-Whitespace">    </span><span class="mi">218</span><span class="s2">             print(&quot;errno =&quot;, errno)</span>
+<span class="ne">--&gt; </span><span class="mi">219</span><span class="s2">         err.raise_mysql_exception(self._data)</span>
+<span class="g g-Whitespace">    </span><span class="mi">220</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">221</span><span class="s2">     def dump(self):</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/pymysql/err.py</span> in <span class="ni">raise_mysql_exception</span><span class="nt">(data)</span>
+<span class="g g-Whitespace">    </span><span class="mi">148</span><span class="s2">     if errorclass is None:</span>
+<span class="g g-Whitespace">    </span><span class="mi">149</span><span class="s2">         errorclass = InternalError if errno &lt; 1000 else OperationalError</span>
+<span class="ne">--&gt; </span><span class="mi">150</span><span class="s2">     raise errorclass(errno, errval)</span>
+
+<span class="ne">OperationalError</span>: (pymysql.err.OperationalError) (1054, &quot;Unknown column &#39;petal length&#39; in &#39;field list&#39;&quot;)
+<span class="s2">[SQL: SELECT id, class, `petal length` AS petal_length, `petal width` AS petal_width FROM iris_data;]</span>
+<span class="s2">(Background on this error at: https://sqlalche.me/e/20/e3q8)</span>
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 <section id="total-outlier">

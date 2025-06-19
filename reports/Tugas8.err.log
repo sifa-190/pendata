@@ -44,7 +44,7 @@ plt.show()
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mNameError[0m                                 Traceback (most recent call last)
-[0;32m<ipython-input-4-755702168>[0m in [0;36m<cell line: 0>[0;34m()[0m
+[0;32m/tmp/ipython-input-4-755702168.py[0m in [0;36m<cell line: 0>[0;34m()[0m
 [1;32m      1[0m [0;31m# === Visualisasi Struktur Pohon ===[0m[0;34m[0m[0;34m[0m[0m
 [1;32m      2[0m [0mplt[0m[0;34m.[0m[0mfigure[0m[0;34m([0m[0mfigsize[0m[0;34m=[0m[0;34m([0m[0;36m12[0m[0;34m,[0m [0;36m3[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 [0;32m----> 3[0;31m plot_tree(

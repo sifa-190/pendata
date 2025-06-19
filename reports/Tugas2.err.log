@@ -25,53 +25,224 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-import psycopg2
+# Koneksi ke PostgreSQL dan MySQL
+posgre_url = create_engine("postgresql+psycopg2://avnadmin:AVNS_oal2yP3mG6JLIwX3BUK@pg-359aec68-tugas-pendata.g.aivencloud.com:17416/defaultdb")
+mysql_url = create_engine("mysql+pymysql://avnadmin:AVNS_2NRSFWfr9pGMEI7BSpA@mysql-3634ef1a-tugas-pendata.g.aivencloud.com:17416/defaultdb")
 
-# koneksi ke database mysql melalui aiven.io
-DB_HOST = "pg-359aec68-tugas-pendata.g.aivencloud.com"
-DB_PORT = "17416"
-DB_NAME = "defaultdb"
-DB_USER = "avnadmin"
-DB_PASS = "AVNS_oal2yP3mG6JLIwX3BUK"
+# Query ke MySQL
+mysql_query = "SELECT id, class, `petal length` AS petal_length, `petal width` AS petal_width FROM iris_data;"
+df_mysql = pd.read_sql(mysql_query, mysql_url)
 
-connect_1 = psycopg2.connect(
-    host=DB_HOST,
-    port=DB_PORT,
-    dbname=DB_NAME,
-    user=DB_USER,
-    password=DB_PASS,
-    sslmode="require"
-)
+# Query ke PostgreSQL
+posgre_query = "SELECT id, class, sepal_length, sepal_width FROM iris_data;"
+df_postgresql = pd.read_sql(posgre_query, posgre_url)
 
-data_posgre = connect_1.cursor()
+# Gabungkan DataFrame berdasarkan id dan class
+df_merged = pd.merge(df_mysql, df_postgresql, on=["id", "class"], how="inner")
 
-# akses ke data di database
+# Ambil fitur numerik
+feature_columns = ["petal_length", "petal_width", "sepal_length", "sepal_width"]
+data_values = df_merged[feature_columns].values
 
-data_posgre.execute("SELECT * FROM iris_data ORDER BY id ASC LIMIT 10;")
-data_db = data_posgre.fetchall()
+# Ambil referensi dari baris terakhir
+reference_point = data_values[-1]
 
-print("10 Data dalam tabel data_irisposgresql:")
-for data in data_db:
-    print(data)
+# Fungsi untuk menghitung jarak Euclidean
+def compute_distances(data, reference):
+    return np.array([euclidean(row, reference) for row in data])
+
+# Hitung jarak Euclidean dan tambahkan ke DataFrame
+df_merged["distance"] = compute_distances(data_values, reference_point)
+
+# Tentukan threshold outlier (persentil ke-93.5)
+threshold = np.percentile(df_merged["distance"], 93.5)
+df_merged["outlier"] = df_merged["distance"] > threshold
+
+display(HTML(df_merged.to_html()))
 ------------------
 
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mOperationalError[0m                          Traceback (most recent call last)
-[0;32m<ipython-input-3-2527102987>[0m in [0;36m<cell line: 0>[0;34m()[0m
-[1;32m      8[0m [0mDB_PASS[0m [0;34m=[0m [0;34m"AVNS_oal2yP3mG6JLIwX3BUK"[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      9[0m [0;34m[0m[0m
-[0;32m---> 10[0;31m connect_1 = psycopg2.connect(
-[0m[1;32m     11[0m     [0mhost[0m[0;34m=[0m[0mDB_HOST[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     12[0m     [0mport[0m[0;34m=[0m[0mDB_PORT[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[0;32m/usr/local/lib/python3.11/dist-packages/sqlalchemy/engine/base.py[0m in [0;36m_exec_single_context[0;34m(self, dialect, context, statement, parameters)[0m
+[1;32m   1962[0m                 [0;32mif[0m [0;32mnot[0m [0mevt_handled[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1963[0;31m                     self.dialect.do_execute(
+[0m[1;32m   1964[0m                         [0mcursor[0m[0;34m,[0m [0mstr_statement[0m[0;34m,[0m [0meffective_parameters[0m[0;34m,[0m [0mcontext[0m[0;34m[0m[0;34m[0m[0m
 
-[0;32m/usr/local/lib/python3.11/dist-packages/psycopg2/__init__.py[0m in [0;36mconnect[0;34m(dsn, connection_factory, cursor_factory, **kwargs)[0m
-[1;32m    120[0m [0;34m[0m[0m
-[1;32m    121[0m     [0mdsn[0m [0;34m=[0m [0m_ext[0m[0;34m.[0m[0mmake_dsn[0m[0;34m([0m[0mdsn[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0;32m--> 122[0;31m     [0mconn[0m [0;34m=[0m [0m_connect[0m[0;34m([0m[0mdsn[0m[0;34m,[0m [0mconnection_factory[0m[0;34m=[0m[0mconnection_factory[0m[0;34m,[0m [0;34m**[0m[0mkwasync[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    123[0m     [0;32mif[0m [0mcursor_factory[0m [0;32mis[0m [0;32mnot[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    124[0m         [0mconn[0m[0;34m.[0m[0mcursor_factory[0m [0;34m=[0m [0mcursor_factory[0m[0;34m[0m[0;34m[0m[0m
+[0;32m/usr/local/lib/python3.11/dist-packages/sqlalchemy/engine/default.py[0m in [0;36mdo_execute[0;34m(self, cursor, statement, parameters, context)[0m
+[1;32m    942[0m     [0;32mdef[0m [0mdo_execute[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mcursor[0m[0;34m,[0m [0mstatement[0m[0;34m,[0m [0mparameters[0m[0;34m,[0m [0mcontext[0m[0;34m=[0m[0;32mNone[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 943[0;31m         [0mcursor[0m[0;34m.[0m[0mexecute[0m[0;34m([0m[0mstatement[0m[0;34m,[0m [0mparameters[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    944[0m [0;34m[0m[0m
 
-[0;31mOperationalError[0m: could not translate host name "pg-359aec68-tugas-pendata.g.aivencloud.com" to address: Name or service not known
+[0;32m/usr/local/lib/python3.11/dist-packages/pymysql/cursors.py[0m in [0;36mexecute[0;34m(self, query, args)[0m
+[1;32m    152[0m [0;34m[0m[0m
+[0;32m--> 153[0;31m         [0mresult[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_query[0m[0;34m([0m[0mquery[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    154[0m         [0mself[0m[0;34m.[0m[0m_executed[0m [0;34m=[0m [0mquery[0m[0;34m[0m[0;34m[0m[0m
 
+[0;32m/usr/local/lib/python3.11/dist-packages/pymysql/cursors.py[0m in [0;36m_query[0;34m(self, q)[0m
+[1;32m    321[0m         [0mself[0m[0;34m.[0m[0m_clear_result[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 322[0;31m         [0mconn[0m[0;34m.[0m[0mquery[0m[0;34m([0m[0mq[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    323[0m         [0mself[0m[0;34m.[0m[0m_do_get_result[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pymysql/connections.py[0m in [0;36mquery[0;34m(self, sql, unbuffered)[0m
+[1;32m    562[0m         [0mself[0m[0;34m.[0m[0m_execute_command[0m[0;34m([0m[0mCOMMAND[0m[0;34m.[0m[0mCOM_QUERY[0m[0;34m,[0m [0msql[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 563[0;31m         [0mself[0m[0;34m.[0m[0m_affected_rows[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_read_query_result[0m[0;34m([0m[0munbuffered[0m[0;34m=[0m[0munbuffered[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    564[0m         [0;32mreturn[0m [0mself[0m[0;34m.[0m[0m_affected_rows[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pymysql/connections.py[0m in [0;36m_read_query_result[0;34m(self, unbuffered)[0m
+[1;32m    824[0m             [0mresult[0m [0;34m=[0m [0mMySQLResult[0m[0;34m([0m[0mself[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 825[0;31m             [0mresult[0m[0;34m.[0m[0mread[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    826[0m         [0mself[0m[0;34m.[0m[0m_result[0m [0;34m=[0m [0mresult[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pymysql/connections.py[0m in [0;36mread[0;34m(self)[0m
+[1;32m   1198[0m         [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1199[0;31m             [0mfirst_packet[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0mconnection[0m[0;34m.[0m[0m_read_packet[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1200[0m [0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pymysql/connections.py[0m in [0;36m_read_packet[0;34m(self, packet_type)[0m
+[1;32m    774[0m                 [0mself[0m[0;34m.[0m[0m_result[0m[0;34m.[0m[0munbuffered_active[0m [0;34m=[0m [0;32mFalse[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 775[0;31m             [0mpacket[0m[0;34m.[0m[0mraise_for_error[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    776[0m         [0;32mreturn[0m [0mpacket[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pymysql/protocol.py[0m in [0;36mraise_for_error[0;34m(self)[0m
+[1;32m    218[0m             [0mprint[0m[0;34m([0m[0;34m"errno ="[0m[0;34m,[0m [0merrno[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 219[0;31m         [0merr[0m[0;34m.[0m[0mraise_mysql_exception[0m[0;34m([0m[0mself[0m[0;34m.[0m[0m_data[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    220[0m [0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pymysql/err.py[0m in [0;36mraise_mysql_exception[0;34m(data)[0m
+[1;32m    149[0m         [0merrorclass[0m [0;34m=[0m [0mInternalError[0m [0;32mif[0m [0merrno[0m [0;34m<[0m [0;36m1000[0m [0;32melse[0m [0mOperationalError[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 150[0;31m     [0;32mraise[0m [0merrorclass[0m[0;34m([0m[0merrno[0m[0;34m,[0m [0merrval[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m
+[0;31mOperationalError[0m: (1054, "Unknown column 'petal length' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+[0;31mOperationalError[0m                          Traceback (most recent call last)
+[0;32m/tmp/ipython-input-5-375164422.py[0m in [0;36m<cell line: 0>[0;34m()[0m
+[1;32m      5[0m [0;31m# Query ke MySQL[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      6[0m [0mmysql_query[0m [0;34m=[0m [0;34m"SELECT id, class, `petal length` AS petal_length, `petal width` AS petal_width FROM iris_data;"[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 7[0;31m [0mdf_mysql[0m [0;34m=[0m [0mpd[0m[0;34m.[0m[0mread_sql[0m[0;34m([0m[0mmysql_query[0m[0;34m,[0m [0mmysql_url[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      8[0m [0;34m[0m[0m
+[1;32m      9[0m [0;31m# Query ke PostgreSQL[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pandas/io/sql.py[0m in [0;36mread_sql[0;34m(sql, con, index_col, coerce_float, params, parse_dates, columns, chunksize, dtype_backend, dtype)[0m
+[1;32m    732[0m             )
+[1;32m    733[0m         [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 734[0;31m             return pandas_sql.read_query(
+[0m[1;32m    735[0m                 [0msql[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    736[0m                 [0mindex_col[0m[0;34m=[0m[0mindex_col[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pandas/io/sql.py[0m in [0;36mread_query[0;34m(self, sql, index_col, coerce_float, parse_dates, params, chunksize, dtype, dtype_backend)[0m
+[1;32m   1834[0m [0;34m[0m[0m
+[1;32m   1835[0m         """
+[0;32m-> 1836[0;31m         [0mresult[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0mexecute[0m[0;34m([0m[0msql[0m[0;34m,[0m [0mparams[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1837[0m         [0mcolumns[0m [0;34m=[0m [0mresult[0m[0;34m.[0m[0mkeys[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1838[0m [0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pandas/io/sql.py[0m in [0;36mexecute[0;34m(self, sql, params)[0m
+[1;32m   1657[0m         [0margs[0m [0;34m=[0m [0;34m[[0m[0;34m][0m [0;32mif[0m [0mparams[0m [0;32mis[0m [0;32mNone[0m [0;32melse[0m [0;34m[[0m[0mparams[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1658[0m         [0;32mif[0m [0misinstance[0m[0;34m([0m[0msql[0m[0;34m,[0m [0mstr[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1659[0;31m             [0;32mreturn[0m [0mself[0m[0;34m.[0m[0mcon[0m[0;34m.[0m[0mexec_driver_sql[0m[0;34m([0m[0msql[0m[0;34m,[0m [0;34m*[0m[0margs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1660[0m         [0;32mreturn[0m [0mself[0m[0;34m.[0m[0mcon[0m[0;34m.[0m[0mexecute[0m[0;34m([0m[0msql[0m[0;34m,[0m [0;34m*[0m[0margs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1661[0m [0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/sqlalchemy/engine/base.py[0m in [0;36mexec_driver_sql[0;34m(self, statement, parameters, execution_options)[0m
+[1;32m   1773[0m [0;34m[0m[0m
+[1;32m   1774[0m         [0mdialect[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0mdialect[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1775[0;31m         ret = self._execute_context(
+[0m[1;32m   1776[0m             [0mdialect[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1777[0m             [0mdialect[0m[0;34m.[0m[0mexecution_ctx_cls[0m[0;34m.[0m[0m_init_statement[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/sqlalchemy/engine/base.py[0m in [0;36m_execute_context[0;34m(self, dialect, constructor, statement, parameters, execution_options, *args, **kw)[0m
+[1;32m   1840[0m             [0;32mreturn[0m [0mself[0m[0;34m.[0m[0m_exec_insertmany_context[0m[0;34m([0m[0mdialect[0m[0;34m,[0m [0mcontext[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1841[0m         [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1842[0;31m             return self._exec_single_context(
+[0m[1;32m   1843[0m                 [0mdialect[0m[0;34m,[0m [0mcontext[0m[0;34m,[0m [0mstatement[0m[0;34m,[0m [0mparameters[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1844[0m             )
+
+[0;32m/usr/local/lib/python3.11/dist-packages/sqlalchemy/engine/base.py[0m in [0;36m_exec_single_context[0;34m(self, dialect, context, statement, parameters)[0m
+[1;32m   1980[0m [0;34m[0m[0m
+[1;32m   1981[0m         [0;32mexcept[0m [0mBaseException[0m [0;32mas[0m [0me[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1982[0;31m             self._handle_dbapi_exception(
+[0m[1;32m   1983[0m                 [0me[0m[0;34m,[0m [0mstr_statement[0m[0;34m,[0m [0meffective_parameters[0m[0;34m,[0m [0mcursor[0m[0;34m,[0m [0mcontext[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1984[0m             )
+
+[0;32m/usr/local/lib/python3.11/dist-packages/sqlalchemy/engine/base.py[0m in [0;36m_handle_dbapi_exception[0;34m(self, e, statement, parameters, cursor, context, is_sub_exec)[0m
+[1;32m   2349[0m             [0;32melif[0m [0mshould_wrap[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   2350[0m                 [0;32massert[0m [0msqlalchemy_exception[0m [0;32mis[0m [0;32mnot[0m [0;32mNone[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 2351[0;31m                 [0;32mraise[0m [0msqlalchemy_exception[0m[0;34m.[0m[0mwith_traceback[0m[0;34m([0m[0mexc_info[0m[0;34m[[0m[0;36m2[0m[0;34m][0m[0;34m)[0m [0;32mfrom[0m [0me[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   2352[0m             [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   2353[0m                 [0;32massert[0m [0mexc_info[0m[0;34m[[0m[0;36m1[0m[0;34m][0m [0;32mis[0m [0;32mnot[0m [0;32mNone[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/sqlalchemy/engine/base.py[0m in [0;36m_exec_single_context[0;34m(self, dialect, context, statement, parameters)[0m
+[1;32m   1961[0m                             [0;32mbreak[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1962[0m                 [0;32mif[0m [0;32mnot[0m [0mevt_handled[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1963[0;31m                     self.dialect.do_execute(
+[0m[1;32m   1964[0m                         [0mcursor[0m[0;34m,[0m [0mstr_statement[0m[0;34m,[0m [0meffective_parameters[0m[0;34m,[0m [0mcontext[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1965[0m                     )
+
+[0;32m/usr/local/lib/python3.11/dist-packages/sqlalchemy/engine/default.py[0m in [0;36mdo_execute[0;34m(self, cursor, statement, parameters, context)[0m
+[1;32m    941[0m [0;34m[0m[0m
+[1;32m    942[0m     [0;32mdef[0m [0mdo_execute[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mcursor[0m[0;34m,[0m [0mstatement[0m[0;34m,[0m [0mparameters[0m[0;34m,[0m [0mcontext[0m[0;34m=[0m[0;32mNone[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 943[0;31m         [0mcursor[0m[0;34m.[0m[0mexecute[0m[0;34m([0m[0mstatement[0m[0;34m,[0m [0mparameters[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    944[0m [0;34m[0m[0m
+[1;32m    945[0m     [0;32mdef[0m [0mdo_execute_no_params[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mcursor[0m[0;34m,[0m [0mstatement[0m[0;34m,[0m [0mcontext[0m[0;34m=[0m[0;32mNone[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pymysql/cursors.py[0m in [0;36mexecute[0;34m(self, query, args)[0m
+[1;32m    151[0m         [0mquery[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0mmogrify[0m[0;34m([0m[0mquery[0m[0;34m,[0m [0margs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    152[0m [0;34m[0m[0m
+[0;32m--> 153[0;31m         [0mresult[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_query[0m[0;34m([0m[0mquery[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    154[0m         [0mself[0m[0;34m.[0m[0m_executed[0m [0;34m=[0m [0mquery[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    155[0m         [0;32mreturn[0m [0mresult[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pymysql/cursors.py[0m in [0;36m_query[0;34m(self, q)[0m
+[1;32m    320[0m         [0mconn[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_get_db[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    321[0m         [0mself[0m[0;34m.[0m[0m_clear_result[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 322[0;31m         [0mconn[0m[0;34m.[0m[0mquery[0m[0;34m([0m[0mq[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    323[0m         [0mself[0m[0;34m.[0m[0m_do_get_result[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    324[0m         [0;32mreturn[0m [0mself[0m[0;34m.[0m[0mrowcount[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pymysql/connections.py[0m in [0;36mquery[0;34m(self, sql, unbuffered)[0m
+[1;32m    561[0m             [0msql[0m [0;34m=[0m [0msql[0m[0;34m.[0m[0mencode[0m[0;34m([0m[0mself[0m[0;34m.[0m[0mencoding[0m[0;34m,[0m [0;34m"surrogateescape"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    562[0m         [0mself[0m[0;34m.[0m[0m_execute_command[0m[0;34m([0m[0mCOMMAND[0m[0;34m.[0m[0mCOM_QUERY[0m[0;34m,[0m [0msql[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 563[0;31m         [0mself[0m[0;34m.[0m[0m_affected_rows[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_read_query_result[0m[0;34m([0m[0munbuffered[0m[0;34m=[0m[0munbuffered[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    564[0m         [0;32mreturn[0m [0mself[0m[0;34m.[0m[0m_affected_rows[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    565[0m [0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pymysql/connections.py[0m in [0;36m_read_query_result[0;34m(self, unbuffered)[0m
+[1;32m    823[0m         [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    824[0m             [0mresult[0m [0;34m=[0m [0mMySQLResult[0m[0;34m([0m[0mself[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 825[0;31m             [0mresult[0m[0;34m.[0m[0mread[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    826[0m         [0mself[0m[0;34m.[0m[0m_result[0m [0;34m=[0m [0mresult[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    827[0m         [0;32mif[0m [0mresult[0m[0;34m.[0m[0mserver_status[0m [0;32mis[0m [0;32mnot[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pymysql/connections.py[0m in [0;36mread[0;34m(self)[0m
+[1;32m   1197[0m     [0;32mdef[0m [0mread[0m[0;34m([0m[0mself[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1198[0m         [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1199[0;31m             [0mfirst_packet[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0mconnection[0m[0;34m.[0m[0m_read_packet[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1200[0m [0;34m[0m[0m
+[1;32m   1201[0m             [0;32mif[0m [0mfirst_packet[0m[0;34m.[0m[0mis_ok_packet[0m[0;34m([0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pymysql/connections.py[0m in [0;36m_read_packet[0;34m(self, packet_type)[0m
+[1;32m    773[0m             [0;32mif[0m [0mself[0m[0;34m.[0m[0m_result[0m [0;32mis[0m [0;32mnot[0m [0;32mNone[0m [0;32mand[0m [0mself[0m[0;34m.[0m[0m_result[0m[0;34m.[0m[0munbuffered_active[0m [0;32mis[0m [0;32mTrue[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    774[0m                 [0mself[0m[0;34m.[0m[0m_result[0m[0;34m.[0m[0munbuffered_active[0m [0;34m=[0m [0;32mFalse[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 775[0;31m             [0mpacket[0m[0;34m.[0m[0mraise_for_error[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    776[0m         [0;32mreturn[0m [0mpacket[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    777[0m [0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pymysql/protocol.py[0m in [0;36mraise_for_error[0;34m(self)[0m
+[1;32m    217[0m         [0;32mif[0m [0mDEBUG[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    218[0m             [0mprint[0m[0;34m([0m[0;34m"errno ="[0m[0;34m,[0m [0merrno[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 219[0;31m         [0merr[0m[0;34m.[0m[0mraise_mysql_exception[0m[0;34m([0m[0mself[0m[0;34m.[0m[0m_data[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    220[0m [0;34m[0m[0m
+[1;32m    221[0m     [0;32mdef[0m [0mdump[0m[0;34m([0m[0mself[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pymysql/err.py[0m in [0;36mraise_mysql_exception[0;34m(data)[0m
+[1;32m    148[0m     [0;32mif[0m [0merrorclass[0m [0;32mis[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    149[0m         [0merrorclass[0m [0;34m=[0m [0mInternalError[0m [0;32mif[0m [0merrno[0m [0;34m<[0m [0;36m1000[0m [0;32melse[0m [0mOperationalError[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 150[0;31m     [0;32mraise[0m [0merrorclass[0m[0;34m([0m[0merrno[0m[0;34m,[0m [0merrval[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m
+[0;31mOperationalError[0m: (pymysql.err.OperationalError) (1054, "Unknown column 'petal length' in 'field list'")
+[SQL: SELECT id, class, `petal length` AS petal_length, `petal width` AS petal_width FROM iris_data;]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
 
