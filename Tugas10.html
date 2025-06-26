@@ -1,0 +1,1537 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>📊 Analisis Dataset Credit Approval (UCI) &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Tugas10';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Teknik Binning" href="Tugas9.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.jpeg" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.jpeg" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to Data Mining
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Tugas1.html"><strong>Proses dalam Memahami Data</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas2.html"><strong>Data Outlier Dan Deteksi</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas3.html"><strong>Local Outlier Factor (LOF)</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas4.html"><strong>Data Preparation</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas5.html"><strong>Proyek UTS</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas6.html"><strong>Metode K-Mean</strong></a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="Tugas7.html"><strong>Fuzzy C-Mean Clustering</strong></a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="Tugas8.html"><strong>DecisionTree</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas9.html"><strong>Teknik Binning</strong></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">📊 Analisis Dataset Credit Approval (UCI)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FTugas10.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Tugas10.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>📊 Analisis Dataset Credit Approval (UCI)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pendahuluan">Pendahuluan:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#upload-file-dataset">1. Upload File Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-dan-tampilkan-data">2. Load dan Tampilkan Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding">3. Data Understanding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">4. Preprocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelling">5. Modelling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluasi">6. Evaluasi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpan-model">7. Simpan Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpan-dataset-hasil-preprocessing">8. Simpan Dataset Hasil Preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deployment">Deployment</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="analisis-dataset-credit-approval-uci">
+<h1>📊 Analisis Dataset Credit Approval (UCI)<a class="headerlink" href="#analisis-dataset-credit-approval-uci" title="Link to this heading">#</a></h1>
+<section id="pendahuluan">
+<h2>Pendahuluan:<a class="headerlink" href="#pendahuluan" title="Link to this heading">#</a></h2>
+<p>Dalam dunia perbankan dan lembaga keuangan, proses penilaian kelayakan kredit merupakan bagian penting dalam pengambilan keputusan. Apakah seorang pemohon layak mendapatkan kredit atau tidak, sering kali ditentukan oleh banyak faktor seperti informasi pribadi, data keuangan, dan riwayat transaksi.</p>
+<p>Dataset Credit Approval dari UCI Machine Learning Repository merupakan kumpulan data riil yang merepresentasikan proses ini, dengan berbagai fitur numerik dan kategorikal yang menggambarkan kondisi pemohon kredit. Setiap baris data mencerminkan satu aplikasi kredit yang hasil akhirnya adalah apakah disetujui (+) atau ditolak (-).</p>
+<p>Melalui proyek ini, dilakukan analisis terhadap dataset tersebut dengan tujuan membangun model klasifikasi yang dapat memprediksi apakah aplikasi kredit akan disetujui atau tidak. Proses analisis mencakup beberapa tahapan penting, yaitu:</p>
+<p>Data Understanding – memahami struktur, tipe data, dan kualitas data.</p>
+<p>Preprocessing – menangani missing value dan mengubah data kategorikal menjadi numerik.</p>
+<p>Modeling – membangun model machine learning untuk klasifikasi.</p>
+<p>Evaluasi – menilai performa model menggunakan metrik evaluasi yang sesuai.</p>
+<p>Dengan analisis ini, diharapkan dapat diperoleh model prediksi yang akurat dan dapat digunakan sebagai dasar pengambilan keputusan kredit secara otomatis dan efisien.</p>
+<p>Analisis klasifikasi persetujuan kredit menggunakan dataset Credit Approval dari UCI.
+Tahapan analisis meliputi:</p>
+<ol class="arabic simple">
+<li><p>Data Understanding</p></li>
+<li><p>Preprocessing</p></li>
+<li><p>Modelling</p></li>
+<li><p>Evaluasi</p></li>
+<li><p>Deployment</p></li>
+</ol>
+<p>📁 Sumber Data
+Dataset dapat dilihat pada link berikut ini:
+<a class="reference external" href="https://archive.ics.uci.edu/dataset/27/credit+approval">https://archive.ics.uci.edu/dataset/27/credit+approval</a></p>
+<p>Dataset Credit Approval dari UCI Machine Learning Repository berisi data aplikasi kredit dari pemohon yang mengajukan pinjaman atau fasilitas kredit. Dataset ini mencakup berbagai fitur demografis dan keuangan (sebagian bersifat numerik dan sebagian kategorikal) yang digunakan untuk menentukan apakah permohonan kredit disetujui atau tidak.</p>
+<p>🎯 Tujuan
+Tujuan dari analisis dataset ini adalah untuk membangun model klasifikasi yang dapat memprediksi apakah sebuah pengajuan kredit akan disetujui (approve) atau ditolak (reject), berdasarkan informasi yang diberikan oleh pemohon.
+Model ini diharapkan dapat membantu lembaga keuangan dalam mengambil keputusan secara lebih cepat, objektif, dan efisien dalam proses evaluasi kredit.</p>
+</section>
+<section id="upload-file-dataset">
+<h2>1. Upload File Dataset<a class="headerlink" href="#upload-file-dataset" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">files</span>
+<span class="n">uploaded</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">upload</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+     <input type="file" id="files-08ef671d-6fd2-4d9f-88b1-cc9e9c45c438" name="files[]" multiple disabled
+        style="border:none" />
+     <output id="result-08ef671d-6fd2-4d9f-88b1-cc9e9c45c438">
+      Upload widget is only available when the cell has been executed in the
+      current browser session. Please rerun this cell to enable.
+      </output>
+      <script>// Copyright 2017 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+/**
+ * @fileoverview Helpers for google.colab Python module.
+ */
+(function(scope) {
+function span(text, styleAttributes = {}) {
+  const element = document.createElement('span');
+  element.textContent = text;
+  for (const key of Object.keys(styleAttributes)) {
+    element.style[key] = styleAttributes[key];
+  }
+  return element;
+}
+
+// Max number of bytes which will be uploaded at a time.
+const MAX_PAYLOAD_SIZE = 100 * 1024;
+
+function _uploadFiles(inputId, outputId) {
+  const steps = uploadFilesStep(inputId, outputId);
+  const outputElement = document.getElementById(outputId);
+  // Cache steps on the outputElement to make it available for the next call
+  // to uploadFilesContinue from Python.
+  outputElement.steps = steps;
+
+  return _uploadFilesContinue(outputId);
+}
+
+// This is roughly an async generator (not supported in the browser yet),
+// where there are multiple asynchronous steps and the Python side is going
+// to poll for completion of each step.
+// This uses a Promise to block the python side on completion of each step,
+// then passes the result of the previous step as the input to the next step.
+function _uploadFilesContinue(outputId) {
+  const outputElement = document.getElementById(outputId);
+  const steps = outputElement.steps;
+
+  const next = steps.next(outputElement.lastPromiseValue);
+  return Promise.resolve(next.value.promise).then((value) => {
+    // Cache the last promise value to make it available to the next
+    // step of the generator.
+    outputElement.lastPromiseValue = value;
+    return next.value.response;
+  });
+}
+
+/**
+ * Generator function which is called between each async step of the upload
+ * process.
+ * @param {string} inputId Element ID of the input file picker element.
+ * @param {string} outputId Element ID of the output display.
+ * @return {!Iterable<!Object>} Iterable of next steps.
+ */
+function* uploadFilesStep(inputId, outputId) {
+  const inputElement = document.getElementById(inputId);
+  inputElement.disabled = false;
+
+  const outputElement = document.getElementById(outputId);
+  outputElement.innerHTML = '';
+
+  const pickedPromise = new Promise((resolve) => {
+    inputElement.addEventListener('change', (e) => {
+      resolve(e.target.files);
+    });
+  });
+
+  const cancel = document.createElement('button');
+  inputElement.parentElement.appendChild(cancel);
+  cancel.textContent = 'Cancel upload';
+  const cancelPromise = new Promise((resolve) => {
+    cancel.onclick = () => {
+      resolve(null);
+    };
+  });
+
+  // Wait for the user to pick the files.
+  const files = yield {
+    promise: Promise.race([pickedPromise, cancelPromise]),
+    response: {
+      action: 'starting',
+    }
+  };
+
+  cancel.remove();
+
+  // Disable the input element since further picks are not allowed.
+  inputElement.disabled = true;
+
+  if (!files) {
+    return {
+      response: {
+        action: 'complete',
+      }
+    };
+  }
+
+  for (const file of files) {
+    const li = document.createElement('li');
+    li.append(span(file.name, {fontWeight: 'bold'}));
+    li.append(span(
+        `(${file.type || 'n/a'}) - ${file.size} bytes, ` +
+        `last modified: ${
+            file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() :
+                                    'n/a'} - `));
+    const percent = span('0% done');
+    li.appendChild(percent);
+
+    outputElement.appendChild(li);
+
+    const fileDataPromise = new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        resolve(e.target.result);
+      };
+      reader.readAsArrayBuffer(file);
+    });
+    // Wait for the data to be ready.
+    let fileData = yield {
+      promise: fileDataPromise,
+      response: {
+        action: 'continue',
+      }
+    };
+
+    // Use a chunked sending to avoid message size limits. See b/62115660.
+    let position = 0;
+    do {
+      const length = Math.min(fileData.byteLength - position, MAX_PAYLOAD_SIZE);
+      const chunk = new Uint8Array(fileData, position, length);
+      position += length;
+
+      const base64 = btoa(String.fromCharCode.apply(null, chunk));
+      yield {
+        response: {
+          action: 'append',
+          file: file.name,
+          data: base64,
+        },
+      };
+
+      let percentDone = fileData.byteLength === 0 ?
+          100 :
+          Math.round((position / fileData.byteLength) * 100);
+      percent.textContent = `${percentDone}% done`;
+
+    } while (position < fileData.byteLength);
+  }
+
+  // All done.
+  yield {
+    response: {
+      action: 'complete',
+    }
+  };
+}
+
+scope.google = scope.google || {};
+scope.google.colab = scope.google.colab || {};
+scope.google.colab._files = {
+  _uploadFiles,
+  _uploadFilesContinue,
+};
+})(self);
+</script> </div><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="nn">/tmp/ipython-input-1-4155664147.py</span> in <span class="ni">&lt;cell line: 0&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">files</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">uploaded</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">upload</span><span class="p">()</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/google/colab/files.py</span> in <span class="ni">upload</span><span class="nt">(target_dir)</span>
+<span class="g g-Whitespace">     </span><span class="mi">70</span>   <span class="s2">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">71</span><span class="s2"> </span>
+<span class="ne">---&gt; </span><span class="mi">72</span><span class="s2">   uploaded_files = _upload_files(multiple=True)</span>
+<span class="g g-Whitespace">     </span><span class="mi">73</span><span class="s2">   # Mapping from original filename to filename as saved locally.</span>
+<span class="g g-Whitespace">     </span><span class="mi">74</span><span class="s2">   local_filenames = dict()</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/google/colab/files.py</span> in <span class="ni">_upload_files</span><span class="nt">(multiple)</span>
+<span class="g g-Whitespace">    </span><span class="mi">162</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">163</span><span class="s2">   # First result is always an indication that the file picker has completed.</span>
+<span class="ne">--&gt; </span><span class="mi">164</span><span class="s2">   result = _output.eval_js(</span>
+<span class="g g-Whitespace">    </span><span class="mi">165</span><span class="s2">       &#39;google.colab._files._uploadFiles(&quot;</span><span class="si">{input_id}</span><span class="s2">&quot;, &quot;</span><span class="si">{output_id}</span><span class="s2">&quot;)&#39;.format(</span>
+<span class="g g-Whitespace">    </span><span class="mi">166</span><span class="s2">           input_id=input_id, output_id=output_id</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/google/colab/output/_js.py</span> in <span class="ni">eval_js</span><span class="nt">(script, ignore_result, timeout_sec)</span>
+<span class="g g-Whitespace">     </span><span class="mi">38</span><span class="s2">   if ignore_result:</span>
+<span class="g g-Whitespace">     </span><span class="mi">39</span><span class="s2">     return</span>
+<span class="ne">---&gt; </span><span class="mi">40</span><span class="s2">   return _message.read_reply_from_input(request_id, timeout_sec)</span>
+<span class="g g-Whitespace">     </span><span class="mi">41</span><span class="s2"> </span>
+<span class="g g-Whitespace">     </span><span class="mi">42</span><span class="s2"> </span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/google/colab/_message.py</span> in <span class="ni">read_reply_from_input</span><span class="nt">(message_id, timeout_sec)</span>
+<span class="g g-Whitespace">     </span><span class="mi">94</span><span class="s2">     reply = _read_next_input_message()</span>
+<span class="g g-Whitespace">     </span><span class="mi">95</span><span class="s2">     if reply == _NOT_READY or not isinstance(reply, dict):</span>
+<span class="ne">---&gt; </span><span class="mi">96</span><span class="s2">       time.sleep(0.025)</span>
+<span class="g g-Whitespace">     </span><span class="mi">97</span><span class="s2">       continue</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span><span class="s2">     if (</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="load-dan-tampilkan-data">
+<h2>2. Load dan Tampilkan Data<a class="headerlink" href="#load-dan-tampilkan-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Kolom sesuai dokumentasi UCI</span>
+<span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;A1&#39;</span><span class="p">,</span> <span class="s1">&#39;A2&#39;</span><span class="p">,</span> <span class="s1">&#39;A3&#39;</span><span class="p">,</span> <span class="s1">&#39;A4&#39;</span><span class="p">,</span> <span class="s1">&#39;A5&#39;</span><span class="p">,</span> <span class="s1">&#39;A6&#39;</span><span class="p">,</span> <span class="s1">&#39;A7&#39;</span><span class="p">,</span> <span class="s1">&#39;A8&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;A9&#39;</span><span class="p">,</span> <span class="s1">&#39;A10&#39;</span><span class="p">,</span> <span class="s1">&#39;A11&#39;</span><span class="p">,</span> <span class="s1">&#39;A12&#39;</span><span class="p">,</span> <span class="s1">&#39;A13&#39;</span><span class="p">,</span> <span class="s1">&#39;A14&#39;</span><span class="p">,</span> <span class="s1">&#39;A15&#39;</span><span class="p">,</span> <span class="s1">&#39;class&#39;</span>
+<span class="p">]</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;crx.data&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> <span class="n">na_values</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-da0a4064-98a9-49c6-a79c-fd6fde8dc5ac" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>A1</th>
+      <th>A2</th>
+      <th>A3</th>
+      <th>A4</th>
+      <th>A5</th>
+      <th>A6</th>
+      <th>A7</th>
+      <th>A8</th>
+      <th>A9</th>
+      <th>A10</th>
+      <th>A11</th>
+      <th>A12</th>
+      <th>A13</th>
+      <th>A14</th>
+      <th>A15</th>
+      <th>class</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>b</td>
+      <td>30.83</td>
+      <td>0.000</td>
+      <td>u</td>
+      <td>g</td>
+      <td>w</td>
+      <td>v</td>
+      <td>1.25</td>
+      <td>t</td>
+      <td>t</td>
+      <td>1</td>
+      <td>f</td>
+      <td>g</td>
+      <td>202.0</td>
+      <td>0</td>
+      <td>+</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>a</td>
+      <td>58.67</td>
+      <td>4.460</td>
+      <td>u</td>
+      <td>g</td>
+      <td>q</td>
+      <td>h</td>
+      <td>3.04</td>
+      <td>t</td>
+      <td>t</td>
+      <td>6</td>
+      <td>f</td>
+      <td>g</td>
+      <td>43.0</td>
+      <td>560</td>
+      <td>+</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>a</td>
+      <td>24.50</td>
+      <td>0.500</td>
+      <td>u</td>
+      <td>g</td>
+      <td>q</td>
+      <td>h</td>
+      <td>1.50</td>
+      <td>t</td>
+      <td>f</td>
+      <td>0</td>
+      <td>f</td>
+      <td>g</td>
+      <td>280.0</td>
+      <td>824</td>
+      <td>+</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>b</td>
+      <td>27.83</td>
+      <td>1.540</td>
+      <td>u</td>
+      <td>g</td>
+      <td>w</td>
+      <td>v</td>
+      <td>3.75</td>
+      <td>t</td>
+      <td>t</td>
+      <td>5</td>
+      <td>t</td>
+      <td>g</td>
+      <td>100.0</td>
+      <td>3</td>
+      <td>+</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>b</td>
+      <td>20.17</td>
+      <td>5.625</td>
+      <td>u</td>
+      <td>g</td>
+      <td>w</td>
+      <td>v</td>
+      <td>1.71</td>
+      <td>t</td>
+      <td>f</td>
+      <td>0</td>
+      <td>f</td>
+      <td>s</td>
+      <td>120.0</td>
+      <td>0</td>
+      <td>+</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-da0a4064-98a9-49c6-a79c-fd6fde8dc5ac')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-da0a4064-98a9-49c6-a79c-fd6fde8dc5ac button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-da0a4064-98a9-49c6-a79c-fd6fde8dc5ac');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+    <div id="df-a7bc1cb3-8335-4e3c-8572-6ac8ac18c387">
+      <button class="colab-df-quickchart" onclick="quickchart('df-a7bc1cb3-8335-4e3c-8572-6ac8ac18c387')"
+                title="Suggest charts"
+                style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+      </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+      <script>
+        async function quickchart(key) {
+          const quickchartButtonEl =
+            document.querySelector('#' + key + ' button');
+          quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+          quickchartButtonEl.classList.add('colab-df-spinner');
+          try {
+            const charts = await google.colab.kernel.invokeFunction(
+                'suggestCharts', [key], {});
+          } catch (error) {
+            console.error('Error during call to suggestCharts:', error);
+          }
+          quickchartButtonEl.classList.remove('colab-df-spinner');
+          quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+        }
+        (() => {
+          let quickchartButtonEl =
+            document.querySelector('#df-a7bc1cb3-8335-4e3c-8572-6ac8ac18c387 button');
+          quickchartButtonEl.style.display =
+            google.colab.kernel.accessAllowed ? 'block' : 'none';
+        })();
+      </script>
+    </div>
+
+    </div>
+  </div>
+</div></div>
+</div>
+</section>
+<section id="data-understanding">
+<h2>3. Data Understanding<a class="headerlink" href="#data-understanding" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah missing values:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 690 entries, 0 to 689
+Data columns (total 16 columns):
+ #   Column  Non-Null Count  Dtype  
+---  ------  --------------  -----  
+ 0   A1      678 non-null    object 
+ 1   A2      678 non-null    float64
+ 2   A3      690 non-null    float64
+ 3   A4      684 non-null    object 
+ 4   A5      684 non-null    object 
+ 5   A6      681 non-null    object 
+ 6   A7      681 non-null    object 
+ 7   A8      690 non-null    float64
+ 8   A9      690 non-null    object 
+ 9   A10     690 non-null    object 
+ 10  A11     690 non-null    int64  
+ 11  A12     690 non-null    object 
+ 12  A13     690 non-null    object 
+ 13  A14     677 non-null    float64
+ 14  A15     690 non-null    int64  
+ 15  class   690 non-null    object 
+dtypes: float64(4), int64(2), object(10)
+memory usage: 86.4+ KB
+
+Jumlah missing values:
+A1       12
+A2       12
+A3        0
+A4        6
+A5        6
+A6        9
+A7        9
+A8        0
+A9        0
+A10       0
+A11       0
+A12       0
+A13       0
+A14      13
+A15       0
+class     0
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="preprocessing">
+<h2>4. Preprocessing<a class="headerlink" href="#preprocessing" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.impute</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimpleImputer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">LabelEncoder</span>
+
+<span class="c1"># Cek data sebelum preprocessing</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🔍 Sebelum preprocessing:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="c1"># Tangani missing values</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;object&#39;</span><span class="p">:</span>
+        <span class="n">imp</span> <span class="o">=</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;most_frequent&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">imp</span> <span class="o">=</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[[</span><span class="n">col</span><span class="p">]]</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="n">col</span><span class="p">]])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Setelah imputasi missing values (NaN sudah diisi):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="c1"># Encoding data kategorikal</span>
+<span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;object&#39;</span><span class="p">:</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Setelah encoding:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>🔍 Sebelum preprocessing:
+A1       0
+A2       0
+A3       0
+A4       0
+A5       0
+A6       0
+A7       0
+A8       0
+A9       0
+A10      0
+A11      0
+A12      0
+A13      0
+A14      0
+A15      0
+class    0
+dtype: int64
+
+✅ Setelah imputasi missing values (NaN sudah diisi):
+A1       0
+A2       0
+A3       0
+A4       0
+A5       0
+A6       0
+A7       0
+A8       0
+A9       0
+A10      0
+A11      0
+A12      0
+A13      0
+A14      0
+A15      0
+class    0
+dtype: int64
+
+✅ Setelah encoding:
+    A1     A2     A3   A4   A5    A6   A7    A8   A9  A10  A11  A12  A13  \
+0  1.0  30.83  0.000  1.0  0.0  12.0  7.0  1.25  1.0  1.0  1.0  0.0  0.0   
+1  0.0  58.67  4.460  1.0  0.0  10.0  3.0  3.04  1.0  1.0  6.0  0.0  0.0   
+2  0.0  24.50  0.500  1.0  0.0  10.0  3.0  1.50  1.0  0.0  0.0  0.0  0.0   
+3  1.0  27.83  1.540  1.0  0.0  12.0  7.0  3.75  1.0  1.0  5.0  1.0  0.0   
+4  1.0  20.17  5.625  1.0  0.0  12.0  7.0  1.71  1.0  0.0  0.0  0.0  2.0   
+
+     A14    A15  class  
+0  202.0    0.0    0.0  
+1   43.0  560.0    0.0  
+2  280.0  824.0    0.0  
+3  100.0    3.0    0.0  
+4  120.0    0.0    0.0  
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="modelling">
+<h2>5. Modelling<a class="headerlink" href="#modelling" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+
+<span class="c1"># Pisahkan fitur dan target</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span>
+
+<span class="c1"># Split data train dan test</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Training model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Prediksi dan tampilkan info model</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Model berhasil dilatih&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🎯 Akurasi training:&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">))</span>
+
+<span class="c1"># Prediksi pada data test</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🎯 Contoh prediksi (10 data):&quot;</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✅ Model berhasil dilatih
+🎯 Akurasi training: 1.0
+🎯 Contoh prediksi (10 data): [1. 0. 1. 1. 1. 1. 1. 0. 1. 1.]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="evaluasi">
+<h2>6. Evaluasi<a class="headerlink" href="#evaluasi" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;📊 Confusion Matrix:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">📈 Accuracy:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">📝 Classification Report:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>📊 Confusion Matrix:
+[[58 12]
+ [ 7 61]]
+
+📈 Accuracy:
+0.8623188405797102
+
+📝 Classification Report:
+              precision    recall  f1-score   support
+
+         0.0       0.89      0.83      0.86        70
+         1.0       0.84      0.90      0.87        68
+
+    accuracy                           0.86       138
+   macro avg       0.86      0.86      0.86       138
+weighted avg       0.86      0.86      0.86       138
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="simpan-model">
+<h2>7. Simpan Model<a class="headerlink" href="#simpan-model" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">joblib</span>
+
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;credit_model.pkl&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Model disimpan sebagai credit_model.pkl&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model disimpan sebagai credit_model.pkl
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="simpan-dataset-hasil-preprocessing">
+<h2>8. Simpan Dataset Hasil Preprocessing<a class="headerlink" href="#simpan-dataset-hasil-preprocessing" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;credit_approval_clean.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dataset disimpan sebagai credit_approval_clean.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dataset disimpan sebagai credit_approval_clean.csv
+</pre></div>
+</div>
+</div>
+</div>
+<section id="deployment">
+<h3>Deployment<a class="headerlink" href="#deployment" title="Link to this heading">#</a></h3>
+<p>Link :  <a class="reference external" href="https://cf6b503d28d5cea048.gradio.live">https://cf6b503d28d5cea048.gradio.live</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>gradio
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: gradio in /usr/local/lib/python3.11/dist-packages (5.31.0)
+Requirement already satisfied: aiofiles&lt;25.0,&gt;=22.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (24.1.0)
+Requirement already satisfied: anyio&lt;5.0,&gt;=3.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (4.9.0)
+Requirement already satisfied: fastapi&lt;1.0,&gt;=0.115.2 in /usr/local/lib/python3.11/dist-packages (from gradio) (0.115.13)
+Requirement already satisfied: ffmpy in /usr/local/lib/python3.11/dist-packages (from gradio) (0.6.0)
+Requirement already satisfied: gradio-client==1.10.1 in /usr/local/lib/python3.11/dist-packages (from gradio) (1.10.1)
+Requirement already satisfied: groovy~=0.1 in /usr/local/lib/python3.11/dist-packages (from gradio) (0.1.2)
+Requirement already satisfied: httpx&gt;=0.24.1 in /usr/local/lib/python3.11/dist-packages (from gradio) (0.28.1)
+Requirement already satisfied: huggingface-hub&gt;=0.28.1 in /usr/local/lib/python3.11/dist-packages (from gradio) (0.33.0)
+Requirement already satisfied: jinja2&lt;4.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (3.1.6)
+Requirement already satisfied: markupsafe&lt;4.0,&gt;=2.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (3.0.2)
+Requirement already satisfied: numpy&lt;3.0,&gt;=1.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (2.0.2)
+Requirement already satisfied: orjson~=3.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (3.10.18)
+Requirement already satisfied: packaging in /usr/local/lib/python3.11/dist-packages (from gradio) (24.2)
+Requirement already satisfied: pandas&lt;3.0,&gt;=1.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (2.2.2)
+Requirement already satisfied: pillow&lt;12.0,&gt;=8.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (11.2.1)
+Requirement already satisfied: pydantic&lt;2.12,&gt;=2.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (2.11.7)
+Requirement already satisfied: pydub in /usr/local/lib/python3.11/dist-packages (from gradio) (0.25.1)
+Requirement already satisfied: python-multipart&gt;=0.0.18 in /usr/local/lib/python3.11/dist-packages (from gradio) (0.0.20)
+Requirement already satisfied: pyyaml&lt;7.0,&gt;=5.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (6.0.2)
+Requirement already satisfied: ruff&gt;=0.9.3 in /usr/local/lib/python3.11/dist-packages (from gradio) (0.12.0)
+Requirement already satisfied: safehttpx&lt;0.2.0,&gt;=0.1.6 in /usr/local/lib/python3.11/dist-packages (from gradio) (0.1.6)
+Requirement already satisfied: semantic-version~=2.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (2.10.0)
+Requirement already satisfied: starlette&lt;1.0,&gt;=0.40.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (0.46.2)
+Requirement already satisfied: tomlkit&lt;0.14.0,&gt;=0.12.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (0.13.3)
+Requirement already satisfied: typer&lt;1.0,&gt;=0.12 in /usr/local/lib/python3.11/dist-packages (from gradio) (0.16.0)
+Requirement already satisfied: typing-extensions~=4.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (4.14.0)
+Requirement already satisfied: uvicorn&gt;=0.14.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (0.34.3)
+Requirement already satisfied: fsspec in /usr/local/lib/python3.11/dist-packages (from gradio-client==1.10.1-&gt;gradio) (2025.3.2)
+Requirement already satisfied: websockets&lt;16.0,&gt;=10.0 in /usr/local/lib/python3.11/dist-packages (from gradio-client==1.10.1-&gt;gradio) (15.0.1)
+Requirement already satisfied: idna&gt;=2.8 in /usr/local/lib/python3.11/dist-packages (from anyio&lt;5.0,&gt;=3.0-&gt;gradio) (3.10)
+Requirement already satisfied: sniffio&gt;=1.1 in /usr/local/lib/python3.11/dist-packages (from anyio&lt;5.0,&gt;=3.0-&gt;gradio) (1.3.1)
+Requirement already satisfied: certifi in /usr/local/lib/python3.11/dist-packages (from httpx&gt;=0.24.1-&gt;gradio) (2025.6.15)
+Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.11/dist-packages (from httpx&gt;=0.24.1-&gt;gradio) (1.0.9)
+Requirement already satisfied: h11&gt;=0.16 in /usr/local/lib/python3.11/dist-packages (from httpcore==1.*-&gt;httpx&gt;=0.24.1-&gt;gradio) (0.16.0)
+Requirement already satisfied: filelock in /usr/local/lib/python3.11/dist-packages (from huggingface-hub&gt;=0.28.1-&gt;gradio) (3.18.0)
+Requirement already satisfied: requests in /usr/local/lib/python3.11/dist-packages (from huggingface-hub&gt;=0.28.1-&gt;gradio) (2.32.3)
+Requirement already satisfied: tqdm&gt;=4.42.1 in /usr/local/lib/python3.11/dist-packages (from huggingface-hub&gt;=0.28.1-&gt;gradio) (4.67.1)
+Requirement already satisfied: hf-xet&lt;2.0.0,&gt;=1.1.2 in /usr/local/lib/python3.11/dist-packages (from huggingface-hub&gt;=0.28.1-&gt;gradio) (1.1.5)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in /usr/local/lib/python3.11/dist-packages (from pandas&lt;3.0,&gt;=1.0-&gt;gradio) (2.9.0.post0)
+Requirement already satisfied: pytz&gt;=2020.1 in /usr/local/lib/python3.11/dist-packages (from pandas&lt;3.0,&gt;=1.0-&gt;gradio) (2025.2)
+Requirement already satisfied: tzdata&gt;=2022.7 in /usr/local/lib/python3.11/dist-packages (from pandas&lt;3.0,&gt;=1.0-&gt;gradio) (2025.2)
+Requirement already satisfied: annotated-types&gt;=0.6.0 in /usr/local/lib/python3.11/dist-packages (from pydantic&lt;2.12,&gt;=2.0-&gt;gradio) (0.7.0)
+Requirement already satisfied: pydantic-core==2.33.2 in /usr/local/lib/python3.11/dist-packages (from pydantic&lt;2.12,&gt;=2.0-&gt;gradio) (2.33.2)
+Requirement already satisfied: typing-inspection&gt;=0.4.0 in /usr/local/lib/python3.11/dist-packages (from pydantic&lt;2.12,&gt;=2.0-&gt;gradio) (0.4.1)
+Requirement already satisfied: click&gt;=8.0.0 in /usr/local/lib/python3.11/dist-packages (from typer&lt;1.0,&gt;=0.12-&gt;gradio) (8.2.1)
+Requirement already satisfied: shellingham&gt;=1.3.0 in /usr/local/lib/python3.11/dist-packages (from typer&lt;1.0,&gt;=0.12-&gt;gradio) (1.5.4)
+Requirement already satisfied: rich&gt;=10.11.0 in /usr/local/lib/python3.11/dist-packages (from typer&lt;1.0,&gt;=0.12-&gt;gradio) (13.9.4)
+Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.11/dist-packages (from python-dateutil&gt;=2.8.2-&gt;pandas&lt;3.0,&gt;=1.0-&gt;gradio) (1.17.0)
+Requirement already satisfied: markdown-it-py&gt;=2.2.0 in /usr/local/lib/python3.11/dist-packages (from rich&gt;=10.11.0-&gt;typer&lt;1.0,&gt;=0.12-&gt;gradio) (3.0.0)
+Requirement already satisfied: pygments&lt;3.0.0,&gt;=2.13.0 in /usr/local/lib/python3.11/dist-packages (from rich&gt;=10.11.0-&gt;typer&lt;1.0,&gt;=0.12-&gt;gradio) (2.19.2)
+Requirement already satisfied: charset-normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.11/dist-packages (from requests-&gt;huggingface-hub&gt;=0.28.1-&gt;gradio) (3.4.2)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /usr/local/lib/python3.11/dist-packages (from requests-&gt;huggingface-hub&gt;=0.28.1-&gt;gradio) (2.4.0)
+Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.11/dist-packages (from markdown-it-py&gt;=2.2.0-&gt;rich&gt;=10.11.0-&gt;typer&lt;1.0,&gt;=0.12-&gt;gradio) (0.1.2)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gradio</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">joblib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Load model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;credit_model.pkl&quot;</span><span class="p">)</span>
+
+<span class="c1"># Fungsi prediksi</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">predict_credit</span><span class="p">(</span><span class="o">*</span><span class="n">inputs</span><span class="p">):</span>
+    <span class="n">input_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">prediction</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">input_array</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot;Approved ✅&quot;</span> <span class="k">if</span> <span class="n">prediction</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;Rejected ❌&quot;</span>
+
+<span class="c1"># Buat interface gradio</span>
+<span class="n">input_fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">gr</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;A</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">)]</span>
+
+<span class="n">demo</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Interface</span><span class="p">(</span>
+    <span class="n">fn</span><span class="o">=</span><span class="n">predict_credit</span><span class="p">,</span>
+    <span class="n">inputs</span><span class="o">=</span><span class="n">input_fields</span><span class="p">,</span>
+    <span class="n">outputs</span><span class="o">=</span><span class="n">gr</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Hasil Prediksi Kredit&quot;</span><span class="p">),</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;🔎 Prediksi Persetujuan Kredit&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Masukkan 15 fitur numerik dari aplikasi kredit untuk memprediksi apakah akan disetujui atau tidak.&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Jalankan</span>
+<span class="n">demo</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">share</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Colab notebook detected. To show errors in colab notebook, set debug=True in launch()
+* Running on public URL: https://cf6b503d28d5cea048.gradio.live
+
+This share link expires in 1 week. For free permanent hosting and GPU upgrades, run `gradio deploy` from the terminal in the working directory to deploy to Hugging Face Spaces (https://huggingface.co/spaces)
+</pre></div>
+</div>
+<div class="output text_html"><div><iframe src="https://cf6b503d28d5cea048.gradio.live" width="100%" height="500" allow="autoplay; camera; microphone; clipboard-read; clipboard-write;" frameborder="0" allowfullscreen></iframe></div></div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Tugas9.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><strong>Teknik Binning</strong></p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pendahuluan">Pendahuluan:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#upload-file-dataset">1. Upload File Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-dan-tampilkan-data">2. Load dan Tampilkan Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding">3. Data Understanding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">4. Preprocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelling">5. Modelling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluasi">6. Evaluasi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpan-model">7. Simpan Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpan-dataset-hasil-preprocessing">8. Simpan Dataset Hasil Preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deployment">Deployment</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
