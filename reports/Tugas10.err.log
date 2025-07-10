@@ -31,9 +31,7 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-
-from google.colab import files
-uploaded = files.upload()
-
+from google.colab import drive
+drive.mount('/content/drive')
 -------------------
 

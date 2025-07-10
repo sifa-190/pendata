@@ -412,6 +412,51 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="analisis-dataset-credit-approval-uci">
 <h1>📊 Analisis Dataset Credit Approval (UCI)<a class="headerlink" href="#analisis-dataset-credit-approval-uci" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">drive</span>
+<span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;/content/drive&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="nn">/tmp/ipython-input-1-1408506528.py</span> in <span class="ni">&lt;cell line: 0&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">drive</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;/content/drive&#39;</span><span class="p">)</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/google/colab/drive.py</span> in <span class="ni">mount</span><span class="nt">(mountpoint, force_remount, timeout_ms, readonly)</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span> <span class="k">def</span><span class="w"> </span><span class="nf">mount</span><span class="p">(</span><span class="n">mountpoint</span><span class="p">,</span> <span class="n">force_remount</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout_ms</span><span class="o">=</span><span class="mi">120000</span><span class="p">,</span> <span class="n">readonly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">99</span><span class="w">   </span><span class="sd">&quot;&quot;&quot;Mount your Google Drive at the specified mountpoint path.&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">100</span>   <span class="k">return</span> <span class="n">_mount</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">101</span>       <span class="n">mountpoint</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">102</span>       <span class="n">force_remount</span><span class="o">=</span><span class="n">force_remount</span><span class="p">,</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/google/colab/drive.py</span> in <span class="ni">_mount</span><span class="nt">(mountpoint, force_remount, timeout_ms, ephemeral, readonly)</span>
+<span class="g g-Whitespace">    </span><span class="mi">135</span>   <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">136</span>   <span class="k">if</span> <span class="n">ephemeral</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">137</span>     <span class="n">_message</span><span class="o">.</span><span class="n">blocking_request</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">138</span>         <span class="s1">&#39;request_auth&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">139</span>         <span class="n">request</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;authType&#39;</span><span class="p">:</span> <span class="s1">&#39;dfs_ephemeral&#39;</span><span class="p">},</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/google/colab/_message.py</span> in <span class="ni">blocking_request</span><span class="nt">(request_type, request, timeout_sec, parent)</span>
+<span class="g g-Whitespace">    </span><span class="mi">174</span>       <span class="n">request_type</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">parent</span><span class="p">,</span> <span class="n">expect_reply</span><span class="o">=</span><span class="kc">True</span>
+<span class="g g-Whitespace">    </span><span class="mi">175</span>   <span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">176</span>   <span class="k">return</span> <span class="n">read_reply_from_input</span><span class="p">(</span><span class="n">request_id</span><span class="p">,</span> <span class="n">timeout_sec</span><span class="p">)</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/google/colab/_message.py</span> in <span class="ni">read_reply_from_input</span><span class="nt">(message_id, timeout_sec)</span>
+<span class="g g-Whitespace">     </span><span class="mi">94</span>     <span class="n">reply</span> <span class="o">=</span> <span class="n">_read_next_input_message</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">95</span>     <span class="k">if</span> <span class="n">reply</span> <span class="o">==</span> <span class="n">_NOT_READY</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">reply</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">96</span>       <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.025</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">97</span>       <span class="k">continue</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span>     <span class="k">if</span> <span class="p">(</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
 <section id="pendahuluan">
 <h2>Pendahuluan:<a class="headerlink" href="#pendahuluan" title="Link to this heading">#</a></h2>
 <p>Dalam dunia perbankan dan lembaga keuangan, proses penilaian kelayakan kredit merupakan bagian penting dalam pengambilan keputusan. Apakah seorang pemohon layak mendapatkan kredit atau tidak, sering kali ditentukan oleh banyak faktor seperti informasi pribadi, data keuangan, dan riwayat transaksi.</p>
@@ -448,227 +493,6 @@ Model ini diharapkan dapat membantu lembaga keuangan dalam mengambil keputusan s
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-     <input type="file" id="files-08ef671d-6fd2-4d9f-88b1-cc9e9c45c438" name="files[]" multiple disabled
-        style="border:none" />
-     <output id="result-08ef671d-6fd2-4d9f-88b1-cc9e9c45c438">
-      Upload widget is only available when the cell has been executed in the
-      current browser session. Please rerun this cell to enable.
-      </output>
-      <script>// Copyright 2017 Google LLC
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-/**
- * @fileoverview Helpers for google.colab Python module.
- */
-(function(scope) {
-function span(text, styleAttributes = {}) {
-  const element = document.createElement('span');
-  element.textContent = text;
-  for (const key of Object.keys(styleAttributes)) {
-    element.style[key] = styleAttributes[key];
-  }
-  return element;
-}
-
-// Max number of bytes which will be uploaded at a time.
-const MAX_PAYLOAD_SIZE = 100 * 1024;
-
-function _uploadFiles(inputId, outputId) {
-  const steps = uploadFilesStep(inputId, outputId);
-  const outputElement = document.getElementById(outputId);
-  // Cache steps on the outputElement to make it available for the next call
-  // to uploadFilesContinue from Python.
-  outputElement.steps = steps;
-
-  return _uploadFilesContinue(outputId);
-}
-
-// This is roughly an async generator (not supported in the browser yet),
-// where there are multiple asynchronous steps and the Python side is going
-// to poll for completion of each step.
-// This uses a Promise to block the python side on completion of each step,
-// then passes the result of the previous step as the input to the next step.
-function _uploadFilesContinue(outputId) {
-  const outputElement = document.getElementById(outputId);
-  const steps = outputElement.steps;
-
-  const next = steps.next(outputElement.lastPromiseValue);
-  return Promise.resolve(next.value.promise).then((value) => {
-    // Cache the last promise value to make it available to the next
-    // step of the generator.
-    outputElement.lastPromiseValue = value;
-    return next.value.response;
-  });
-}
-
-/**
- * Generator function which is called between each async step of the upload
- * process.
- * @param {string} inputId Element ID of the input file picker element.
- * @param {string} outputId Element ID of the output display.
- * @return {!Iterable<!Object>} Iterable of next steps.
- */
-function* uploadFilesStep(inputId, outputId) {
-  const inputElement = document.getElementById(inputId);
-  inputElement.disabled = false;
-
-  const outputElement = document.getElementById(outputId);
-  outputElement.innerHTML = '';
-
-  const pickedPromise = new Promise((resolve) => {
-    inputElement.addEventListener('change', (e) => {
-      resolve(e.target.files);
-    });
-  });
-
-  const cancel = document.createElement('button');
-  inputElement.parentElement.appendChild(cancel);
-  cancel.textContent = 'Cancel upload';
-  const cancelPromise = new Promise((resolve) => {
-    cancel.onclick = () => {
-      resolve(null);
-    };
-  });
-
-  // Wait for the user to pick the files.
-  const files = yield {
-    promise: Promise.race([pickedPromise, cancelPromise]),
-    response: {
-      action: 'starting',
-    }
-  };
-
-  cancel.remove();
-
-  // Disable the input element since further picks are not allowed.
-  inputElement.disabled = true;
-
-  if (!files) {
-    return {
-      response: {
-        action: 'complete',
-      }
-    };
-  }
-
-  for (const file of files) {
-    const li = document.createElement('li');
-    li.append(span(file.name, {fontWeight: 'bold'}));
-    li.append(span(
-        `(${file.type || 'n/a'}) - ${file.size} bytes, ` +
-        `last modified: ${
-            file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() :
-                                    'n/a'} - `));
-    const percent = span('0% done');
-    li.appendChild(percent);
-
-    outputElement.appendChild(li);
-
-    const fileDataPromise = new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        resolve(e.target.result);
-      };
-      reader.readAsArrayBuffer(file);
-    });
-    // Wait for the data to be ready.
-    let fileData = yield {
-      promise: fileDataPromise,
-      response: {
-        action: 'continue',
-      }
-    };
-
-    // Use a chunked sending to avoid message size limits. See b/62115660.
-    let position = 0;
-    do {
-      const length = Math.min(fileData.byteLength - position, MAX_PAYLOAD_SIZE);
-      const chunk = new Uint8Array(fileData, position, length);
-      position += length;
-
-      const base64 = btoa(String.fromCharCode.apply(null, chunk));
-      yield {
-        response: {
-          action: 'append',
-          file: file.name,
-          data: base64,
-        },
-      };
-
-      let percentDone = fileData.byteLength === 0 ?
-          100 :
-          Math.round((position / fileData.byteLength) * 100);
-      percent.textContent = `${percentDone}% done`;
-
-    } while (position < fileData.byteLength);
-  }
-
-  // All done.
-  yield {
-    response: {
-      action: 'complete',
-    }
-  };
-}
-
-scope.google = scope.google || {};
-scope.google.colab = scope.google.colab || {};
-scope.google.colab._files = {
-  _uploadFiles,
-  _uploadFilesContinue,
-};
-})(self);
-</script> </div><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="nn">/tmp/ipython-input-1-4155664147.py</span> in <span class="ni">&lt;cell line: 0&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">files</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">uploaded</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">upload</span><span class="p">()</span>
-
-<span class="nn">/usr/local/lib/python3.11/dist-packages/google/colab/files.py</span> in <span class="ni">upload</span><span class="nt">(target_dir)</span>
-<span class="g g-Whitespace">     </span><span class="mi">70</span>   <span class="s2">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">71</span><span class="s2"> </span>
-<span class="ne">---&gt; </span><span class="mi">72</span><span class="s2">   uploaded_files = _upload_files(multiple=True)</span>
-<span class="g g-Whitespace">     </span><span class="mi">73</span><span class="s2">   # Mapping from original filename to filename as saved locally.</span>
-<span class="g g-Whitespace">     </span><span class="mi">74</span><span class="s2">   local_filenames = dict()</span>
-
-<span class="nn">/usr/local/lib/python3.11/dist-packages/google/colab/files.py</span> in <span class="ni">_upload_files</span><span class="nt">(multiple)</span>
-<span class="g g-Whitespace">    </span><span class="mi">162</span><span class="s2"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">163</span><span class="s2">   # First result is always an indication that the file picker has completed.</span>
-<span class="ne">--&gt; </span><span class="mi">164</span><span class="s2">   result = _output.eval_js(</span>
-<span class="g g-Whitespace">    </span><span class="mi">165</span><span class="s2">       &#39;google.colab._files._uploadFiles(&quot;</span><span class="si">{input_id}</span><span class="s2">&quot;, &quot;</span><span class="si">{output_id}</span><span class="s2">&quot;)&#39;.format(</span>
-<span class="g g-Whitespace">    </span><span class="mi">166</span><span class="s2">           input_id=input_id, output_id=output_id</span>
-
-<span class="nn">/usr/local/lib/python3.11/dist-packages/google/colab/output/_js.py</span> in <span class="ni">eval_js</span><span class="nt">(script, ignore_result, timeout_sec)</span>
-<span class="g g-Whitespace">     </span><span class="mi">38</span><span class="s2">   if ignore_result:</span>
-<span class="g g-Whitespace">     </span><span class="mi">39</span><span class="s2">     return</span>
-<span class="ne">---&gt; </span><span class="mi">40</span><span class="s2">   return _message.read_reply_from_input(request_id, timeout_sec)</span>
-<span class="g g-Whitespace">     </span><span class="mi">41</span><span class="s2"> </span>
-<span class="g g-Whitespace">     </span><span class="mi">42</span><span class="s2"> </span>
-
-<span class="nn">/usr/local/lib/python3.11/dist-packages/google/colab/_message.py</span> in <span class="ni">read_reply_from_input</span><span class="nt">(message_id, timeout_sec)</span>
-<span class="g g-Whitespace">     </span><span class="mi">94</span><span class="s2">     reply = _read_next_input_message()</span>
-<span class="g g-Whitespace">     </span><span class="mi">95</span><span class="s2">     if reply == _NOT_READY or not isinstance(reply, dict):</span>
-<span class="ne">---&gt; </span><span class="mi">96</span><span class="s2">       time.sleep(0.025)</span>
-<span class="g g-Whitespace">     </span><span class="mi">97</span><span class="s2">       continue</span>
-<span class="g g-Whitespace">     </span><span class="mi">98</span><span class="s2">     if (</span>
-
-<span class="ne">KeyboardInterrupt</span>: 
-</pre></div>
-</div>
-</div>
 </div>
 </section>
 <section id="load-dan-tampilkan-data">
@@ -691,7 +515,7 @@ scope.google.colab._files = {
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-da0a4064-98a9-49c6-a79c-fd6fde8dc5ac" class="colab-df-container">
+  <div id="df-4021a981-d5f6-4372-9137-47bb3d5d76f3" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -830,7 +654,7 @@ scope.google.colab._files = {
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-da0a4064-98a9-49c6-a79c-fd6fde8dc5ac')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-4021a981-d5f6-4372-9137-47bb3d5d76f3')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -882,12 +706,12 @@ scope.google.colab._files = {
 
     <script>
       const buttonEl =
-        document.querySelector('#df-da0a4064-98a9-49c6-a79c-fd6fde8dc5ac button.colab-df-convert');
+        document.querySelector('#df-4021a981-d5f6-4372-9137-47bb3d5d76f3 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-da0a4064-98a9-49c6-a79c-fd6fde8dc5ac');
+        const element = document.querySelector('#df-4021a981-d5f6-4372-9137-47bb3d5d76f3');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -907,8 +731,8 @@ scope.google.colab._files = {
   </div>
 
 
-    <div id="df-a7bc1cb3-8335-4e3c-8572-6ac8ac18c387">
-      <button class="colab-df-quickchart" onclick="quickchart('df-a7bc1cb3-8335-4e3c-8572-6ac8ac18c387')"
+    <div id="df-ee37bc5b-5268-4661-9f5c-9718fe535f8f">
+      <button class="colab-df-quickchart" onclick="quickchart('df-ee37bc5b-5268-4661-9f5c-9718fe535f8f')"
                 title="Suggest charts"
                 style="display:none;">
 
@@ -1027,7 +851,7 @@ scope.google.colab._files = {
         }
         (() => {
           let quickchartButtonEl =
-            document.querySelector('#df-a7bc1cb3-8335-4e3c-8572-6ac8ac18c387 button');
+            document.querySelector('#df-ee37bc5b-5268-4661-9f5c-9718fe535f8f button');
           quickchartButtonEl.style.display =
             google.colab.kernel.accessAllowed ? 'block' : 'none';
         })();
@@ -1132,22 +956,22 @@ dtype: int64
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>🔍 Sebelum preprocessing:
-A1       0
-A2       0
-A3       0
-A4       0
-A5       0
-A6       0
-A7       0
-A8       0
-A9       0
-A10      0
-A11      0
-A12      0
-A13      0
-A14      0
-A15      0
-class    0
+A1       12
+A2       12
+A3        0
+A4        6
+A5        6
+A6        9
+A7        9
+A8        0
+A9        0
+A10       0
+A11       0
+A12       0
+A13       0
+A14      13
+A15       0
+class     0
 dtype: int64
 
 ✅ Setelah imputasi missing values (NaN sudah diisi):
@@ -1170,19 +994,19 @@ class    0
 dtype: int64
 
 ✅ Setelah encoding:
-    A1     A2     A3   A4   A5    A6   A7    A8   A9  A10  A11  A12  A13  \
-0  1.0  30.83  0.000  1.0  0.0  12.0  7.0  1.25  1.0  1.0  1.0  0.0  0.0   
-1  0.0  58.67  4.460  1.0  0.0  10.0  3.0  3.04  1.0  1.0  6.0  0.0  0.0   
-2  0.0  24.50  0.500  1.0  0.0  10.0  3.0  1.50  1.0  0.0  0.0  0.0  0.0   
-3  1.0  27.83  1.540  1.0  0.0  12.0  7.0  3.75  1.0  1.0  5.0  1.0  0.0   
-4  1.0  20.17  5.625  1.0  0.0  12.0  7.0  1.71  1.0  0.0  0.0  0.0  2.0   
+   A1     A2     A3  A4  A5  A6  A7    A8  A9  A10  A11  A12  A13    A14  \
+0   1  30.83  0.000   1   0  12   7  1.25   1    1  1.0    0    0  202.0   
+1   0  58.67  4.460   1   0  10   3  3.04   1    1  6.0    0    0   43.0   
+2   0  24.50  0.500   1   0  10   3  1.50   1    0  0.0    0    0  280.0   
+3   1  27.83  1.540   1   0  12   7  3.75   1    1  5.0    1    0  100.0   
+4   1  20.17  5.625   1   0  12   7  1.71   1    0  0.0    0    2  120.0   
 
-     A14    A15  class  
-0  202.0    0.0    0.0  
-1   43.0  560.0    0.0  
-2  280.0  824.0    0.0  
-3  100.0    3.0    0.0  
-4  120.0    0.0    0.0  
+     A15  class  
+0    0.0      0  
+1  560.0      0  
+2  824.0      0  
+3    3.0      0  
+4    0.0      0  
 </pre></div>
 </div>
 </div>
@@ -1220,7 +1044,7 @@ dtype: int64
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✅ Model berhasil dilatih
 🎯 Akurasi training: 1.0
-🎯 Contoh prediksi (10 data): [1. 0. 1. 1. 1. 1. 1. 0. 1. 1.]
+🎯 Contoh prediksi (10 data): [1 0 1 1 1 1 1 0 1 1]
 </pre></div>
 </div>
 </div>
@@ -1245,21 +1069,21 @@ dtype: int64
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>📊 Confusion Matrix:
-[[58 12]
+[[59 11]
  [ 7 61]]
 
 📈 Accuracy:
-0.8623188405797102
+0.8695652173913043
 
 📝 Classification Report:
               precision    recall  f1-score   support
 
-         0.0       0.89      0.83      0.86        70
-         1.0       0.84      0.90      0.87        68
+           0       0.89      0.84      0.87        70
+           1       0.85      0.90      0.87        68
 
-    accuracy                           0.86       138
-   macro avg       0.86      0.86      0.86       138
-weighted avg       0.86      0.86      0.86       138
+    accuracy                           0.87       138
+   macro avg       0.87      0.87      0.87       138
+weighted avg       0.87      0.87      0.87       138
 </pre></div>
 </div>
 </div>
@@ -1300,115 +1124,7 @@ weighted avg       0.86      0.86      0.86       138
 </div>
 <section id="deployment">
 <h3>Deployment<a class="headerlink" href="#deployment" title="Link to this heading">#</a></h3>
-<p>Link :  <a class="reference external" href="https://cf6b503d28d5cea048.gradio.live">https://cf6b503d28d5cea048.gradio.live</a></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>gradio
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: gradio in /usr/local/lib/python3.11/dist-packages (5.31.0)
-Requirement already satisfied: aiofiles&lt;25.0,&gt;=22.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (24.1.0)
-Requirement already satisfied: anyio&lt;5.0,&gt;=3.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (4.9.0)
-Requirement already satisfied: fastapi&lt;1.0,&gt;=0.115.2 in /usr/local/lib/python3.11/dist-packages (from gradio) (0.115.13)
-Requirement already satisfied: ffmpy in /usr/local/lib/python3.11/dist-packages (from gradio) (0.6.0)
-Requirement already satisfied: gradio-client==1.10.1 in /usr/local/lib/python3.11/dist-packages (from gradio) (1.10.1)
-Requirement already satisfied: groovy~=0.1 in /usr/local/lib/python3.11/dist-packages (from gradio) (0.1.2)
-Requirement already satisfied: httpx&gt;=0.24.1 in /usr/local/lib/python3.11/dist-packages (from gradio) (0.28.1)
-Requirement already satisfied: huggingface-hub&gt;=0.28.1 in /usr/local/lib/python3.11/dist-packages (from gradio) (0.33.0)
-Requirement already satisfied: jinja2&lt;4.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (3.1.6)
-Requirement already satisfied: markupsafe&lt;4.0,&gt;=2.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (3.0.2)
-Requirement already satisfied: numpy&lt;3.0,&gt;=1.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (2.0.2)
-Requirement already satisfied: orjson~=3.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (3.10.18)
-Requirement already satisfied: packaging in /usr/local/lib/python3.11/dist-packages (from gradio) (24.2)
-Requirement already satisfied: pandas&lt;3.0,&gt;=1.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (2.2.2)
-Requirement already satisfied: pillow&lt;12.0,&gt;=8.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (11.2.1)
-Requirement already satisfied: pydantic&lt;2.12,&gt;=2.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (2.11.7)
-Requirement already satisfied: pydub in /usr/local/lib/python3.11/dist-packages (from gradio) (0.25.1)
-Requirement already satisfied: python-multipart&gt;=0.0.18 in /usr/local/lib/python3.11/dist-packages (from gradio) (0.0.20)
-Requirement already satisfied: pyyaml&lt;7.0,&gt;=5.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (6.0.2)
-Requirement already satisfied: ruff&gt;=0.9.3 in /usr/local/lib/python3.11/dist-packages (from gradio) (0.12.0)
-Requirement already satisfied: safehttpx&lt;0.2.0,&gt;=0.1.6 in /usr/local/lib/python3.11/dist-packages (from gradio) (0.1.6)
-Requirement already satisfied: semantic-version~=2.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (2.10.0)
-Requirement already satisfied: starlette&lt;1.0,&gt;=0.40.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (0.46.2)
-Requirement already satisfied: tomlkit&lt;0.14.0,&gt;=0.12.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (0.13.3)
-Requirement already satisfied: typer&lt;1.0,&gt;=0.12 in /usr/local/lib/python3.11/dist-packages (from gradio) (0.16.0)
-Requirement already satisfied: typing-extensions~=4.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (4.14.0)
-Requirement already satisfied: uvicorn&gt;=0.14.0 in /usr/local/lib/python3.11/dist-packages (from gradio) (0.34.3)
-Requirement already satisfied: fsspec in /usr/local/lib/python3.11/dist-packages (from gradio-client==1.10.1-&gt;gradio) (2025.3.2)
-Requirement already satisfied: websockets&lt;16.0,&gt;=10.0 in /usr/local/lib/python3.11/dist-packages (from gradio-client==1.10.1-&gt;gradio) (15.0.1)
-Requirement already satisfied: idna&gt;=2.8 in /usr/local/lib/python3.11/dist-packages (from anyio&lt;5.0,&gt;=3.0-&gt;gradio) (3.10)
-Requirement already satisfied: sniffio&gt;=1.1 in /usr/local/lib/python3.11/dist-packages (from anyio&lt;5.0,&gt;=3.0-&gt;gradio) (1.3.1)
-Requirement already satisfied: certifi in /usr/local/lib/python3.11/dist-packages (from httpx&gt;=0.24.1-&gt;gradio) (2025.6.15)
-Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.11/dist-packages (from httpx&gt;=0.24.1-&gt;gradio) (1.0.9)
-Requirement already satisfied: h11&gt;=0.16 in /usr/local/lib/python3.11/dist-packages (from httpcore==1.*-&gt;httpx&gt;=0.24.1-&gt;gradio) (0.16.0)
-Requirement already satisfied: filelock in /usr/local/lib/python3.11/dist-packages (from huggingface-hub&gt;=0.28.1-&gt;gradio) (3.18.0)
-Requirement already satisfied: requests in /usr/local/lib/python3.11/dist-packages (from huggingface-hub&gt;=0.28.1-&gt;gradio) (2.32.3)
-Requirement already satisfied: tqdm&gt;=4.42.1 in /usr/local/lib/python3.11/dist-packages (from huggingface-hub&gt;=0.28.1-&gt;gradio) (4.67.1)
-Requirement already satisfied: hf-xet&lt;2.0.0,&gt;=1.1.2 in /usr/local/lib/python3.11/dist-packages (from huggingface-hub&gt;=0.28.1-&gt;gradio) (1.1.5)
-Requirement already satisfied: python-dateutil&gt;=2.8.2 in /usr/local/lib/python3.11/dist-packages (from pandas&lt;3.0,&gt;=1.0-&gt;gradio) (2.9.0.post0)
-Requirement already satisfied: pytz&gt;=2020.1 in /usr/local/lib/python3.11/dist-packages (from pandas&lt;3.0,&gt;=1.0-&gt;gradio) (2025.2)
-Requirement already satisfied: tzdata&gt;=2022.7 in /usr/local/lib/python3.11/dist-packages (from pandas&lt;3.0,&gt;=1.0-&gt;gradio) (2025.2)
-Requirement already satisfied: annotated-types&gt;=0.6.0 in /usr/local/lib/python3.11/dist-packages (from pydantic&lt;2.12,&gt;=2.0-&gt;gradio) (0.7.0)
-Requirement already satisfied: pydantic-core==2.33.2 in /usr/local/lib/python3.11/dist-packages (from pydantic&lt;2.12,&gt;=2.0-&gt;gradio) (2.33.2)
-Requirement already satisfied: typing-inspection&gt;=0.4.0 in /usr/local/lib/python3.11/dist-packages (from pydantic&lt;2.12,&gt;=2.0-&gt;gradio) (0.4.1)
-Requirement already satisfied: click&gt;=8.0.0 in /usr/local/lib/python3.11/dist-packages (from typer&lt;1.0,&gt;=0.12-&gt;gradio) (8.2.1)
-Requirement already satisfied: shellingham&gt;=1.3.0 in /usr/local/lib/python3.11/dist-packages (from typer&lt;1.0,&gt;=0.12-&gt;gradio) (1.5.4)
-Requirement already satisfied: rich&gt;=10.11.0 in /usr/local/lib/python3.11/dist-packages (from typer&lt;1.0,&gt;=0.12-&gt;gradio) (13.9.4)
-Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.11/dist-packages (from python-dateutil&gt;=2.8.2-&gt;pandas&lt;3.0,&gt;=1.0-&gt;gradio) (1.17.0)
-Requirement already satisfied: markdown-it-py&gt;=2.2.0 in /usr/local/lib/python3.11/dist-packages (from rich&gt;=10.11.0-&gt;typer&lt;1.0,&gt;=0.12-&gt;gradio) (3.0.0)
-Requirement already satisfied: pygments&lt;3.0.0,&gt;=2.13.0 in /usr/local/lib/python3.11/dist-packages (from rich&gt;=10.11.0-&gt;typer&lt;1.0,&gt;=0.12-&gt;gradio) (2.19.2)
-Requirement already satisfied: charset-normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.11/dist-packages (from requests-&gt;huggingface-hub&gt;=0.28.1-&gt;gradio) (3.4.2)
-Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /usr/local/lib/python3.11/dist-packages (from requests-&gt;huggingface-hub&gt;=0.28.1-&gt;gradio) (2.4.0)
-Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.11/dist-packages (from markdown-it-py&gt;=2.2.0-&gt;rich&gt;=10.11.0-&gt;typer&lt;1.0,&gt;=0.12-&gt;gradio) (0.1.2)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gradio</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gr</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">joblib</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-
-<span class="c1"># Load model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;credit_model.pkl&quot;</span><span class="p">)</span>
-
-<span class="c1"># Fungsi prediksi</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">predict_credit</span><span class="p">(</span><span class="o">*</span><span class="n">inputs</span><span class="p">):</span>
-    <span class="n">input_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">prediction</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">input_array</span><span class="p">)</span>
-    <span class="k">return</span> <span class="s2">&quot;Approved ✅&quot;</span> <span class="k">if</span> <span class="n">prediction</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;Rejected ❌&quot;</span>
-
-<span class="c1"># Buat interface gradio</span>
-<span class="n">input_fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">gr</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;A</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">)]</span>
-
-<span class="n">demo</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Interface</span><span class="p">(</span>
-    <span class="n">fn</span><span class="o">=</span><span class="n">predict_credit</span><span class="p">,</span>
-    <span class="n">inputs</span><span class="o">=</span><span class="n">input_fields</span><span class="p">,</span>
-    <span class="n">outputs</span><span class="o">=</span><span class="n">gr</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Hasil Prediksi Kredit&quot;</span><span class="p">),</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;🔎 Prediksi Persetujuan Kredit&quot;</span><span class="p">,</span>
-    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Masukkan 15 fitur numerik dari aplikasi kredit untuk memprediksi apakah akan disetujui atau tidak.&quot;</span>
-<span class="p">)</span>
-
-<span class="c1"># Jalankan</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">share</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Colab notebook detected. To show errors in colab notebook, set debug=True in launch()
-* Running on public URL: https://cf6b503d28d5cea048.gradio.live
-
-This share link expires in 1 week. For free permanent hosting and GPU upgrades, run `gradio deploy` from the terminal in the working directory to deploy to Hugging Face Spaces (https://huggingface.co/spaces)
-</pre></div>
-</div>
-<div class="output text_html"><div><iframe src="https://cf6b503d28d5cea048.gradio.live" width="100%" height="500" allow="autoplay; camera; microphone; clipboard-read; clipboard-write;" frameborder="0" allowfullscreen></iframe></div></div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-</div>
+<p>Link :  <a class="reference external" href="https://credit-approval-app-rxsc987ps2suggotsmjwvz.streamlit.app/">https://credit-approval-app-rxsc987ps2suggotsmjwvz.streamlit.app/</a></p>
 </section>
 </section>
 </section>
